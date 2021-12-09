@@ -6,13 +6,17 @@ import { ComponentsModule } from '../components/components.module';
 import { HomeComponent } from './home/home.component';
 import { BuscaralumComponent } from './alumnos/buscaralum/buscaralum.component';
 import { BuscartutorComponent } from './tutor/buscartutor/buscartutor.component';
+import { ListaexpedienteComponent } from './expediente/listaexpediente/listaexpediente.component';
+
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     BuscartutorComponent,
-    BuscaralumComponent
+    BuscaralumComponent,
+    ListaexpedienteComponent
+
   ],
   imports: [
     CommonModule,

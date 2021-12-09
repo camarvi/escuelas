@@ -13,28 +13,25 @@ export class EscuelasService {
 
   // ESTOY TIRANDO DEL BACKEND DE MERCADILLOS, EL PUERTO 3500 CORRESPONDE CON 
   //BACKEND DE ESCUELAS_INFANTILES
-  private baseUrl: string = 'http://localhost:3000';
+  private baseUrl: string = 'http://localhost:3500';
 
   constructor(private http: HttpClient) { }
 
  // BUSCAR TUTOR
  
- buscarUsuarioAp1(ap1: string): Observable<TutorInterface[]> {
+ buscarTutorAp1(ap1: string): Observable<TutorInterface[]> {
 
-  return this.http.get<TutorInterface[]>(`${this.baseUrl}/persona_ap/${ap1}`);
+  return this.http.get<TutorInterface[]>(`${this.baseUrl}/tutor_ap/${ap1}`);
 
 }
 
-buscarUsuarioAp1Ap2(ap1: string, ap2: string): Observable<TutorInterface[]> {
-  return this.http.get<TutorInterface[]>(`${this.baseUrl}/persona_ap/${ap1}/${ap2}`);
+buscarTutorAp1Ap2(ap1: string, ap2: string): Observable<TutorInterface[]> {
+  return this.http.get<TutorInterface[]>(`${this.baseUrl}/tutor_ap/${ap1}/${ap2}`);
 }
 
-buscarUsuarioNombre(nombre: string, ap1: string): Observable<TutorInterface[]> {
-  return this.http.get<TutorInterface[]>(`${this.baseUrl}/persona_nombre/${nombre}/${ap1}`);
-}
 
-buscarUsuarioNif(nif: string): Observable<TutorInterface[]> {
-  return this.http.get<TutorInterface[]>(`${this.baseUrl}/persona/${nif}`);
+buscarTutorNif(nif: string): Observable<TutorInterface[]> {
+  return this.http.get<TutorInterface[]>(`${this.baseUrl}/tutor/${nif}`);
 }
 
 }

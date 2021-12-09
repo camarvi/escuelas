@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { NoresultadosComponent } from './noresultados/noresultados.component';
 import { TutorGridComponent } from './tutor-grid/tutor-grid.component';
 import { CargandoComponent } from './cargando/cargando.component';
+import { MatriculasGridComponent } from './matriculas-grid/matriculas-grid.component';
+import { ExpedientesGridComponent } from './expedientes-grid/expedientes-grid.component';
 
 
 @NgModule({
@@ -13,13 +15,16 @@ import { CargandoComponent } from './cargando/cargando.component';
     NavbarComponent,
     NoresultadosComponent,
     TutorGridComponent,
-    CargandoComponent
+    CargandoComponent,
+    MatriculasGridComponent,
+    ExpedientesGridComponent
   ],
   exports : [
     NavbarComponent,
     NoresultadosComponent,
     TutorGridComponent,
-    CargandoComponent
+    CargandoComponent,
+    MatriculasGridComponent
   ],
   imports: [
     CommonModule,
