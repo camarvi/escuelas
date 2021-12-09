@@ -1,0 +1,41 @@
+<h3>Buscar Tutor </h3>
+
+<form class="mb-3">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label class="sr-only">Dni</label>
+      <input #dni type="text" class="form-control" placeholder="Dni">
+    </div>
+    <div class="form-group col-md-3">
+      <label class="sr-only">Ap1</label>
+      <input #ap1 type="text" class="form-control" placeholder="Apellido1">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputPassword2" class="sr-only">Ap2</label>
+      <input #ap2 type="text" class="form-control" placeholder="Apellido2">
+    </div>
+    <div class="form-group col-md-3">
+      <button (click)="buscarTutor(dni.value,ap1.value,ap2.value)" type="submit"
+        class="form-group mx-sm-2 btn btn-outline-danger mb-2">
+        <i class="fa fa-search"></i>
+        Buscar
+      </button>
+    </div>
+
+  </div>
+
+</form>
+
+
+<!--
+<div *ngIf="!cargando && tutores.length ===0">
+  <app-noresultados></app-noresultados>
+</div>
+
+<div *ngIf="cargando">
+  <<app-app-cargando></app-cargando>>
+</div>
+
+
+<app-usuarios-grid *ngIf="tutores.length>0" [tutores]="tutores"></app-usuarios-grid>
+-->

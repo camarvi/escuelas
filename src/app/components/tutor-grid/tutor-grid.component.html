@@ -1,0 +1,41 @@
+
+<div class="mt-2" id="htmlData">
+    <table  *ngIf="tutores.length > 0"  class="table table-bordered table-striped">
+        <thead class="thead-primary">
+        <!--  <tr class="d-flex"> -->
+          <tr class="table-primary">    
+            <th scope="col">Nif</th>
+            <th scope="col">Ap1</th>
+            <th scope="col">Ap2</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tlf</th>
+            <th scope="col">Direccion</th>
+            <th scope="col"></th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tutor of tutores">
+            <td >{{ tutor.NIF }}</td>
+            <td >{{ tutor.APE1 }}</td>
+            <td >{{ tutor.APE2 }}</td>
+            <td >{{ tutor.NOMBRE }}</td>   
+            <td >{{ tutor.TLF }}</td>
+            <td >{{ tutor.DIRECCION}}</td>
+            <td>
+
+            <!--  <button class="btn btn-info mr-1" [routerLink]="['/nuevousuario', persona.IDPERSONA]" title="Editar">
+                 <i class="fa fa-pen"></i>
+              </button>
+            -->  
+            <button class="btn btn-danger" title="Seleccionar">
+                <i class="far fa-eye"></i>
+            </button>
+          </td>
+          </tr>
+         
+        </tbody>
+      </table>
+</div>
+ 
+  
+
