@@ -14,4 +14,5 @@ export interface TutorInterface{
     FECHA_ALTA: string;
     SEXO:       number;
     TIPOVIA:    number;
+    
 }

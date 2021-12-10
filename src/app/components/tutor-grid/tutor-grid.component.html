@@ -33,14 +33,36 @@
              
             </button>  -->
           <!--  -->
-          <td><button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
+          <td>
+            
+            <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
             data-toggle="tooltip" data-placement="top" 
-            [routerLink]="['/listaexpediente', tutor.IDPERSONA ,tutor.NIF , tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE]"
+              [routerLink]="['/listaexpediente', tutor.IDPERSONA ,tutor.NIF , tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE]"
             >
             <i class="fas fa-user-check"></i>
-          <!--  <i class="far fa-eye"></i> -->
+        
           </button>
-        </td>
+        </td>  
+
+     <!--   <td>
+            
+          <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
+          data-toggle="tooltip" data-placement="top" 
+          
+            [routerLink]="['/listaexpediente']"
+            [queryParams]="{ codtutor: tutor.IDPERSONA, dni : tutor.NIF, nomtutor : tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE }"
+            queryParamsHandling="merge"
+          
+          >
+          <i class="fas fa-user-check"></i>
+     
+        </button>
+      </td>
+-->
+
+
+
+
          <!-- 
           <button class="btn btn-success ml-2" data-toggle="tooltip" data-placement="top" 
             title="Ver Tarifa"

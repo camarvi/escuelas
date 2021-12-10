@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ExpedienteInterface } from '../../interfaces/expediente-response';
 
 @Component({
   selector: 'app-expedientes-grid',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./expedientes-grid.component.css']
 })
 export class ExpedientesGridComponent implements OnInit {
+
+@Input() expedientes! : ExpedienteInterface[];
 
   constructor() { }
 

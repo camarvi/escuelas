@@ -1,1 +1,61 @@
-<p>expedientes-grid works!</p>
+<div class="mt-2" id="htmlData">
+    <table  *ngIf="expedientes.length > 0"  class="table table-bordered table-striped">
+        <thead class="thead-primary">
+        <!--  <tr class="d-flex"> -->
+          <tr class="table-primary">    
+            <th scope="col">Exp</th>
+            <th scope="col">Alumno</th>
+            <th scope="col">F.Naci</th>
+            <th scope="col">Escuela</th>
+            <th scope="col">F.Alta</th>
+            <th scope="col">F.Motivo</th>
+            <th scope="col">Motivo</th>
+            <th scope="col"></th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expediente of expedientes">
+           
+            <td> {{ expediente.NUM_EXPEDIENTE }}</td>
+            <td> {{ expediente.NOMBRE_ALUMNO }}</td>
+            <td> {{ expediente.FECHA_NACIMIENTO }}</td>
+            <td> {{ expediente.DESC_ESCUELA }}</td>   
+            <td> {{ expediente.FECHA_ALTA }}</td>
+            <td> {{ expediente.FECHA_VARIACION }}</td>
+            <td> {{ expediente.DESC_VARIACION }}</td>
+           
+            <!--  <button class="btn btn-info mr-1" [routerLink]="['/nuevousuario', persona.IDPERSONA]" title="Editar">
+                 <i class="fa fa-pen"></i>
+              </button>
+            -->  
+          <!--  <button class="btn btn-outline-primary btn-sm" title="Seleccionar">
+              <i class="fas fa-check-square"></i>
+             
+            </button>  -->
+          <!--  -->
+          <td><button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
+            data-toggle="tooltip" data-placement="top"
+            [routerLink]="['/detalle_exp', expediente.NUM_EXPEDIENTE]" >
+            <i class="fas fa-user-check"></i>
+          <!--  <i class="far fa-eye"></i> -->
+          </button>
+        </td>
+         <!-- 
+          <button class="btn btn-success ml-2" data-toggle="tooltip" data-placement="top" 
+            title="Ver Tarifa"
+            [routerLink]="['/tarifamer', mercadillo.IDMERCADILLO, mercadillo.DESCRIPCION]">
+          <i class="fas fa-coins"></i>
+        </button>
+
+         -->  
+      
+      
+      </tr>
+         
+        </tbody>
+      </table>
+</div>
+ 
+  
+
+

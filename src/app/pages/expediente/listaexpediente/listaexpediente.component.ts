@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute , Router} from '@angular/router';
+import { Location } from '@angular/common';
+import { ExpedienteInterface } from '../../../interfaces/expediente-response'; 
+// IMPORTAR EL SERVICIO
+import { EscuelasService } from '../../../services/escuelas.service';
 
 @Component({
   selector: 'app-listaexpediente',
@@ -11,28 +15,57 @@ import { ActivatedRoute } from '@angular/router';
 export class ListaexpedienteComponent implements OnInit {
 
   //public parcelas : ParcelaInterface[] = [];
+  public expedientes : ExpedienteInterface[] = [];
   public cargando : boolean = false;
   public codtutor : string = "";
   public dni : string = "";
   public nomtutor : string = "";
 
-  constructor(private route : ActivatedRoute) { }
+  constructor(private route : ActivatedRoute,private escuelaService : EscuelasService,
+              private location : Location, 
+              private router : Router) { }
 
   ngOnInit(): void {
     
     //codtutor/:dni/:nomtutor
 
 
-    this.codtutor=  this.route.snapshot.paramMap.get('exp');
+    this.codtutor =  this.route.snapshot.paramMap.get('codtutor');
     this.dni = this.route.snapshot.paramMap.get('dni');
     this.nomtutor = this.route.snapshot.paramMap.get('nomtutor');
     
-    console.log("num_exp : " + this.codtutor);
-    console.log("dni : " + this.dni);
-    console.log("nom_tutor : " + this.nomtutor);
-
     this.cargando = true;
+    
+    this.escuelaService.buscarExpedientesTutor(this.codtutor)
+        .subscribe( (resp)=>{
+          this.expedientes = resp;
+          console.log("Respuesta del servicio Busca Exp Tutor");
+          console.log(resp);
+          this.cargando = false;
+        });
+      }
+
+
+      onRegresar(){
+
+        this.location.back();
+    
+    }
+
+
+    verTipo(posicion : number){
+      this.router.navigate(['/tutoralum', posicion, "FRANCISCO"]);
+    }
+
+    verTipo2(posicion : number) {
+    // this.router.navigate(['/tutoralum', posicion, "FRANCISCO"], {skipLocationChange: true, replaceUrl: false});
+    //  this.router.navigate(['/tutoralum', posicion, "FRANCISCO"], {skipLocationChange: true, replaceUrl: true});
+
+      this.router.navigate(['/tutoralum', posicion, "FRANCISCO"], {skipLocationChange: true});
+  
+
+    }
 
   }
 
-}
+

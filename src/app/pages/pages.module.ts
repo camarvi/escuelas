@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { BuscaralumComponent } from './alumnos/buscaralum/buscaralum.component';
 import { BuscartutorComponent } from './tutor/buscartutor/buscartutor.component';
 import { ListaexpedienteComponent } from './expediente/listaexpediente/listaexpediente.component';
+import { TutoralumComponent } from './alumnos/tutoralum/tutoralum.component';
+import { DetalleExpComponent } from './expediente/detalle-exp/detalle-exp.component';
 
 
 
@@ -15,7 +17,9 @@ import { ListaexpedienteComponent } from './expediente/listaexpediente/listaexpe
     HomeComponent,
     BuscartutorComponent,
     BuscaralumComponent,
-    ListaexpedienteComponent
+    ListaexpedienteComponent,
+    TutoralumComponent,
+    DetalleExpComponent
 
   ],
   imports: [

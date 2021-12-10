@@ -24,7 +24,8 @@ import { ExpedientesGridComponent } from './expedientes-grid/expedientes-grid.co
     NoresultadosComponent,
     TutorGridComponent,
     CargandoComponent,
-    MatriculasGridComponent
+    MatriculasGridComponent,
+    ExpedientesGridComponent
   ],
   imports: [
     CommonModule,

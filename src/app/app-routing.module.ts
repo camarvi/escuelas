@@ -6,12 +6,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { BuscaralumComponent } from './pages/alumnos/buscaralum/buscaralum.component';
 import { BuscartutorComponent } from './pages/tutor/buscartutor/buscartutor.component';
 import { ListaexpedienteComponent } from './pages/expediente/listaexpediente/listaexpediente.component';
+import { TutoralumComponent } from './pages/alumnos/tutoralum/tutoralum.component';
+import { DetalleExpComponent } from './pages/expediente/detalle-exp/detalle-exp.component';
 
 const routes : Routes=[
   { path: 'home', component: HomeComponent },
+  { path: 'tutoralum/:id/:nombre', component: TutoralumComponent },
   { path: 'buscaralumno' , component: BuscaralumComponent },
   { path: 'buscartutor' , component: BuscartutorComponent },
   { path: 'listaexpediente/:codtutor/:dni/:nomtutor', component: ListaexpedienteComponent},
+  { path: 'detalle_exp/:numexp', component : DetalleExpComponent},
   { path: '**', redirectTo : '/home'}
 
 ];
