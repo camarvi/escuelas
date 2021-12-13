@@ -1,50 +1,59 @@
-
 <div class="mt-2" id="htmlData">
-    <table  *ngIf="tutores.length > 0"  class="table table-bordered table-striped">
-        <thead class="thead-primary">
-        <!--  <tr class="d-flex"> -->
-          <tr class="table-primary">    
-            <th scope="col">Nif</th>
-            <th scope="col">Ap1</th>
-            <th scope="col">Ap2</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Tlf</th>
-            <th scope="col">Direccion</th>
-            <th scope="col"></th> 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let tutor of tutores">
-           
-            <td >{{ tutor.NIF }}</td>
-            <td >{{ tutor.APE1 }}</td>
-            <td >{{ tutor.APE2 }}</td>
-            <td >{{ tutor.NOMBRE }}</td>   
-            <td >{{ tutor.TLF }}</td>
-            <td >{{ tutor.DIRECCION}}</td>
-            
-           
-            <!--  <button class="btn btn-info mr-1" [routerLink]="['/nuevousuario', persona.IDPERSONA]" title="Editar">
+  <table *ngIf="tutores.length > 0" class="table table-bordered table-striped">
+    <thead class="thead-primary">
+      <!--  <tr class="d-flex"> -->
+      <tr class="table-primary">
+        <th scope="col">Nif</th>
+        <th scope="col">Ap1</th>
+        <th scope="col">Ap2</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tlf</th>
+        <th scope="col">Direccion</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tutor of tutores">
+
+        <td>{{ tutor.NIF }}</td>
+        <td>{{ tutor.APE1 }}</td>
+        <td>{{ tutor.APE2 }}</td>
+        <td>{{ tutor.NOMBRE }}</td>
+        <td>{{ tutor.TLF }}</td>
+        <td>{{ tutor.DIRECCION}}</td>
+
+
+        <!--  <button class="btn btn-info mr-1" [routerLink]="['/nuevousuario', persona.IDPERSONA]" title="Editar">
                  <i class="fa fa-pen"></i>
               </button>
-            -->  
-          <!--  <button class="btn btn-outline-primary btn-sm" title="Seleccionar">
+            -->
+        <!--  <button class="btn btn-outline-primary btn-sm" title="Seleccionar">
               <i class="fas fa-check-square"></i>
              
             </button>  -->
-          <!--  -->
-          <td>
-            
-            <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
+        <!--  -->
+        <td>
+
+          <!--     <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
             data-toggle="tooltip" data-placement="top" 
               [routerLink]="['/listaexpediente', tutor.IDPERSONA ,tutor.NIF , tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE]"
             >
             <i class="fas fa-user-check"></i>
         
           </button>
-        </td>  
+        -->
 
-     <!--   <td>
+
+          <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar" data-toggle="tooltip"
+            data-placement="center" type="button"
+            (click)="verFicha(tutor.IDPERSONA,tutor.NIF,tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE)">
+
+            <i class="fas fa-user-check"></i>
+          </button>
+
+        </td>
+
+        <!--   <td>
             
           <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
           data-toggle="tooltip" data-placement="top" 
@@ -63,21 +72,18 @@
 
 
 
-         <!-- 
+        <!-- 
           <button class="btn btn-success ml-2" data-toggle="tooltip" data-placement="top" 
             title="Ver Tarifa"
             [routerLink]="['/tarifamer', mercadillo.IDMERCADILLO, mercadillo.DESCRIPCION]">
           <i class="fas fa-coins"></i>
         </button>
 
-         -->  
-      
-      
-      </tr>
-         
-        </tbody>
-      </table>
-</div>
- 
-  
+         -->
 
+
+      </tr>
+
+    </tbody>
+  </table>
+</div>

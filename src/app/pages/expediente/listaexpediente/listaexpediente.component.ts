@@ -7,6 +7,10 @@ import { ExpedienteInterface } from '../../../interfaces/expediente-response';
 // IMPORTAR EL SERVICIO
 import { EscuelasService } from '../../../services/escuelas.service';
 
+
+
+
+
 @Component({
   selector: 'app-listaexpediente',
   templateUrl: './listaexpediente.component.html',
@@ -20,6 +24,8 @@ export class ListaexpedienteComponent implements OnInit {
   public codtutor : string = "";
   public dni : string = "";
   public nomtutor : string = "";
+
+
 
   constructor(private route : ActivatedRoute,private escuelaService : EscuelasService,
               private location : Location, 

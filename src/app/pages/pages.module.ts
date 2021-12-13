@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ComponentsModule } from '../components/components.module';
+import { FormsModule }   from '@angular/forms';
 
 import { HomeComponent } from './home/home.component';
 import { BuscaralumComponent } from './alumnos/buscaralum/buscaralum.component';
@@ -24,6 +25,7 @@ import { DetalleExpComponent } from './expediente/detalle-exp/detalle-exp.compon
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ComponentsModule
   ]
 })

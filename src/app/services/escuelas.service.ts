@@ -5,7 +5,9 @@ import { map } from 'rxjs/operators';
 
 import { TutorInterface } from '../interfaces/tutor-response';
 import { ExpedienteInterface } from '../interfaces/expediente-response';
+import { ExpedienteModel } from '../models/expediente.model';
 import { MatriculasInterface } from '../interfaces/matricula-response';
+
 
 // TABLAS AUXILIARES
 import { EscuelasInterface, ParentescoInterface, CursosInterface, VariacionesInterface } from '../interfaces/auxiliares-response';
@@ -23,13 +25,6 @@ export class EscuelasService {
   constructor(private http: HttpClient) { }
 
 // ******************  RELLENAR COMBOX (TABLAS AUX) *******************************
-
-//router.get('/variaciones' , getVariaciones);
-
-//getSexo(): Observable<Sexo[]> {
-//  return this.http.get<Sexo[]>(`${this.baseUrl}/sexo`);
-//}
-
 
 getListaescuelas() : Observable<EscuelasInterface[]> {
   return this.http.get<EscuelasInterface[]>(`${this.baseUrl}/listaescuelas`);
@@ -74,6 +69,11 @@ buscarTutorNif(nif: string): Observable<TutorInterface[]> {
 buscarExpedientesTutor(codtutor : string) : Observable<ExpedienteInterface[]> {
   return this.http.get<ExpedienteInterface[]>(`${this.baseUrl}/expediente_tutor/${codtutor}`);
 }
+
+buscarExpedienteId(codigo : string) : Observable<ExpedienteModel> {
+  return this.http.get<ExpedienteModel>(`${this.baseUrl}/expediente/${codigo}`);
+}
+
 
 //buscarExpedientesNif(nif : string) : Observable<ExpedienteInterface[]>{
 //  return this.http.get<ExpedienteInterface[]>(`${this.baseUrl}/expediente_nif/${nif}`);

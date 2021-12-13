@@ -1,1 +1,234 @@
+<div class="container-fluid mt-3">
 
+
+    <div class="mt-3 text-center text-capitalize font-weight-bold">
+      <h4>DATOS TUTOR</h4>  
+      <h4> {{ dniTutor | uppercase }} - {{ nombreTutor | uppercase }} </h4>
+    </div>
+  
+ 
+    
+      <!-- BOTONES  -->
+      <div class="text-center mb-3">
+        <div class="d-inline-block">
+        <div class="btn-toolbar mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+         
+          <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-secondary" >Atras</button>
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-primary" >Editar Exped.</button>
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-primary" >Baja Exp.</button>
+          </div>
+          <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-primary" >Editar Matricula</button>
+          </div>
+
+        </div>
+    
+        </div>
+      </div>
+    
+
+
+
+<form class="mt-3" (ngSubmit)="guardar(f)" #f="ngForm">
+   
+     <div class="form-row">
+        <div class="form-group col-md-2">
+          <label class="font-italic font-weight-bold">Nº Exp:</label>
+          <input type="text" class="form-control" 
+          #num_expediente = "ngModel" 
+          name="num_expediente"  
+          [(ngModel)]= "expediente.NUM_EXPEDIENTE"
+          readonly>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="font-italic font-weight-bold">Parentesco</label>
+            <select class="form-control" #parentesco="ngModel" name="parentesco" [(ngModel)]="expediente.PARENTESCO">
+                <option [value]="parentesco.COD_PARENTESCO" *ngFor="let parentesco of listaParentesco"
+                    [selected]="parentesco.COD_PARENTESCO === expediente.PARENTESCO">{{parentesco.DESC_PARENTESCO}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+        <!-- <span class="label label-info text-info">Alumno</span> -->
+         <label class="font-italic font-weight-bold">Alumno</label>  
+            <input type="text" class="form-control" 
+                #nombre_alumno = "ngModel" 
+                name="nombre_alumno"  
+                [class.is-invalid]="nombre_alumno.invalid && nombre_alumno.touched" 
+                [(ngModel)]= "expediente.NOMBRE_ALUMNO"   
+            >
+            <small *ngIf="nombre_alumno.invalid && nombre_alumno.touched" class="form-text text-danger">Ingrese 5 letras</small>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="font-italic font-weight-bold">Fecha Nacimiento</label>
+           <input type="date" class="form-control"  required
+                  #fecha_nacimiento = "ngModel" 
+                  name="fecha_nacimiento"  
+                  [class.is-invalid]="fecha_nacimiento.invalid && fecha_nacimiento.touched" 
+                  [(ngModel)]= "expediente.FECHA_NACIMIENTO">
+        </div> 
+
+    </div>       
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label class="font-italic font-weight-bold">Escuela</label>
+            <select class="form-control" #parentesco="ngModel" name="escuela" [(ngModel)]="expediente.PARENTESCO">
+                <option [value]="escuela.COD_ESCUELA" *ngFor="let escuela of escuelas"
+                    [selected]="escuela.COD_ESCUELA === expediente.COD_ESCUELA">{{escuela.DESC_ESCUELA}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="font-italic font-weight-bold">Fecha Alta</label>
+           <input type="date" class="form-control"  required
+                  #fecha_alta = "ngModel" 
+                  name="fecha_alta"  
+                  [class.is-invalid]="fecha_alta.invalid && fecha_alta.touched" 
+                  [(ngModel)]= "expediente.FECHA_ALTA">
+        </div> 
+        <div class="form-group col-md-2">
+          <label class="font-italic font-weight-bold">Mes Julio</label>
+
+        <!--
+          <input type="checkbox" ng-model="clarooscuro" ng-true-value="claro" ng-false-value="oscuro" />
+        -->
+       <!--  
+         <input type="text" class="form-control"  required
+              #mes_julio = "ngModel" 
+              name="mes_julio"  
+              [class.is-invalid]="fecha_alta.invalid && fecha_alta.touched" 
+              [(ngModel)]= "expediente.MES_JULIO">
+         -->
+              <input type="checkbox" ng-model="checkboxModel.value2"
+              ng-true-value="'YES'" ng-false-value="'NO'"> 
+             
+            <input type="text" required
+             #mes_julio= "ngModel"
+             name = "mes_julio"   
+             [(ngModel)]= "expediente.MES_JULIO"
+             ng-true-value="Y" ng-false-value="N"
+             >
+
+
+      </div> 
+
+
+    </div>
+
+
+    
+    <!--  
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label>Nif</label>
+        <input type="text" class="form-control"
+            #nif = "ngModel"
+            name = "nif"
+            [class.is-invalid]="nif.invalid && nif.touched" 
+            [(ngModel)] = "usuario.NIF"
+            required
+        >
+        <small *ngIf="nif.invalid && nif.touched" class="form-text text-danger">Ingrese nif</small>
+      </div>
+      <div class="form-group col-md-2">
+        <label>Sexo</label>
+        <select class="form-control" 
+            #sexo = "ngModel"
+            name = "sexo"  
+            [(ngModel)]="usuario.SEXO">
+          <option [value]="sexo.COD_SEXO" *ngFor="let sexo of tipoSexo"
+            [selected]="sexo.COD_SEXO === usuario.SEXO">{{sexo.DESC_SEXO}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label>Tlf</label>
+        <input type="text" class="form-control" 
+          #tlf = "ngModel"
+          name = "tlf"
+          [class.is-invalid]="tlf.invalid && tlf.touched"
+          [(ngModel)] = "usuario.TLF"
+          >
+      </div>
+      <div class="form-group col-md-6">
+        <label>Email</label>
+        <input type="email" class="form-control" 
+        #email = "ngModel"
+        name = "email"
+        [class.is-invalid]="email.invalid && email.touched"
+        [(ngModel)] = "usuario.EMAIL">
+      </div>
+    </div>
+    
+  
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Tipo Via</label>
+        <select class="form-control"
+            #tipovia = "ngModel"
+            name = "tipovia"  
+            [(ngModel)]="usuario.TIPOVIA">
+          <option [value]="via.COD_VIA" *ngFor="let via of vias"
+          [selected]="via.COD_VIA === usuario.TIPOVIA">
+            {{via.DESC_VIA}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-8">
+        <label>Direccion</label>
+        <input type="text" class="form-control" 
+          #direccion = "ngModel"
+          name = "direccion"
+          [class.is-invalid]="direccion.invalid && direccion.touched"
+          [(ngModel)] = "usuario.DIRECCION"
+        >
+      </div>
+      <div class="form-group col-md-1">
+        <label>Cp</label>
+        <input type="text" class="form-control" 
+          #cp = "ngModel"
+          name = "cp"
+          [class.is-invalid] = "cp.invalid && cp.touched"
+          [(ngModel)] = "usuario.CP"
+        >
+      </div>
+    </div>
+  
+   
+    <div class="form-row">
+  
+      <div class="form-group col-md-6">
+        <label>Poblacion</label>
+        <input type="text" class="form-control"
+          #poblacion = "ngModel"
+          name = "poblacion"
+          [class.is-invalid] = "poblacion.invalid && poblacion.touched"
+          [(ngModel)] = "usuario.POBLACION"
+        >
+      </div>
+      <div class="form-group col-md-6">
+        <label>Municipio</label>
+        <input type="text" class="form-control"
+          #municipio = "ngModel"
+          name = "municipio"
+          [class.is-invalid] = "municipio.invalid && municipio.touched"
+          [(ngModel)] = "usuario.MUNICIPIO"
+        >
+      </div>
+    </div>
+  
+    <div class="row justify-content-center">
+      <button type="submit" class="btn btn-primary w-25">
+        <i class="fa fa-save"></i>
+        Guardar
+      </button>
+    </div>
+    -->
+  </form>
+  
