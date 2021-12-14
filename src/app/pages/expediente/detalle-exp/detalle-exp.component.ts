@@ -116,21 +116,22 @@ export class DetalleExpComponent implements OnInit {
     Swal.showLoading();
  
     let peticion : Observable<any>;
+
+   if (this.expediente.NUM_EXPEDIENTE !==0) { 
+     // MODIFICAR EL REGISTRO ACTUAL
+     peticion = this.escuelaService.updateExpedienteId(this.expediente);
+   } else {
+     // SE INSERTA UN NUEVO REGISTRO
+   }
+
+   peticion.subscribe( resp =>{
+     Swal.fire({
+      title : 'Expediente Número ' + this.expediente.NUM_EXPEDIENTE,
+      text : 'Se actualizo correctamente..',
+      icon : 'success'
+     });
+   })
   
-    // if (this.usuario.IDPERSONA !==0 ){
-    //   peticion = this.mercadillosService.updateUsuario(this.usuario);
-    // } else { //NUEVO REGISTRO  
-    //   peticion = this.mercadillosService.crearUsuario(this.usuario);   
-    // }
-
-    //   peticion.subscribe( resp => {       
-    //     Swal.fire({
-    //       title : this.usuario.NOMBRE,
-    //       text : 'Se actualizo correctamente..',
-    //       icon : 'success'
-    //     });
-
-    //     });
   
   }
 

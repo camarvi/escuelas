@@ -52,7 +52,7 @@ export class ListaexpedienteComponent implements OnInit {
       }
 
 
-      onRegresar(){
+    onRegresar(){
 
         this.location.back();
     
@@ -71,6 +71,12 @@ export class ListaexpedienteComponent implements OnInit {
   
 
     }
+
+    nuevoExp() {
+         
+        this.router.navigate(['/detalle_exp', 'nuevo'],{skipLocationChange: true, replaceUrl: false});
+    
+      }
 
   }
 

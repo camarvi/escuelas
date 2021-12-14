@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-
+// INTERFACES
 import { TutorInterface } from '../interfaces/tutor-response';
 import { ExpedienteInterface } from '../interfaces/expediente-response';
-import { ExpedienteModel } from '../models/expediente.model';
 import { MatriculasInterface } from '../interfaces/matricula-response';
-
+// MODELS
+import { ExpedienteModel } from '../models/expediente.model';
 
 // TABLAS AUXILIARES
 import { EscuelasInterface, ParentescoInterface, CursosInterface, VariacionesInterface } from '../interfaces/auxiliares-response';
@@ -74,6 +73,9 @@ buscarExpedienteId(codigo : string) : Observable<ExpedienteModel> {
   return this.http.get<ExpedienteModel>(`${this.baseUrl}/expediente/${codigo}`);
 }
 
+updateExpedienteId(expediente : ExpedienteModel) {
+  return this.http.put(`${this.baseUrl}/expediente/${expediente.NUM_EXPEDIENTE}`, expediente);
+}
 
 //buscarExpedientesNif(nif : string) : Observable<ExpedienteInterface[]>{
 //  return this.http.get<ExpedienteInterface[]>(`${this.baseUrl}/expediente_nif/${nif}`);
@@ -86,5 +88,9 @@ buscarExpedienteId(codigo : string) : Observable<ExpedienteModel> {
 buscarMatriculasExp(cod_exp : string) : Observable<MatriculasInterface[]> {
   return this.http.get<MatriculasInterface[]>(`${this.baseUrl}/matriculas/${cod_exp}`);
 }
+
+
+
+
 
 }
