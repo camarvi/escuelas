@@ -74,7 +74,7 @@ export class ListaexpedienteComponent implements OnInit {
 
     nuevoExp() {
          
-        this.router.navigate(['/detalle_exp', 'nuevo'],{skipLocationChange: true, replaceUrl: false});
+        this.router.navigate(['/detalle_exp', 'nuevo', this.codtutor ],{skipLocationChange: true, replaceUrl: false});
     
       }
 

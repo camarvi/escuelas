@@ -61,6 +61,10 @@ buscarTutorNif(nif: string): Observable<TutorInterface[]> {
   return this.http.get<TutorInterface[]>(`${this.baseUrl}/tutor/${nif}`);
 }
 
+buscarTutorId(id : string): Observable<TutorInterface> {
+  return this.http.get<TutorInterface>(`${this.baseUrl}/tutorid/${id}`);
+}
+
 // *************** FIN BUSCAR TUTOR *******************************************
 
 // ------------------  OPERACIONES CON EXPEDIENTES  ---------------------

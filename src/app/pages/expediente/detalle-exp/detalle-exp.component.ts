@@ -12,6 +12,7 @@ import { ExpedienteModel } from '../../../models/expediente.model';
 
 import { EscuelasInterface, ParentescoInterface, VariacionesInterface } from '../../../interfaces/auxiliares-response';
 import { MatriculasInterface } from '../../../interfaces/matricula-response';
+import { TutorInterface } from '../../../interfaces/tutor-response';
 
 @Component({
   selector: 'app-detalle-exp',
@@ -23,6 +24,7 @@ export class DetalleExpComponent implements OnInit {
   public expediente =  new ExpedienteModel();
   public nombreTutor : string;
   public dniTutor : string;
+  //public datosTutor : TutorInterface; 
   
   matriculas : MatriculasInterface[] = [];
   escuelas : EscuelasInterface[] = [];
@@ -67,7 +69,7 @@ export class DetalleExpComponent implements OnInit {
 
           if (this.expediente.NUM_EXPEDIENTE>0) {
             this.escuelaService.buscarMatriculasExp(numexp)
-                .subscribe( (resp) =>{
+                .subscribe( (resp ) =>{
                   this.matriculas = resp;
                   console.log("Matriculas el expediente");
                   console.log(this.matriculas);
@@ -76,6 +78,23 @@ export class DetalleExpComponent implements OnInit {
           
 
           });
+    } else { // ALTA NUEVO CARGO LOS DATOS DEL TUTOR
+      const codtutor = this.route.snapshot.paramMap.get('codtutor');
+      //console.log("Codigo Tutor recibido :" + codtutor);
+      //console.log ( Number.isInteger(Number(codtutor)) );
+    
+      // var numberValue = Number(stringToConvert);
+      if (Number.isInteger(Number(codtutor))){
+        this.expediente.COD_TUTOR = Number(codtutor);
+        this.escuelaService.buscarTutorId(codtutor)
+        .subscribe( (resp : TutorInterface) => {
+          //this.datosTutor = resp;
+          console.log(resp);
+          this.nombreTutor = resp[0].NOMBRE + ' ' + resp[0].APE1 + ' ' + resp[0].APE2;
+          this.dniTutor = resp[0].NIF;
+          //console.log(this.datosTutor);
+        });
+      }   
     }
 
     this.cargaCombox();

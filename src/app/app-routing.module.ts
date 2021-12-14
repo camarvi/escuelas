@@ -16,6 +16,7 @@ const routes : Routes=[
   { path: 'buscartutor' , component: BuscartutorComponent },
   { path: 'listaexpediente/:codtutor/:dni/:nomtutor', component: ListaexpedienteComponent},
   { path: 'detalle_exp/:numexp', component : DetalleExpComponent},
+  { path: 'detalle_exp/:numexp/:codtutor' , component : DetalleExpComponent},
   { path: '**', redirectTo : '/home'}
 
 ];
