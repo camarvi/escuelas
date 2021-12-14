@@ -140,6 +140,7 @@ export class DetalleExpComponent implements OnInit {
      // MODIFICAR EL REGISTRO ACTUAL
      peticion = this.escuelaService.updateExpedienteId(this.expediente);
    } else {
+     
      // SE INSERTA UN NUEVO REGISTRO
    }
 

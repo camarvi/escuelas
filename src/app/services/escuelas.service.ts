@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 // INTERFACES
 import { TutorInterface } from '../interfaces/tutor-response';
 import { ExpedienteInterface } from '../interfaces/expediente-response';
@@ -81,9 +82,17 @@ updateExpedienteId(expediente : ExpedienteModel) {
   return this.http.put(`${this.baseUrl}/expediente/${expediente.NUM_EXPEDIENTE}`, expediente);
 }
 
-//buscarExpedientesNif(nif : string) : Observable<ExpedienteInterface[]>{
-//  return this.http.get<ExpedienteInterface[]>(`${this.baseUrl}/expediente_nif/${nif}`);
-//}
+
+newExpediente(expediente : ExpedienteModel) {
+   return this.http.post(`${this.baseUrl}/expediente`, expediente)
+      .pipe(
+        map((resp : any) => {
+          expediente.NUM_EXPEDIENTE = resp[0];
+          return expediente;
+        })
+      );
+}
+
 
 // ********************     FIN OPERACIONES EXPEDIENTES
 
