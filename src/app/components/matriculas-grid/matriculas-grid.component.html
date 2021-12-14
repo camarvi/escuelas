@@ -1,1 +1,40 @@
-<p>matriculas-grid works!</p>
+<div class="mt-2" id="htmlData">
+    
+    <div class="mb-2 text-center text-capitalize font-weight-bold">
+        <h4>MATRICULAS</h4>  
+    </div>
+
+    <table *ngIf="matriculas.length > 0" class="table table-bordered table-striped">
+      <thead class="thead-primary">
+        <!--  <tr class="d-flex"> -->
+        <tr class="table-primary">
+          <th scope="col">Año</th>
+          <th scope="col">Curso</th>
+          <th scope="col">Cuota</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let matricula of matriculas">
+  
+          <td> {{ matricula.ANYO_ACADEMICO }}</td>
+          <td> {{ matricula.DESC_CURSO }}</td>
+          <td> {{ matricula.CUOTA_MES }}</td>
+        
+          <td>
+             
+              <!-- <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
+              data-toggle="tooltip" data-placement="top"
+              [routerLink]="['/detalle_exp', expediente.NUM_EXPEDIENTE]" >
+              <i class="fas fa-user-check"></i>
+            </button> -->
+          
+          <!--  <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar" data-toggle="tooltip"
+              data-placement="center" type="button" (click)="verDetalleExp(expediente.NUM_EXPEDIENTE)">
+              <i class="fas fa-user-check"></i>
+            </button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

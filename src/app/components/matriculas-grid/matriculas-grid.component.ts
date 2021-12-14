@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { MatriculasInterface } from '../../interfaces/matricula-response';
 
 @Component({
   selector: 'app-matriculas-grid',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./matriculas-grid.component.css']
 })
 export class MatriculasGridComponent implements OnInit {
+
+  @Input() matriculas! : MatriculasInterface[];
 
   constructor() { }
 

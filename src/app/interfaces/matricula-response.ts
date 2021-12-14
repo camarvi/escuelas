@@ -6,3 +6,5 @@ export interface MatriculasInterface {
     DESC_CURSO:     string;
     CUOTA_MES:      number;
 }
+
+

@@ -9,7 +9,9 @@ import { EscuelasService } from '../../../services/escuelas.service';
 import { FechasService } from '../../../services/fechas.service';
 
 import { ExpedienteModel } from '../../../models/expediente.model';
+
 import { EscuelasInterface, ParentescoInterface, VariacionesInterface } from '../../../interfaces/auxiliares-response';
+import { MatriculasInterface } from '../../../interfaces/matricula-response';
 
 @Component({
   selector: 'app-detalle-exp',
@@ -22,10 +24,12 @@ export class DetalleExpComponent implements OnInit {
   public nombreTutor : string;
   public dniTutor : string;
   
+  matriculas : MatriculasInterface[] = [];
   escuelas : EscuelasInterface[] = [];
   listaParentesco : ParentescoInterface[] = [];
   tiposVariaciones : VariacionesInterface[] = [];
   
+  mesjulioactivo : boolean = false;
 
   constructor(private escuelaService : EscuelasService, 
               private fechaService : FechasService,
@@ -47,18 +51,29 @@ export class DetalleExpComponent implements OnInit {
                             this.expediente.APE1_TUTOR + ' ' + this.expediente.APE2_TUTOR;
             console.log(this.nombreTutor);
             this.dniTutor = this.expediente.NIF_TUTOR;
-            
-            //console.log(this.expediente.FECHA_ALTA.toString());
-            //console.log(this.fechaService.mostrarfecha(this.expediente.FECHA_ALTA));
-
+      
             this.expediente.FECHA_ALTA = this.fechaService.mostrarfecha(this.expediente.FECHA_ALTA);
-            //console.log(this.expediente.FECHA_ALTA);
-
+                
             this.expediente.FECHA_NACIMIENTO = this.fechaService.mostrarfecha(this.expediente.FECHA_NACIMIENTO);
-            //console.log(this.expediente.FECHA_ALTA);
+            
+            this.expediente.FECHA_VARIACION = this.fechaService.mostrarfecha(this.expediente.FECHA_VARIACION);
 
-            //this.nuevaTarifa.F_INICIO = tarifaRecibida.F_INICIO.toString();
-            //this.nuevaTarifa.F_INICIO = this.fechasService.mostrarfecha(this.nuevaTarifa.F_INICIO);
+            this.expediente.FECHA_GESTION = this.fechaService.mostrarfecha(this.expediente.FECHA_GESTION);
+
+            if (this.expediente.MES_JULIO == "Y") {
+              this.mesjulioactivo = true;
+            }
+          // CARGAR LAS MATRICULAS DEL EXPEDIENTE
+
+          if (this.expediente.NUM_EXPEDIENTE>0) {
+            this.escuelaService.buscarMatriculasExp(numexp)
+                .subscribe( (resp) =>{
+                  this.matriculas = resp;
+                  console.log("Matriculas el expediente");
+                  console.log(this.matriculas);
+                });
+          }
+          
 
           });
     }
@@ -72,10 +87,12 @@ export class DetalleExpComponent implements OnInit {
 
     combineLatest([
       this.escuelaService.getListaescuelas(),
-      this.escuelaService.getParentesco()
-    ]).subscribe( ([escuelas,parentesco]) =>{
+      this.escuelaService.getParentesco(),
+      this.escuelaService.getVariaciones()
+    ]).subscribe( ([escuelas,parentesco,tiposVariaciones]) =>{
       this.escuelas = escuelas;  
-      this.listaParentesco = parentesco
+      this.listaParentesco = parentesco,
+      this.tiposVariaciones = tiposVariaciones
     });
   }
 
