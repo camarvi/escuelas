@@ -84,6 +84,7 @@ updateExpedienteId(expediente : ExpedienteModel) {
 
 
 newExpediente(expediente : ExpedienteModel) {
+
    return this.http.post(`${this.baseUrl}/expediente`, expediente)
       .pipe(
         map((resp : any) => {
@@ -93,7 +94,6 @@ newExpediente(expediente : ExpedienteModel) {
       );
 }
 
-
 // ********************     FIN OPERACIONES EXPEDIENTES
 
 // ---------------------- OPERACIONES CON MATRICULAS ------------------------------
@@ -101,9 +101,6 @@ newExpediente(expediente : ExpedienteModel) {
 buscarMatriculasExp(cod_exp : string) : Observable<MatriculasInterface[]> {
   return this.http.get<MatriculasInterface[]>(`${this.baseUrl}/matriculas/${cod_exp}`);
 }
-
-
-
 
 
 }

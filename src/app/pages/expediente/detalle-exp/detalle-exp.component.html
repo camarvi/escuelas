@@ -1,5 +1,4 @@
-<div class="container-fluid mt-3">
-
+<div *ngIf="expediente.COD_TUTOR>0" class="container-fluid mt-3">
 
   <div class="mt-3 text-center text-capitalize font-weight-bold">
     <h4>DATOS TUTOR</h4>
@@ -7,39 +6,50 @@
   </div>
 
 
+  <form class="mt-3" (ngSubmit)="guardar(f)" #f="ngForm">
 
-  <!-- BOTONES  -->
-  <div class="text-center mb-3">
-    <div class="d-inline-block">
-      <div class="btn-toolbar mx-auto" role="toolbar" aria-label="Toolbar with button groups">
+    <!-- BOTONES  -->
+    <div class="text-center mb-3">
+      <div class="d-inline-block">
+        <div class="btn-toolbar mx-auto" role="toolbar" aria-label="Toolbar with button groups">
 
-        <div class="btn-group mr-2" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-outline-secondary">Atras</button>
-        </div>
-        <div class="btn-group mr-2" role="group" aria-label="Third group">
+          <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-outline-secondary">Atras</button>
+          </div>
+          <!-- <div class="btn-group mr-2" role="group" aria-label="Third group">
           <button type="button" class="btn btn-outline-success">
             <i class="fas fa-save"></i>
             Guardar Exped.</button>
-        </div>
-        <div class="btn-group mr-2" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-outline-danger">
-            <i class="far fa-calendar-times"></i>
-            Baja Exp.</button>
-        </div>
-        <div class="btn-group mr-2" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-primary">
-            Editar Matricula</button>
+        </div>  -->
+
+          <div class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="submit" class="btn btn-outline-success">
+              <i class="fas fa-save"></i>
+              Guardar Exped.</button>
+          </div>
+
+          <!--    <div *ngIf="editarExp" class="btn-group mr-2" role="group" aria-label="Third group"> -->
+          <!--   <i class="far fa-calendar-times"></i>  -->
+          <div *ngIf="matriculas.length == 0 && editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-outline-danger">
+             
+              <i class="far fa-trash-alt"></i>
+              Borrar Exp.</button>
+          </div>
+          <div *ngIf="editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-outline-primary">
+              Editar Matricula</button>
+          </div>
+
         </div>
 
       </div>
-
     </div>
-  </div>
 
 
 
 
-  <form class="mt-3" (ngSubmit)="guardar(f)" #f="ngForm">
+
 
     <div class="form-row">
       <div class="form-group col-md-2">
@@ -76,7 +86,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label class="font-italic font-weight-bold">Escuela</label>
-        <select class="form-control" #parentesco="ngModel" name="escuela" [(ngModel)]="expediente.PARENTESCO">
+        <select class="form-control" #parentesco="ngModel" name="escuela" [(ngModel)]="expediente.COD_ESCUELA">
           <option [value]="escuela.COD_ESCUELA" *ngFor="let escuela of escuelas"
             [selected]="escuela.COD_ESCUELA === expediente.COD_ESCUELA">{{escuela.DESC_ESCUELA}}
           </option>
@@ -147,7 +157,7 @@
           </div>
 -->
 
-       
+
       </div>
 
     </div>
@@ -155,16 +165,16 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <label class="font-italic font-weight-bold">Motivo Variacion</label>
-      <!--  <input type="text" class="form-control" required #variacion="ngModel" name="variacion"
+        <!--  <input type="text" class="form-control" required #variacion="ngModel" name="variacion"
           [class.is-invalid]="variacion.invalid && variacion.touched" [(ngModel)]="expediente.DESC_VARIACION">
         -->
-          <select class="form-control" #variacion="ngModel" name="variacion" [(ngModel)]="expediente.COD_VARIACION">
-            <option [value]="variacion.COD_VARIACION" *ngFor="let variacion of tiposVariaciones"
-              [selected]="variacion.COD_VARIACION === expediente.COD_VARIACION">{{variacion.DESC_VARIACION}}
-            </option>
-          </select>
+        <select class="form-control" #variacion="ngModel" name="variacion" [(ngModel)]="expediente.COD_VARIACION">
+          <option [value]="variacion.COD_VARIACION" *ngFor="let variacion of tiposVariaciones"
+            [selected]="variacion.COD_VARIACION === expediente.COD_VARIACION">{{variacion.DESC_VARIACION}}
+          </option>
+        </select>
 
-       </div>
+      </div>
       <div class="form-group col-md-4">
         <label class="font-italic font-weight-bold">Fecha Variacion</label>
         <input type="date" class="form-control" required #fecha_variacion="ngModel" name="fecha_variacion"
@@ -173,9 +183,13 @@
       </div>
       <div class="form-group col-md-4">
         <label class="font-italic font-weight-bold">Fecha Gestion</label>
-        <input type="date" class="form-control" required readonly #fecha_gestion="ngModel" name="fecha_gestion"
-          [class.is-invalid]="fecha_gestion.invalid && fecha_gestion.touched"
+        <input *ngIf="editarExp" type="date" class="form-control" required readonly #fecha_gestion="ngModel"
+          name="fecha_gestion" [class.is-invalid]="fecha_gestion.invalid && fecha_gestion.touched"
           [(ngModel)]="expediente.FECHA_GESTION">
+
+        <input *ngIf="!editarExp" type="text" class="form-control" required readonly value={{expediente.FECHA_GESTION}}
+          name="fecha_gestion">
+
       </div>
 
     </div>
@@ -186,8 +200,3 @@
   <!--  LISTA MATRICULAS DEL ALUMNO  -->
 
   <app-matriculas-grid *ngIf="matriculas.length>0" [matriculas]="matriculas"></app-matriculas-grid>
-
-  <!--
-  <app-expedientes-grid *ngIf="expedientes.length>0" [expedientes]="expedientes">
-  </app-expedientes-grid>
--->

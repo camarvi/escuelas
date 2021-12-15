@@ -30,7 +30,7 @@ export class ExpedienteModel{
         this.DESC_PARENTESCO = "";
         this.NOMBRE_ALUMNO = " ";
         this.FECHA_NACIMIENTO = new Date().toLocaleDateString('en-GB',{ timeZone: 'UTC' });
-        this.COD_ESCUELA = 0;
+        this.COD_ESCUELA = 1;
         this.DESC_ESCUELA = "";
         this.FECHA_ALTA = new Date().toLocaleDateString('en-GB',{ timeZone: 'UTC' });
         this.COD_VARIACION = "A";

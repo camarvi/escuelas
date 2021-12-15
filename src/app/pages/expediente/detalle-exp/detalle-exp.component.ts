@@ -24,6 +24,7 @@ export class DetalleExpComponent implements OnInit {
   public expediente =  new ExpedienteModel();
   public nombreTutor : string;
   public dniTutor : string;
+  public editarExp : boolean = false;
   //public datosTutor : TutorInterface; 
   
   matriculas : MatriculasInterface[] = [];
@@ -40,10 +41,13 @@ export class DetalleExpComponent implements OnInit {
   ngOnInit(): void {
 
     const numexp =  this.route.snapshot.paramMap.get('numexp');
-    //console.log("NUM EXP RECIBIDO");
-    //console.log(this.numexp);
-   //
+
+    console.log("DATOS DEL EXPEDIENTE MODEL");
+    console.log(this.expediente);
+    console.log("FIN DATOS DEL EXPEDIENTE MODEL");
+
     if (numexp!=='nuevo'){
+      this.editarExp = true;
       this.escuelaService.buscarExpedienteId(numexp)
           .subscribe( (resp : ExpedienteModel) => {
             this.expediente = resp[0];
@@ -75,16 +79,14 @@ export class DetalleExpComponent implements OnInit {
                   console.log(this.matriculas);
                 });
           }
-          
-
+   
           });
     } else { // ALTA NUEVO CARGO LOS DATOS DEL TUTOR
+      
       const codtutor = this.route.snapshot.paramMap.get('codtutor');
-      //console.log("Codigo Tutor recibido :" + codtutor);
-      //console.log ( Number.isInteger(Number(codtutor)) );
-    
+     
       // var numberValue = Number(stringToConvert);
-      if (Number.isInteger(Number(codtutor))){
+      if (Number.isInteger(Number(codtutor))) {
         this.expediente.COD_TUTOR = Number(codtutor);
         this.escuelaService.buscarTutorId(codtutor)
         .subscribe( (resp : TutorInterface) => {
@@ -106,17 +108,23 @@ export class DetalleExpComponent implements OnInit {
 
     combineLatest([
       this.escuelaService.getListaescuelas(),
-      this.escuelaService.getParentesco(),
-      this.escuelaService.getVariaciones()
-    ]).subscribe( ([escuelas,parentesco,tiposVariaciones]) =>{
+      this.escuelaService.getVariaciones(),
+      this.escuelaService.getParentesco()
+      
+    ]).subscribe( ([escuelas,tiposVariaciones,parentesco]) =>{
       this.escuelas = escuelas;  
-      this.listaParentesco = parentesco,
-      this.tiposVariaciones = tiposVariaciones
+      this.tiposVariaciones = tiposVariaciones,
+      this.listaParentesco = parentesco
     });
   }
 
 
   guardar( forma : NgForm){
+
+    let miExpediente =  new ExpedienteModel();
+
+    console.log("Mes julio");
+    console.log(this.mesjulioactivo);
 
     if (forma.invalid) {
       // recorrer los elementos del formulario para que se dispare las validaciones
@@ -136,23 +144,46 @@ export class DetalleExpComponent implements OnInit {
  
     let peticion : Observable<any>;
 
+    miExpediente  =this.expediente;
+
    if (this.expediente.NUM_EXPEDIENTE !==0) { 
      // MODIFICAR EL REGISTRO ACTUAL
      peticion = this.escuelaService.updateExpedienteId(this.expediente);
    } else {
+        
+      miExpediente.FECHA_NACIMIENTO = this.fechaService.almacenaFecha(this.expediente.FECHA_NACIMIENTO);
+      miExpediente.FECHA_VARIACION = this.fechaService.almacenaFecha(this.expediente.FECHA_VARIACION);
+      miExpediente.FECHA_ALTA = this.fechaService.almacenaFecha(this.expediente.FECHA_ALTA);
      
-     // SE INSERTA UN NUEVO REGISTRO
+      if (this.mesjulioactivo) {
+        miExpediente.MES_JULIO = "Y";
+      } else {
+        miExpediente.MES_JULIO = "N";
+      }
+
+     peticion = this.escuelaService.newExpediente(miExpediente);  
+     //Al insertar el registro, ya lo puedo editar
+     this.editarExp = true;
    }
 
    peticion.subscribe( resp =>{
      Swal.fire({
       title : 'Expediente Número ' + this.expediente.NUM_EXPEDIENTE,
-      text : 'Se actualizo correctamente..',
+      text : 'Se almaceno correctamente..',
       icon : 'success'
      });
    })
   
+   this.expediente.FECHA_ALTA = this.fechaService.mostrarfecha(this.expediente.FECHA_ALTA);
+                
+   this.expediente.FECHA_NACIMIENTO = this.fechaService.mostrarfecha(this.expediente.FECHA_NACIMIENTO);
+   
+   this.expediente.FECHA_VARIACION = this.fechaService.mostrarfecha(this.expediente.FECHA_VARIACION);
+
+   this.expediente.FECHA_GESTION = this.fechaService.mostrarfecha(this.expediente.FECHA_GESTION);
+
   
   }
+
 
 }

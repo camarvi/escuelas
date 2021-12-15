@@ -28,4 +28,26 @@ export class FechasService {
    return  fechaok;
   }
 
+  almacenaFecha(fecha : string)  {
+
+    let fechaOk : string = "";
+
+    if (fecha!=null) {
+      let anioF = fecha.slice(0, 4);
+      let mesF = fecha.slice(5, 7);
+      let diaF =fecha.slice(8, 10);
+      fechaOk = diaF + "/" + mesF + "/" + anioF;
+  
+    } else {
+      fechaOk = null;
+    }
+  
+    if (fechaOk ==="//") {
+      fechaOk = null;
+    }
+
+    return fechaOk;
+
+  }
+
 }
