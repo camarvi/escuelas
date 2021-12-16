@@ -94,6 +94,15 @@ newExpediente(expediente : ExpedienteModel) {
       );
 }
 
+deleteExpediente(numExpediente : string) {
+
+  console.log("EXPEDIENTE ELIMINAR");
+  console.log(numExpediente);
+  
+  return this.http.delete(`${this.baseUrl}/expediente/${numExpediente}`);
+}
+
+
 // ********************     FIN OPERACIONES EXPEDIENTES
 
 // ---------------------- OPERACIONES CON MATRICULAS ------------------------------

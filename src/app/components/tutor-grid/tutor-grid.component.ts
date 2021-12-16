@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {TutorInterface } from '../../interfaces/tutor-response';
+import { TutorInterface } from '../../interfaces/tutor-response';
 
 import { Router } from '@angular/router';
 

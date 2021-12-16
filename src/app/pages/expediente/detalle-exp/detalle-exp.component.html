@@ -31,12 +31,13 @@
           <!--    <div *ngIf="editarExp" class="btn-group mr-2" role="group" aria-label="Third group"> -->
           <!--   <i class="far fa-calendar-times"></i>  -->
           <div *ngIf="matriculas.length == 0 && editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
-            <button type="button" class="btn btn-outline-danger">
-             
+            <button type="button" class="btn btn-outline-danger"
+            (click)="eliminarExpediente(numexp)">
               <i class="far fa-trash-alt"></i>
-              Borrar Exp.</button>
+              Borrar Exp.
+            </button>
           </div>
-          <div *ngIf="editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
+          <div *ngIf="matriculas.length > 0 && editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
             <button type="button" class="btn btn-outline-primary">
               Editar Matricula</button>
           </div>
@@ -45,11 +46,6 @@
 
       </div>
     </div>
-
-
-
-
-
 
     <div class="form-row">
       <div class="form-group col-md-2">
@@ -113,50 +109,6 @@
           Mes de Julio
         </label>
         <input [(ngModel)]="mesjulioactivo" class="form-control " id="ckb1" type="checkbox" name="remember-me">
-
-
-
-
-        <!--
-          <input type="checkbox" ng-model="clarooscuro" ng-true-value="claro" ng-false-value="oscuro" />
-        -->
-        <!--  
-         <input type="text" class="form-control"  required
-              #mes_julio = "ngModel" 
-              name="mes_julio"  
-              [class.is-invalid]="fecha_alta.invalid && fecha_alta.touched" 
-              [(ngModel)]= "expediente.MES_JULIO">
-         -->
-        <!--
-              <input type="checkbox" 
-              [(ngModel)]="expediente.MES_JULIO"
-              ng-true-value="'YES'" ng-false-value="'NO'"> 
-             
-            <input type="text" required
-             #mes_julio= "ngModel"
-             name = "mes_julio"   
-             [(ngModel)]= "mes_julio"
-             ng-true-value="true" ng-false-value="false"
-             >
-             -->
-        <!--  <input
-                type="checkbox"
-
-                  [checked]="mes_julio"
-                (change)="mes_julio = !mes_julio"/>
-            -->
-        <!--
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" name="genero" value="Y" [ngModel]="expediente.MES_JULIO" required #genero="ngModel" type="radio">
-              <label class="form-check-label">Si</label>
-          </div>
-
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" name="genero" value="N" [ngModel]="expediente.MES_JULIO" required #genero="ngModel" type="radio">
-              <label class="form-check-label">No</label>
-          </div>
--->
-
 
       </div>
 
