@@ -215,30 +215,7 @@ export class DetalleExpComponent implements OnInit {
   }
 
   eliminarExpediente(numexp: string) {
-     console.log("NUM EXP A ELIMINAR : ");
-     console.log(numexp);
-
-    // Swal.fire({
-    //   title: '¿Estás seguro ?',
-    //   text: `Estás seguro de borrar el registro`,
-    //   icon: 'question',
-    //   showConfirmButton: true,
-    //   showCancelButton: true,
-    // }).then((resp) => {
-    //   console.log(resp);
-    //   if (resp.value==true) {
-    //     console.log("ELIMINAR EL REGISTRO");
-    //     this.escuelaService.deleteExpediente(numexp).subscribe();
-    //     // VOLVER AL LISTADO DE EXPEDIENTES DEL TUTOR
-    //   //    this.router.navigate(['/listaexpediente',
-    //   //      this.expediente.COD_TUTOR,
-    //   //      this.expediente.NIF_TUTOR,
-    //   //      this.expediente.NOMBRE_TUTOR + ' ' + this.expediente.APE1_TUTOR + ' ' + this.expediente.APE2_TUTOR],
-    //   //    { skipLocationChange: true, replaceUrl: false });
-    //    }
-    // });
-
-
+    
     Swal.fire({
       title:'¿Estas seguro?',
       text:`Estás seguro de borrar el expediente`,
@@ -250,7 +227,7 @@ export class DetalleExpComponent implements OnInit {
         if (resp.value){
           //Eliminar el registro
           this.escuelaService.deleteExpediente(numexp).subscribe();
-             // VOLVER AL LISTADO DE EXPEDIENTES DEL TUTOR
+          // VOLVER AL LISTADO DE EXPEDIENTES DEL TUTOR
           this.router.navigate(['/listaexpediente',
             this.expediente.COD_TUTOR,
             this.expediente.NIF_TUTOR,

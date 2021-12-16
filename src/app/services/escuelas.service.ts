@@ -78,6 +78,13 @@ buscarExpedienteId(codigo : string) : Observable<ExpedienteModel> {
   return this.http.get<ExpedienteModel>(`${this.baseUrl}/expediente/${codigo}`);
 }
 
+buscarExpedienteNomAlum(nombreAlum : string) : Observable<ExpedienteInterface[]> {
+  console.log("dentro de buscarExpediNomAlum");
+  console.log(nombreAlum);
+  return this.http.get<ExpedienteInterface[]>(`${this.baseUrl}/expediente_alum/${nombreAlum}`);
+  
+}
+
 updateExpedienteId(expediente : ExpedienteModel) {
   return this.http.put(`${this.baseUrl}/expediente/${expediente.NUM_EXPEDIENTE}`, expediente);
 }
@@ -95,15 +102,12 @@ newExpediente(expediente : ExpedienteModel) {
 }
 
 deleteExpediente(numExpediente : string) {
-
-  console.log("EXPEDIENTE ELIMINAR");
-  console.log(numExpediente);
-  
   return this.http.delete(`${this.baseUrl}/expediente/${numExpediente}`);
 }
 
-
 // ********************     FIN OPERACIONES EXPEDIENTES
+
+
 
 // ---------------------- OPERACIONES CON MATRICULAS ------------------------------
 

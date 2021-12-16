@@ -47,7 +47,6 @@ export class BuscartutorComponent implements OnInit {
           this.cargando = false;
       });
     }
-   
   
    }
  
