@@ -115,5 +115,8 @@ buscarMatriculasExp(cod_exp : string) : Observable<MatriculasInterface[]> {
   return this.http.get<MatriculasInterface[]>(`${this.baseUrl}/matriculas/${cod_exp}`);
 }
 
+deleteMatriculaId(cod_matricula : string) {
+  return this.http.delete(`${this.baseUrl}/matriculas/${cod_matricula}`);
+}
 
 }

@@ -1,15 +1,15 @@
-<div *ngIf="expediente.COD_TUTOR>0" class="container-fluid mt-3">
+<div *ngIf="expediente.COD_TUTOR>0" class="container-fluid mt-2">
 
   <div class="mt-3 text-center text-capitalize font-weight-bold">
-    <h4>DATOS TUTOR</h4>
-    <h4> {{ dniTutor | uppercase }} - {{ nombreTutor | uppercase }} </h4>
+    <h5>DATOS TUTOR</h5>
+    <h5> {{ dniTutor | uppercase }} - {{ nombreTutor | uppercase }} </h5>
   </div>
 
 
-  <form class="mt-3" (ngSubmit)="guardar(f)" #f="ngForm">
+  <form class="mt-1" (ngSubmit)="guardar(f)" #f="ngForm">
 
     <!-- BOTONES  -->
-    <div class="text-center mb-3">
+    <div class="text-center mb-2">
       <div class="d-inline-block">
         <div class="btn-toolbar mx-auto" role="toolbar" aria-label="Toolbar with button groups">
 
@@ -147,58 +147,70 @@
   </form>
 
   <!--  LISTA MATRICULAS DEL ALUMNO  -->
-  <hr>
+
   <div class="mb-2 text-center text-capitalize font-weight-bold">
      <!--  <h4>MATRICULAS</h4>   -->
-    MATRICULAS
+    MATRICULAS DEL EXPEDIENTE
   </div>
-  <div class="form-row">
+
+  <!-- <div class="form-row">
     <div class="form-group col-md-2 ml-2">
       <label class="font-weight-bold">Año</label>
     </div>
     <div class="form-group col-md-2 ml-2">
       <label class="font-weight-bold ">Curso</label>
-      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
     </div>
     <div class="form-group col-md-2 ml-2">
       <label class="font-weight-bold ">Cuota</label>
-      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-    </div>
-    <!-- <div class="form-group col-md-4 ml-2">
-      <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
-    </div> -->
-  </div>
+    </div> 
+  </div> -->
 
-  <!-- <form class="mb-3" (ngSubmit)="guardarMatricula(miFor)" #miFor="ngForm">
+<form class="mb-3" (ngSubmit)="guardarMatricula(miFor)" #miFor="ngForm">
 
     <div class="form-row">
       <div class="form-group col-md-2">
-        <label class="font-weight-bold">Año</label>
-        <input type="number" class="form-control" #fecha="ngModel" name="finicio" [(ngModel)]="nuevaMatricula.ANYO_ACADEMICO">
+        <label class="font-italic font-weight-bold">Año</label>
+        <input type="number" class="form-control"  #anyo="ngModel" name="anyo" [(ngModel)]="nuevaMatricula.ANYO_ACADEMICO">
       </div>
   
-      <div class="form-group col-md-2 ml-2">
-        <label class="font-weight-bold ">Curso</label>
-        <input type="number" class="form-control" #numero="ngModel" name="tarifa" [(ngModel)]="nuevaMatricula.COD_CURSO">
+      <!-- <div class="form-group col-md-2 ml-2">
+        <input type="number" class="form-control" #curso="ngModel" name="curso" [(ngModel)]="nuevaMatricula.COD_CURSO">
       </div>
-  
+   -->
+   <div class="form-group col-md-4 ml-2">
+    <label class="font-italic font-weight-bold">Curso</label>
+    <select class="form-control" #curso="ngModel" name="curso" [(ngModel)]="nuevaMatricula.COD_CURSO">
+      <option [value]="curso.COD_CURSO" *ngFor="let curso of listaCursos"
+        [selected]="curso.COD_CURSO === nuevaMatricula.COD_CURSO">{{curso.DESC_CURSO}}
+      </option>
+    </select>
+   
+  </div>
+
+
       <div class="form-group col-md-2 ml-2 ">
-        <label class="font-weight-bold ">Cuota</label>
-        <input type="number" class="form-control" #fecha="ngModel" name="ffin" [(ngModel)]="nuevaMatricula.CUOTA_MES">
+        <label class="font-italic font-weight-bold">Cuota</label>
+        <input type="number" class="form-control" #cuota="ngModel" name="cuota" [(ngModel)]="nuevaMatricula.CUOTA_MES">
       </div>
-      <div *ngIf="nuevaMatricula.COD_MATRICULA===0" class="form-group col-md-2 ml-2">
-        <label> </label>
-        <button type="submit" class="btn btn-primary">
-          <i class="fa fa-save"></i>
+
+      <div *ngIf="nuevaMatricula.COD_MATRICULA===0" class="form-group col-md-2 ml-2 ">
+        <label class="font-italic font-weight-bold">Operaciones</label>
+        <button type="submit" class="btn btn-outline-primary">
+          <i class="fas fa-plus-square"></i>
           Guardar
         </button>
       </div>
-
+      <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="form-group col-md-2 ml-2 mt-6">
+        <button type="submit" class="btn btn-outline-primary">
+          <i class="far fa-edit"></i>
+          Editar
+        </button>
+      </div>
+  
     </div>
+  
+  </form> 
 
 
-  </form>
 
-  <!--  LISTA MATRICULAS DEL ALUMNO  -->
-
-  <app-matriculas-grid *ngIf="matriculas.length>0" [matriculas]="matriculas"></app-matriculas-grid>
+  <app-matriculas-grid *ngIf="matriculas.length>0"  (propagar)="procesaPropagar($event)" [matriculas]="matriculas"  (propagaEditar)="procesaPropagarEditar($event)"></app-matriculas-grid>

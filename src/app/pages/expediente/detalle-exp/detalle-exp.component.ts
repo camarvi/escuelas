@@ -11,13 +11,13 @@ import { FechasService } from '../../../services/fechas.service';
 
 import { ExpedienteModel } from '../../../models/expediente.model';
 
-import {
-  EscuelasInterface,
-  ParentescoInterface,
-  VariacionesInterface,
+import { EscuelasInterface,ParentescoInterface,VariacionesInterface,CursosInterface
     } from '../../../interfaces/auxiliares-response';
 import { MatriculasInterface } from '../../../interfaces/matricula-response';
+import { MatriculaModel } from '../../../models/matricula.model';
+
 import { TutorInterface } from '../../../interfaces/tutor-response';
+
 
 
 @Component({
@@ -37,8 +37,11 @@ export class DetalleExpComponent implements OnInit {
   escuelas: EscuelasInterface[] = [];
   listaParentesco: ParentescoInterface[] = [];
   tiposVariaciones: VariacionesInterface[] = [];
+  listaCursos : CursosInterface[] = [];
 
   mesjulioactivo: boolean = false;
+
+  nuevaMatricula : MatriculaModel = new MatriculaModel();
 
   constructor(
     private escuelaService: EscuelasService,
@@ -130,10 +133,12 @@ export class DetalleExpComponent implements OnInit {
       this.escuelaService.getListaescuelas(),
       this.escuelaService.getVariaciones(),
       this.escuelaService.getParentesco(),
-    ]).subscribe(([escuelas, tiposVariaciones, parentesco]) => {
+      this.escuelaService.getCursos()
+    ]).subscribe(([escuelas, tiposVariaciones, parentesco, cursos]) => {
       this.escuelas = escuelas;
-      (this.tiposVariaciones = tiposVariaciones),
-        (this.listaParentesco = parentesco);
+      this.tiposVariaciones = tiposVariaciones,
+      this.listaParentesco = parentesco,
+      this.listaCursos = cursos
     });
   }
 
@@ -217,7 +222,39 @@ export class DetalleExpComponent implements OnInit {
 
 
   guardarMatricula(forma : NgForm) {
+    if (forma.invalid) {
+      // recorrer los elementos del formulario para que se dispare las validaciones
+      Object.values(forma.controls).forEach((control) => {
+        control.markAsTouched(); //Lo pongo como pulsado
+      });
+      return;
+    }
+
+    let peticion : Observable<any>;
+
+    if (this.nuevaMatricula.COD_MATRICULA!==0){
+    //  peticion = this.escuelaService (modificaMatricula)  
+      
+    } else { //NUEVO REGISTRO
+    //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
+   
+    }
+
+  peticion.subscribe( resp => {
     
+    Swal.fire({
+      title : "Tarifa",
+      text : 'Se almaceno correctamente..',
+      icon : 'success'
+    });
+   //  this.nuevaMatricula = new MatriculaModel();
+   //  this.ngOnInit();
+    });
+
+
+
+
+
   }
 
   eliminarExpediente(numexp: string) {
@@ -245,4 +282,46 @@ export class DetalleExpComponent implements OnInit {
 
     
   }
+
+ 
+  eliminarMatricula(id: string){
+    console.log("Elimnar matricula");
+    console.log(id);
+    this.escuelaService.deleteMatriculaId(id)
+      .subscribe( resp => {
+          Swal.fire({
+             title : "Eliminar",
+             text : 'Registro eliminado correctamente..',
+             icon : 'success'
+          });
+        });
+  }
+
+
+ // RECIBE LOS DATOS DEL EVENTO (propagar)="procesaPropagar($event)"
+  procesaPropagar(codigo : string) {
+   this.eliminarMatricula(codigo);
+  }
+
+  procesaPropagarEditar(matriculaRecibida : MatriculasInterface) {
+    
+    console.log("Datos Matricula Recibida");
+    console.log(matriculaRecibida);
+      
+    // this.nuevaTarifa.IDTARIFA = tarifaRecibida.IDTARIFA;
+    // this.nuevaTarifa.COD_MER = tarifaRecibida.COD_MER;
+    // this.nuevaTarifa.F_INICIO = tarifaRecibida.F_INICIO.toString();
+    // this.nuevaTarifa.F_INICIO = this.fechasService.mostrarfecha(this.nuevaTarifa.F_INICIO);
+    // this.nuevaTarifa.TARIFA = tarifaRecibida.TARIFA;
+
+    // try {
+    //   this.nuevaTarifa.F_FIN = tarifaRecibida.F_FIN.toString();
+    //   this.nuevaTarifa.F_FIN = this.fechasService.mostrarfecha(this.nuevaTarifa.F_FIN);
+    // } catch {
+    //   this.nuevaTarifa.F_FIN = null;
+    // }
+   
+  }
+
+
 }
