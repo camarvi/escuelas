@@ -28,8 +28,6 @@
               Guardar Exped.</button>
           </div>
 
-          <!--    <div *ngIf="editarExp" class="btn-group mr-2" role="group" aria-label="Third group"> -->
-          <!--   <i class="far fa-calendar-times"></i>  -->
           <div *ngIf="matriculas.length == 0 && editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
             <button type="button" class="btn btn-outline-danger"
             (click)="eliminarExpediente(numexp)">
@@ -37,10 +35,10 @@
               Borrar Exp.
             </button>
           </div>
-          <div *ngIf="matriculas.length > 0 && editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
+          <!-- <div *ngIf="matriculas.length > 0 && editarExp" class="btn-group mr-2" role="group" aria-label="Third group">
             <button type="button" class="btn btn-outline-primary">
               Editar Matricula</button>
-          </div>
+          </div> -->
 
         </div>
 
@@ -201,6 +199,7 @@
         </button>
       </div>
       <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="form-group col-md-2 ml-2 mt-6">
+        <label class="font-italic font-weight-bold">Operaciones</label>
         <button type="submit" class="btn btn-outline-primary">
           <i class="far fa-edit"></i>
           Editar

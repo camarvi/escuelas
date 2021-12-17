@@ -20,6 +20,7 @@ import { TutorInterface } from '../../../interfaces/tutor-response';
 
 
 
+
 @Component({
   selector: 'app-detalle-exp',
   templateUrl: './detalle-exp.component.html',
@@ -222,6 +223,8 @@ export class DetalleExpComponent implements OnInit {
 
 
   guardarMatricula(forma : NgForm) {
+
+    console.log("Dentro de guardar matricula")
     if (forma.invalid) {
       // recorrer los elementos del formulario para que se dispare las validaciones
       Object.values(forma.controls).forEach((control) => {
@@ -233,9 +236,11 @@ export class DetalleExpComponent implements OnInit {
     let peticion : Observable<any>;
 
     if (this.nuevaMatricula.COD_MATRICULA!==0){
+      peticion = this.escuelaService.updateMatriculaId(this.nuevaMatricula);
     //  peticion = this.escuelaService (modificaMatricula)  
       
     } else { //NUEVO REGISTRO
+      peticion = this.escuelaService.newMatricula(this.nuevaMatricula);
     //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
    
     }
@@ -247,7 +252,7 @@ export class DetalleExpComponent implements OnInit {
       text : 'Se almaceno correctamente..',
       icon : 'success'
     });
-   //  this.nuevaMatricula = new MatriculaModel();
+    this.nuevaMatricula = new MatriculaModel();
    //  this.ngOnInit();
     });
 
@@ -307,19 +312,11 @@ export class DetalleExpComponent implements OnInit {
     
     console.log("Datos Matricula Recibida");
     console.log(matriculaRecibida);
-      
-    // this.nuevaTarifa.IDTARIFA = tarifaRecibida.IDTARIFA;
-    // this.nuevaTarifa.COD_MER = tarifaRecibida.COD_MER;
-    // this.nuevaTarifa.F_INICIO = tarifaRecibida.F_INICIO.toString();
-    // this.nuevaTarifa.F_INICIO = this.fechasService.mostrarfecha(this.nuevaTarifa.F_INICIO);
-    // this.nuevaTarifa.TARIFA = tarifaRecibida.TARIFA;
 
-    // try {
-    //   this.nuevaTarifa.F_FIN = tarifaRecibida.F_FIN.toString();
-    //   this.nuevaTarifa.F_FIN = this.fechasService.mostrarfecha(this.nuevaTarifa.F_FIN);
-    // } catch {
-    //   this.nuevaTarifa.F_FIN = null;
-    // }
+    this.nuevaMatricula.COD_MATRICULA = matriculaRecibida.COD_MATRICULA;
+    this.nuevaMatricula.ANYO_ACADEMICO = matriculaRecibida.ANYO_ACADEMICO;
+    this.nuevaMatricula.CUOTA_MES = matriculaRecibida.CUOTA_MES;
+      
    
   }
 
