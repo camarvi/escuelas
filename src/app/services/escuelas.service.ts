@@ -11,6 +11,7 @@ import { ExpedienteModel } from '../models/expediente.model';
 
 // TABLAS AUXILIARES
 import { EscuelasInterface, ParentescoInterface, CursosInterface, VariacionesInterface } from '../interfaces/auxiliares-response';
+import { MatriculaModel } from '../models/matricula.model';
 
 
 @Injectable({
@@ -89,7 +90,6 @@ updateExpedienteId(expediente : ExpedienteModel) {
   return this.http.put(`${this.baseUrl}/expediente/${expediente.NUM_EXPEDIENTE}`, expediente);
 }
 
-
 newExpediente(expediente : ExpedienteModel) {
 
    return this.http.post(`${this.baseUrl}/expediente`, expediente)
@@ -118,5 +118,24 @@ buscarMatriculasExp(cod_exp : string) : Observable<MatriculasInterface[]> {
 deleteMatriculaId(cod_matricula : string) {
   return this.http.delete(`${this.baseUrl}/matriculas/${cod_matricula}`);
 }
+
+
+
+updateMatriculaId(matricula : MatriculaModel) {
+  return this.http.put(`${this.baseUrl}/matriculas/${matricula.COD_MATRICULA}`, matricula);
+}
+
+newMatricula(matricula : MatriculaModel) {
+
+   return this.http.post(`${this.baseUrl}/matriculas`, matricula)
+      .pipe(
+        map((resp : any) => {
+          matricula.COD_MATRICULA = resp[0];
+          return matricula;
+        })
+      );
+}
+
+
 
 }
