@@ -214,6 +214,12 @@ export class DetalleExpComponent implements OnInit {
     });
   }
 
+
+
+  guardarMatricula(forma : NgForm) {
+    
+  }
+
   eliminarExpediente(numexp: string) {
     
     Swal.fire({
