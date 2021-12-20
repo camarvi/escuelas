@@ -186,29 +186,79 @@
   </div>
 
 
-      <div class="form-group col-md-2 ml-2 ">
+    <div class="form-group col-md-2 ml-2 ">
         <label class="font-italic font-weight-bold">Cuota</label>
         <input type="number" class="form-control" #cuota="ngModel" name="cuota" [(ngModel)]="nuevaMatricula.CUOTA_MES">
-      </div>
+    </div>
 
-      <div *ngIf="nuevaMatricula.COD_MATRICULA===0" class="form-group col-md-2 ml-2 ">
+      <!-- <div *ngIf="nuevaMatricula.COD_MATRICULA===0" class="form-group col-md-2 ml-1 ">
         <label class="font-italic font-weight-bold">Operaciones</label>
-        <button type="submit" class="btn btn-outline-primary">
+        <button type="submit" class="col btn btn-outline-primary">
           <i class="fas fa-plus-square"></i>
           Guardar
         </button>
       </div>
-      <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="form-group col-md-2 ml-2 mt-6">
+      <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="form-group col-md-2 ml-1">
         <label class="font-italic font-weight-bold">Operaciones</label>
-        <button type="submit" class="btn btn-outline-primary">
+        <button type="submit" class="col btn btn-outline-primary">
           <i class="far fa-edit"></i>
           Editar
         </button>
+        <button type="submit" class="col btn btn-outline-primary">
+          <i class="far fa-edit"></i>
+          Limpiar
+        </button>
       </div>
+ -->
+
+
+
+
+
+      <div class="row ml-2 mt-1">
+        <label class="font-italic font-weight-bold">OPERACIONES</label>
+        <div *ngIf="nuevaMatricula.COD_MATRICULA===0"  class="col">
+          <br>
+          <button type="submit" class="col btn btn-outline-success">
+            <i class="fas fa-plus-square"></i>     
+          </button>
+        </div>
+  
+        <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="col">
+          <br>
+          <button type="submit" class="col btn btn-outline-primary">
+            <i class="far fa-edit"></i>
+            
+          </button>
+        </div>
+  
+        <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="col">
+          <br>
+          <button type="submit" class="col btn btn-outline-warning" (click)="reiniciar()">
+            <i class="fas fa-backspace"></i>  
+          </button>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
   
     </div>
   
-  </form> 
+
+</form> 
 
 
 

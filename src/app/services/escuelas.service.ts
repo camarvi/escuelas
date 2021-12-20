@@ -122,6 +122,8 @@ deleteMatriculaId(cod_matricula : string) {
 
 
 updateMatriculaId(matricula : MatriculaModel) {
+  console.log("Dentro del servicio");
+  console.log(matricula);
   return this.http.put(`${this.baseUrl}/matriculas/${matricula.COD_MATRICULA}`, matricula);
 }
 

@@ -236,10 +236,13 @@ export class DetalleExpComponent implements OnInit {
     let peticion : Observable<any>;
 
     if (this.nuevaMatricula.COD_MATRICULA!==0){
+      console.log("Modificando Matricula");
       peticion = this.escuelaService.updateMatriculaId(this.nuevaMatricula);
     //  peticion = this.escuelaService (modificaMatricula)  
       
     } else { //NUEVO REGISTRO
+      console.log("Alta nueva Matricula");
+      this.nuevaMatricula.NUM_EXPEDIENTE = Number(this.numexp);
       peticion = this.escuelaService.newMatricula(this.nuevaMatricula);
     //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
    
@@ -248,18 +251,26 @@ export class DetalleExpComponent implements OnInit {
   peticion.subscribe( resp => {
     
     Swal.fire({
-      title : "Tarifa",
+      title : "Matricula",
       text : 'Se almaceno correctamente..',
       icon : 'success'
     });
     this.nuevaMatricula = new MatriculaModel();
-   //  this.ngOnInit();
+     this.ngOnInit();
     });
 
+   
 
 
 
+  }
 
+  reiniciar() {
+    this.nuevaMatricula = new MatriculaModel();
+    this.nuevaMatricula.ANYO_ACADEMICO = 0;
+    this.nuevaMatricula.CUOTA_MES = 0;
+    this.nuevaMatricula.NUM_EXPEDIENTE = 0;
+    console.log(this.nuevaMatricula);
   }
 
   eliminarExpediente(numexp: string) {
