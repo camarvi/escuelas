@@ -177,7 +177,8 @@
    -->
    <div class="form-group col-md-3 ml-2">
     <label class="font-italic font-weight-bold">Curso</label>
-    <select class="form-control" #curso="ngModel" name="curso" [(ngModel)]="nuevaMatricula.COD_CURSO">
+    <select 
+    class="form-control" #curso="ngModel" name="curso" [(ngModel)]="nuevaMatricula.COD_CURSO">
       <option [value]="curso.COD_CURSO" *ngFor="let curso of listaCursos"
         [selected]="curso.COD_CURSO === nuevaMatricula.COD_CURSO">{{curso.DESC_CURSO}}
       </option>
@@ -240,21 +241,6 @@
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-  
     </div>
   
 
@@ -262,4 +248,4 @@
 
 
 
-  <app-matriculas-grid *ngIf="matriculas.length>0"  (propagar)="procesaPropagar($event)" [matriculas]="matriculas"  (propagaEditar)="procesaPropagarEditar($event)"></app-matriculas-grid>
+  <app-matriculas-grid *ngIf="matriculas.length>0" (propagar)="procesaPropagar($event)" [matriculas]="matriculas"  (propagaEditar)="procesaPropagarEditar($event)"></app-matriculas-grid>

@@ -44,6 +44,8 @@ export class DetalleExpComponent implements OnInit {
 
   nuevaMatricula : MatriculaModel = new MatriculaModel();
 
+  
+
   constructor(
     private escuelaService: EscuelasService,
     private fechaService: FechasService,
@@ -224,6 +226,7 @@ export class DetalleExpComponent implements OnInit {
 
   guardarMatricula(forma : NgForm) {
 
+
     console.log("Dentro de guardar matricula")
     if (forma.invalid) {
       // recorrer los elementos del formulario para que se dispare las validaciones
@@ -256,8 +259,11 @@ export class DetalleExpComponent implements OnInit {
       icon : 'success'
     });
     this.nuevaMatricula = new MatriculaModel();
-     this.ngOnInit();
+    // this.ngOnInit();
+   
     });
+
+    this.ngOnInit();  
 
    
 
@@ -327,7 +333,7 @@ export class DetalleExpComponent implements OnInit {
     this.nuevaMatricula.COD_MATRICULA = matriculaRecibida.COD_MATRICULA;
     this.nuevaMatricula.ANYO_ACADEMICO = matriculaRecibida.ANYO_ACADEMICO;
     this.nuevaMatricula.CUOTA_MES = matriculaRecibida.CUOTA_MES;
-      
+    this.nuevaMatricula.COD_CURSO = matriculaRecibida.COD_CURSO;
    
   }
 

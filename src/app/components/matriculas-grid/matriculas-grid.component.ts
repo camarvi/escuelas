@@ -24,6 +24,7 @@ export class MatriculasGridComponent implements OnInit {
   }
 
 
+
   eliminar(id, indice : number){
     
     Swal.fire({
