@@ -10,6 +10,7 @@ import { BuscartutorComponent } from './tutor/buscartutor/buscartutor.component'
 import { ListaexpedienteComponent } from './expediente/listaexpediente/listaexpediente.component';
 //import { TutoralumComponent } from './alumnos/tutoralum/tutoralum.component';
 import { DetalleExpComponent } from './expediente/detalle-exp/detalle-exp.component';
+import { AlumnosComponent } from './informes/alumnos/alumnos.component';
 
 
 
@@ -20,7 +21,8 @@ import { DetalleExpComponent } from './expediente/detalle-exp/detalle-exp.compon
     BuscaralumComponent,
     ListaexpedienteComponent,
     //TutoralumComponent,
-    DetalleExpComponent
+    DetalleExpComponent,
+    AlumnosComponent
 
   ],
   imports: [

@@ -8,16 +8,19 @@ import { BuscartutorComponent } from './pages/tutor/buscartutor/buscartutor.comp
 import { ListaexpedienteComponent } from './pages/expediente/listaexpediente/listaexpediente.component';
 import { TutoralumComponent } from './pages/alumnos/tutoralum/tutoralum.component';
 import { DetalleExpComponent } from './pages/expediente/detalle-exp/detalle-exp.component';
+// LISTADOS
+import { AlumnosComponent } from './pages/informes/alumnos/alumnos.component';
 
 const routes : Routes=[
   { path: 'home', component: HomeComponent },
   { path: 'tutoralum/:id/:nombre', component: TutoralumComponent },
   { path: 'buscaralumno' , component: BuscaralumComponent },
   { path: 'buscartutor' , component: BuscartutorComponent },
-  { path: 'listaexpediente/:codtutor/:dni/:nomtutor', component: ListaexpedienteComponent},
-  { path: 'detalle_exp/:numexp', component : DetalleExpComponent},
-  { path: 'detalle_exp/:numexp/:codtutor' , component : DetalleExpComponent},
-  { path: '**', redirectTo : '/home'}
+  { path: 'listaexpediente/:codtutor/:dni/:nomtutor', component: ListaexpedienteComponent },
+  { path: 'detalle_exp/:numexp', component : DetalleExpComponent },
+  { path: 'detalle_exp/:numexp/:codtutor' , component : DetalleExpComponent },
+  { path: 'listadoalumnos' , component: AlumnosComponent },
+  { path: '**', redirectTo : '/home' }
 
 ];
 

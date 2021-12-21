@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { TutorInterface } from '../interfaces/tutor-response';
 import { ExpedienteInterface } from '../interfaces/expediente-response';
 import { MatriculasInterface } from '../interfaces/matricula-response';
+import { InformeAlumnosInterface } from '../interfaces/informe-response';
 // MODELS
 import { ExpedienteModel } from '../models/expediente.model';
 
@@ -138,6 +139,12 @@ newMatricula(matricula : MatriculaModel) {
       );
 }
 
+
+// **********************      INFORMES *******************************
+
+getAlumnosEscuelaAnyo(escuela : string, anyo : string) : Observable<InformeAlumnosInterface[]> {
+  return this.http.get<InformeAlumnosInterface[]>(`${this.baseUrl}/listadoalumnos/${escuela}/${anyo}`);
+}
 
 
 }
