@@ -1,0 +1,31 @@
+
+<div class="mt-2" id="htmlData">
+    <table  *ngIf="informealumnos.length > 0"  class="table table-bordered table-striped">
+        <thead class="thead-primary">
+        <!--  <tr class="d-flex"> -->
+          <tr class="table-primary">    
+            <th scope="col">Nº Exp</th>
+            <th scope="col">Alumno</th>
+            <th scope="col">F.Nac</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Cuota</th>
+            <th scope="col">F.Alta</th>
+            <th scope="col">F.Var</th>
+            <th scope="col">C.Var</th> 
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let alumno of informealumnos">
+            <td >{{ alumno.NUM_EXPEDIENTE}}</td>  
+            <td >{{ alumno.NOMBRE_ALUMNO }}</td>
+            <td >{{ alumno.FECHA_NACIMIENTO }}</td>
+            <td >{{ alumno.DESC_CURSO }}</td>
+            <td >{{ alumno.CUOTA_MES }}</td>   
+            <td >{{ alumno.FECHA_ALTA }}</td>
+            <td >{{ alumno.FECHA_VARIACION }}</td>
+            <td >{{ alumno.COD_VARIACION }}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+ 
