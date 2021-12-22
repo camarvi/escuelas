@@ -1,1 +1,60 @@
-<p>alumnos works!</p>
+<h3 class="mb-2">Listado Alumnos </h3>
+
+<form class="mb-3">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label class="sr-only">Año academico</label>
+      <input #anyo type="number" class="form-control" placeholder="Año academico">
+    </div>
+    <!-- <div class="form-group col-md-3">
+      <label class="sr-only">Escuela</label>
+      <input #escuela type="text" class="form-control" placeholder="Escuela">
+    </div> -->
+    <div class="form-group col-md-5">
+        <select class="form-control" 
+        #escuela
+        name = "escuela">
+        <option [value]="escuela.COD_ESCUELA" *ngFor="let escuela of escuelas;let i = index">
+            {{escuela.DESC_ESCUELA}}
+        </option>
+      </select>
+    
+    </div>
+
+    <div class="form-group col-md-2">
+       <button (click)="buscarAlumnos(anyo.value, escuela.value)" type="button"
+       class="form-group mx-sm-2 btn btn-outline-primary mb-2">
+       <i class="fa fa-search"></i>
+        Buscar
+       </button> 
+    </div>
+
+    <div *ngIf="informealumnos.length>0" class="form-group col-md-2">
+        <button (click)="generarTablaPdf()" type="button" class="btn btn-outline-danger mb-2 ml-2">
+            <i class="fas fa-file-download"> Descargar Pdf </i>
+        </button>
+    </div>  
+  
+
+  </div>
+
+</form>
+
+
+<div *ngIf="!cargando && informealumnos.length == 0">
+  <app-noresultados></app-noresultados>
+</div>
+
+<div *ngIf="cargando">
+  <app-cargando></app-cargando>
+</div>
+
+<app-informealum-grid *ngIf="informealumnos.length>0" [informealumnos]="informealumnos">
+
+</app-informealum-grid>
+
+<!-- 
+<app-expedientes-grid *ngIf="expedientes.length>0" [expedientes]="expedientes">
+</app-expedientes-grid> -->
+
+

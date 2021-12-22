@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 
-
 import { HttpClientModule } from '@angular/common/http';
 //TRABAJAR CON FORMULARIOS
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+
+// DATEPIPE
+import { DatePipe } from '@angular/common';
 
 // IMPORTAR EL ROUTING
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +31,7 @@ import { PagesModule } from './pages/pages.module';
     ComponentsModule,
     PagesModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
