@@ -21,7 +21,7 @@ export class AlumnosComponent implements OnInit {
   public informealumnos : InformeAlumnosInterface[] = [];
   escuelas: EscuelasInterface[] = [];
   nombre_escuela : string;
-
+  anyo_informe : string = "";
 
   constructor(private escuelaService : EscuelasService, private datePipe : DatePipe) { }
 
@@ -37,7 +37,7 @@ export class AlumnosComponent implements OnInit {
   buscarAlumnos(anyo : string, cod_escuela : string) {
     
     this.nombre_escuela = this.escuelas[cod_escuela].DESC_ESCUELA;
-
+    this.anyo_informe = anyo;
     if ((anyo.length>3)) {
       this.escuelaService.getAlumnosEscuelaAnyo(cod_escuela,anyo)
           .subscribe( (resp: InformeAlumnosInterface[]) =>{
@@ -75,14 +75,14 @@ generarTablaPdf(){
   
   var pdf = new jsPDF({ orientation : 'landscape', });
   pdf.setFont("courier", "bold");
-  pdf.setFontSize(18);
+  pdf.setFontSize(16);
 
-  let titulo = "Listado Alumnos " + this.nombre_escuela; // + this.nombre_mercadillo;
-  pdf.text(titulo, 45 , 15);
+  let titulo = this.nombre_escuela +  " Año Academico :" + this.anyo_informe; // + this.nombre_mercadillo;
+  pdf.text(titulo, 35 , 15);
   //Poner una linea debajo
   const textWidth = pdf.getTextWidth(titulo);
   pdf.setLineWidth(0.7);
-  pdf.line(45,17,45 + textWidth , 17);
+  pdf.line(35,17,35 + textWidth , 17);
  
   (pdf as any).autoTable({
     head: header,
