@@ -11,7 +11,7 @@ import { InformeAlumnosInterface } from '../interfaces/informe-response';
 import { ExpedienteModel } from '../models/expediente.model';
 
 // TABLAS AUXILIARES
-import { EscuelasInterface, ParentescoInterface, CursosInterface, VariacionesInterface } from '../interfaces/auxiliares-response';
+import { EscuelasInterface, ParentescoInterface, CursosInterface, VariacionesInterface, MesesInterface } from '../interfaces/auxiliares-response';
 import { MatriculaModel } from '../models/matricula.model';
 
 
@@ -43,6 +43,10 @@ getCursos() : Observable<CursosInterface[]>{
 getVariaciones() : Observable<VariacionesInterface[]> {
   return this.http.get<VariacionesInterface[]>(`${this.baseUrl}/variaciones`);
 } 
+
+getMeses() : Observable<MesesInterface[]> {
+  return this.http.get<MesesInterface[]>(`${this.baseUrl}/meses`);
+}
 
 // ---------------   FIN RELLANAR COMBOX --------------------------------------------
 

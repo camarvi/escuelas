@@ -18,3 +18,9 @@ export interface VariacionesInterface {
     DESC_VARIACION: string;
 }
 
+export interface MesesInterface {
+    COD_MES: number;
+    DES_MES: string;
+}
+
+

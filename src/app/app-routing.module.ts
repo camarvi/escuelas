@@ -10,6 +10,7 @@ import { TutoralumComponent } from './pages/alumnos/tutoralum/tutoralum.componen
 import { DetalleExpComponent } from './pages/expediente/detalle-exp/detalle-exp.component';
 // LISTADOS
 import { AlumnosComponent } from './pages/informes/alumnos/alumnos.component';
+import { RecibosComponent } from './pages/informes/recibos/recibos.component';
 
 const routes : Routes=[
   { path: 'home', component: HomeComponent },
@@ -20,6 +21,7 @@ const routes : Routes=[
   { path: 'detalle_exp/:numexp', component : DetalleExpComponent },
   { path: 'detalle_exp/:numexp/:codtutor' , component : DetalleExpComponent },
   { path: 'listadoalumnos' , component: AlumnosComponent },
+  { path: 'recibos' , component : RecibosComponent},
   { path: '**', redirectTo : '/home' }
 
 ];
