@@ -22,6 +22,7 @@ export class AlumnosComponent implements OnInit {
   escuelas: EscuelasInterface[] = [];
   nombre_escuela : string;
   anyo_informe : string = "";
+  anyo_actual : string;
 
   constructor(private escuelaService : EscuelasService, private datePipe : DatePipe) { }
 
@@ -31,12 +32,18 @@ export class AlumnosComponent implements OnInit {
           this.escuelas = resp;
           console.log(this.escuelas);
         });
+    let hoy : Date = new Date(); 
+    this.anyo_actual = hoy.getFullYear().toString();     
 
   }
 
   buscarAlumnos(anyo : string, cod_escuela : string) {
-    
-    this.nombre_escuela = this.escuelas[cod_escuela].DESC_ESCUELA;
+   
+    console.log("Dentro de Buscar Alumnos");
+    console.log(anyo);
+    console.log("Codigo escuela " + cod_escuela);
+    let indice = Number(cod_escuela) - 1;
+    this.nombre_escuela = this.escuelas[indice].DESC_ESCUELA;
     this.anyo_informe = anyo;
     if ((anyo.length>3)) {
       this.escuelaService.getAlumnosEscuelaAnyo(cod_escuela,anyo)

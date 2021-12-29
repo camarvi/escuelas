@@ -27,7 +27,7 @@ export class RecibosComponent implements OnInit {
         });
     let hoy : Date = new Date(); 
     this.anyo_actual = hoy.getFullYear().toString();   
-    console.log(this.anyo_actual);
+    
   }
 
   generarRecibos(anyo : string, cod_mes : string) {
