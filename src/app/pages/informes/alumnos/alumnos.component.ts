@@ -39,17 +39,20 @@ export class AlumnosComponent implements OnInit {
 
   buscarAlumnos(anyo : string, cod_escuela : string) {
    
-    console.log("Dentro de Buscar Alumnos");
-    console.log(anyo);
-    console.log("Codigo escuela " + cod_escuela);
+    //console.log("Dentro de Buscar Alumnos");
+    //console.log(anyo);
+    //console.log("Codigo escuela " + cod_escuela);
+    this.cargando = true;
+    
     let indice = Number(cod_escuela) - 1;
     this.nombre_escuela = this.escuelas[indice].DESC_ESCUELA;
     this.anyo_informe = anyo;
     if ((anyo.length>3)) {
       this.escuelaService.getAlumnosEscuelaAnyo(cod_escuela,anyo)
           .subscribe( (resp: InformeAlumnosInterface[]) =>{
-             console.log(resp); 
+            // console.log(resp); 
              this.informealumnos = resp;
+             this.cargando = false; 
           });
     }  
   }

@@ -7,6 +7,7 @@ import { TutorInterface } from '../interfaces/tutor-response';
 import { ExpedienteInterface } from '../interfaces/expediente-response';
 import { MatriculasInterface } from '../interfaces/matricula-response';
 import { InformeAlumnosInterface } from '../interfaces/informe-response';
+import { ReciboInterface } from '../interfaces/recibo-response';
 // MODELS
 import { ExpedienteModel } from '../models/expediente.model';
 
@@ -150,5 +151,12 @@ getAlumnosEscuelaAnyo(escuela : string, anyo : string) : Observable<InformeAlumn
   return this.http.get<InformeAlumnosInterface[]>(`${this.baseUrl}/listadoalumnos/${escuela}/${anyo}`);
 }
 
+
+//************************** RECIBOS EN PDF  ****************************/
+
+getRecibosEscuela(fecha: string, anyo:string) : Observable<ReciboInterface[]> {
+  //return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/01_09_2021/2021`)
+  return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/${fecha}/${anyo}`);
+}
 
 }

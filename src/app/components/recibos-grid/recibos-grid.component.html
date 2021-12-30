@@ -1,0 +1,31 @@
+
+<div class="mt-2" id="htmlData">
+    <table  *ngIf="recibosAlumnos.length > 0"  class="table table-bordered table-striped">
+        <thead class="thead-primary">
+        <!--  <tr class="d-flex"> -->
+          <tr class="table-primary">    
+            <th scope="col">Dni</th>
+            <th scope="col">Tutor</th>
+            <th scope="col">Alumno</th>
+            <th scope="col">Periodo</th>
+            <th scope="col">Ref</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Importe</th>
+        
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let recibo of recibosAlumnos">
+            <td >{{ recibo.NIF }}</td>  
+            <td >{{ recibo.NOMBRE_TUTOR }}</td>
+            <td >{{ recibo.NOMBRE_ALUMNO }}</td>
+            <td >{{ periodo }}</td>
+            <td >{{ recibo.NUM_EXPEDIENTE }}</td>   
+            <td >{{ recibo.DESC_CURSO }}</td>
+            <td >{{ recibo.CUOTA }}</td>     
+          </tr>
+        </tbody>
+      </table>
+</div>
+ 
+

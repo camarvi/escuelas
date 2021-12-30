@@ -1,12 +1,12 @@
 <div *ngIf="expediente.COD_TUTOR>0" class="container-fluid mt-2">
 
-  <div class="mt-3 text-center text-capitalize font-weight-bold">
+  <div class="mt-3 text-center text-capitalize font-weight-bold" style="background-color:#E2E8E8">
     <h5>DATOS TUTOR</h5>
     <h5> {{ dniTutor | uppercase }} - {{ nombreTutor | uppercase }} </h5>
   </div>
 
 
-  <form class="mt-1" (ngSubmit)="guardar(f)" #f="ngForm">
+  <form class="mt-1" (ngSubmit)="guardar(f)" #f="ngForm" >
 
     <!-- BOTONES  -->
     <div class="text-center mb-2">
@@ -146,7 +146,7 @@
 
   <!--  LISTA MATRICULAS DEL ALUMNO  -->
 
-  <div class="mb-2 text-center text-capitalize font-weight-bold">
+  <div class="mb-2 text-center text-capitalize font-weight-bold" style="background-color:#a6b1b1 ">
      <!--  <h4>MATRICULAS</h4>   -->
     MATRICULAS DEL EXPEDIENTE
   </div>
@@ -163,7 +163,7 @@
     </div> 
   </div> -->
 
-<form class="mb-3" (ngSubmit)="guardarMatricula(miFor)" #miFor="ngForm">
+<form class="mb-3" (ngSubmit)="guardarMatricula(miFor)" #miFor="ngForm" >
 
     <div class="form-row">
       <div class="form-group col-md-2">
@@ -192,33 +192,9 @@
         <input type="number" class="form-control" #cuota="ngModel" name="cuota" [(ngModel)]="nuevaMatricula.CUOTA_MES">
     </div>
 
-      <!-- <div *ngIf="nuevaMatricula.COD_MATRICULA===0" class="form-group col-md-2 ml-1 ">
-        <label class="font-italic font-weight-bold">Operaciones</label>
-        <button type="submit" class="col btn btn-outline-primary">
-          <i class="fas fa-plus-square"></i>
-          Guardar
-        </button>
-      </div>
-      <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="form-group col-md-2 ml-1">
-        <label class="font-italic font-weight-bold">Operaciones</label>
-        <button type="submit" class="col btn btn-outline-primary">
-          <i class="far fa-edit"></i>
-          Editar
-        </button>
-        <button type="submit" class="col btn btn-outline-primary">
-          <i class="far fa-edit"></i>
-          Limpiar
-        </button>
-      </div>
- -->
-
-
-
-
-
       <div class="row ml-2 mt-1">
         <label class="font-italic font-weight-bold">OPERACIONES</label>
-        <div *ngIf="nuevaMatricula.COD_MATRICULA===0"  class="col">
+        <div *ngIf="nuevaMatricula.COD_MATRICULA===0 && expediente.NUM_EXPEDIENTE>0"  class="col">
           <br>
           <button type="submit" class="col btn btn-outline-success">
             <i class="fas fa-plus-square"></i>     
@@ -228,8 +204,7 @@
         <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="col">
           <br>
           <button type="submit" class="col btn btn-outline-primary">
-            <i class="far fa-edit"></i>
-            
+            <i class="far fa-edit"></i>      
           </button>
         </div>
   

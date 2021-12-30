@@ -199,6 +199,7 @@ export class DetalleExpComponent implements OnInit {
       peticion = this.escuelaService.newExpediente(miExpediente);
       //Al insertar el registro, ya lo puedo editar
       this.editarExp = true;
+      //this.numexp = this.expediente.NUM_EXPEDIENTE.toString();
     }
 
     peticion.subscribe((resp) => {
@@ -238,14 +239,14 @@ export class DetalleExpComponent implements OnInit {
 
     let peticion : Observable<any>;
 
-    if (this.nuevaMatricula.COD_MATRICULA!==0){
+    if (this.nuevaMatricula.COD_MATRICULA!==0 ){
       console.log("Modificando Matricula");
       peticion = this.escuelaService.updateMatriculaId(this.nuevaMatricula);
     //  peticion = this.escuelaService (modificaMatricula)  
       
     } else { //NUEVO REGISTRO
       console.log("Alta nueva Matricula");
-      this.nuevaMatricula.NUM_EXPEDIENTE = Number(this.numexp);
+      this.nuevaMatricula.NUM_EXPEDIENTE = this.expediente.NUM_EXPEDIENTE; // Number(this.numexp);
       peticion = this.escuelaService.newMatricula(this.nuevaMatricula);
     //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
    

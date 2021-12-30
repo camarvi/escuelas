@@ -9,6 +9,7 @@ import { CargandoComponent } from './cargando/cargando.component';
 import { MatriculasGridComponent } from './matriculas-grid/matriculas-grid.component';
 import { ExpedientesGridComponent } from './expedientes-grid/expedientes-grid.component';
 import { InformealumGridComponent } from './informealum-grid/informealum-grid.component';
+import { RecibosGridComponent } from './recibos-grid/recibos-grid.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { InformealumGridComponent } from './informealum-grid/informealum-grid.co
     CargandoComponent,
     MatriculasGridComponent,
     ExpedientesGridComponent,
-    InformealumGridComponent
+    InformealumGridComponent,
+    RecibosGridComponent
   ],
   exports : [
     NavbarComponent,
@@ -28,7 +30,8 @@ import { InformealumGridComponent } from './informealum-grid/informealum-grid.co
     CargandoComponent,
     MatriculasGridComponent,
     ExpedientesGridComponent,
-    InformealumGridComponent
+    InformealumGridComponent,
+    RecibosGridComponent
   ],
   imports: [
     CommonModule,

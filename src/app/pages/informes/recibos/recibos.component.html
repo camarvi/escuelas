@@ -1,45 +1,68 @@
-<h3 class="mb-4 text-center">Generacion de Recibos</h3>
 
-<form class="mb-4 mt-2">
+
+<h3 class="mb-5 text-center mx-auto">Generaci&oacute;n de Recibos</h3>
+
+
+<form class="mb-3">
   <div class="form-row">
-    <div class="form-group col-md-2">
-      <label class="font-italic font-weight-bold">Ejercicio</label>
+    <label class="font-italic font-weight-bold mr-1">Ejercicio</label>
+    <div class="form-group col-md-1 mr-2">
       <input #ejercicio type="number" class="form-control" placeholder="Año academico" value="{{anyo_actual}}">
     </div>
-
-    <div class="form-group col-md-2">
-        <label class="font-italic font-weight-bold">Mes Recibo</label>
-        <select class="form-control" 
-        #mes
-        name = "mes">
-        <option [value]="mes.COD_MES" *ngFor="let mes of meses;let i = index">
-            {{mes.DES_MES}}
-        </option>
-      </select>
-    </div>
+    <!-- <div class="form-group col-md-3">
+      <label class="sr-only">Escuela</label>
+      <input #escuela type="text" class="form-control" placeholder="Escuela">
+    </div> -->
+    <label class="font-italic font-weight-bold mr-1">Mes Recibo</label>
+    <div class="form-group col-md-2 mr-2">
+      
+      <select class="form-control" 
+      #mes
+      name = "mes">
+      <option [value]="mes.COD_MES" *ngFor="let mes of meses;let i = index">
+          {{mes.DES_MES}}
+      </option>
+    </select>
     
-    <div class="form-group col-md-2">
-        <label class="font-italic font-weight-bold">Año de cargo</label>
-        <input #anyocargo type="number" class="form-control" placeholder="Año de cargo" value="{{anyo_actual}}">
-      </div>
-
-    <div class="form-group col-md-2">
-        <label class="font-italic font-weight-bold">Operaciones</label>
-       <button (click)="generarRecibos(ejercicio.value, mes.value)" type="button"
-       class="form-group mx-sm-2 btn btn-outline-primary">
-       <i class="far fa-file-alt"></i>
-        Generar
-       </button> 
     </div>
-
-    <!-- <div *ngIf="informealumnos.length>0" class="form-group col-md-2">
-        <button (click)="generarTablaPdf()" type="button" class="btn btn-outline-danger mb-2 ml-2">
-            <i class="fas fa-file-download"> Descargar Pdf </i>
-        </button>
-    </div>   -->
+    <label class="font-italic font-weight-bold mr-1">Año de cargo</label>
+    <div class="form-group col-md-1 mr-2">
+     
+      <input #anyocargo type="number" class="form-control" placeholder="Año de cargo" value="{{anyo_actual}}">
+  </div>
+ 
+  <div class="form-group col-md-4">
+   
+     <button (click)="generarRecibos(ejercicio.value, mes.value)" type="button"
+     class="form-group mx-sm-2 btn btn-outline-primary mr-2">
+     <i class="far fa-file-alt"></i>
+      Generar
+     </button> 
+     <button *ngIf="recibosAlumnos.length>0" (click)="generarTablaPdf()" type="button" 
+      class="form-group btn btn btn-outline-danger ">
+      <i class="fas fa-file-download">  Pdf </i>
+  </button>
+    
+  </div>
   
 
   </div>
 
 </form>
+
+
+
+
+
+
+<div *ngIf="!cargando && recibosAlumnos.length == 0">
+  <app-noresultados></app-noresultados>
+</div>
+
+<div *ngIf="cargando">
+  <app-cargando></app-cargando>
+</div>
+
+<app-recibos-grid *ngIf="recibosAlumnos.length>0" [recibosAlumnos]="recibosAlumnos" [periodo]="periodo"></app-recibos-grid>
+
 
