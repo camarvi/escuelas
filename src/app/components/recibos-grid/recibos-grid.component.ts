@@ -13,10 +13,12 @@ export class RecibosGridComponent implements OnInit {
 
   @Input() recibosAlumnos! : ReciboInterface[];
   @Input() periodo! : string;
-
+  
   constructor() { }
 
   ngOnInit(): void {
+     
+
   }
 
 }
