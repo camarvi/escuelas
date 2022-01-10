@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { EscuelasService } from '../../../services/escuelas.service';
 // IMPORTAR INTERFACE
 import { MesesInterface } from '../../../interfaces/auxiliares-response';
-import { ReciboInterface } from '../../../interfaces/recibo-response';
+import { ReciboInterface, ReciboTxtInterface } from '../../../interfaces/recibo-response';
 
 // GENERAR PDF
 import jsPDF from 'jspdf';
@@ -65,6 +65,57 @@ export class RecibosComponent implements OnInit {
         })
 
   }
+
+
+  generarReciboTxt(anyo : string, cod_mes : string) {
+    
+    this.cargando = false; //true;
+    let fecha_busqueda : string;
+    let indice : number;
+    
+    let date = new Date(parseInt(anyo),parseInt(cod_mes)-1,1);
+
+    var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+    var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    let anyoFecha = primerDia.getFullYear();
+    let mesFecha = (primerDia.getMonth() + 1).toString();
+  
+    // console.log('primerDiayear ' + anyoFecha);
+    // console.log('primerDiamonth ' + mesFecha);
+    // console.log('UltimaDia ' + ultimoDia.getDate());
+
+   if (mesFecha.length<2){
+     mesFecha = '0' + mesFecha;
+   }
+    
+    let finicio =  anyoFecha + mesFecha + '01';
+    let ffin =  anyoFecha + mesFecha + ultimoDia.getDate();
+ 
+   
+    indice = Number(cod_mes) -1;
+    
+    if (cod_mes.length>1){
+      fecha_busqueda = '01_' + cod_mes + '_' + anyo
+    } else {
+      fecha_busqueda = '01_0' + cod_mes + '_' + anyo
+    }
+
+    console.log("Fecha Busqueda :" + fecha_busqueda);
+    console.log("ANYO : " + anyo);
+    console.log("MES : " + this.meses[indice].DES_MES.toUpperCase());
+    
+    console.log("primerDia : " + finicio  );
+    console.log("ultimoDia : " + ffin  );
+
+    this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
+      this.meses[indice].DES_MES.toUpperCase())
+          .subscribe( (resp : ReciboTxtInterface[]) => {
+              console.log(resp);
+          }); 
+
+  }
+
 
   generarTablaPdf() {
     console.log("Dentro de generar Tabla PDF");

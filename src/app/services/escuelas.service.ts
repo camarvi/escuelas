@@ -7,7 +7,7 @@ import { TutorInterface } from '../interfaces/tutor-response';
 import { ExpedienteInterface } from '../interfaces/expediente-response';
 import { MatriculasInterface } from '../interfaces/matricula-response';
 import { InformeAlumnosInterface } from '../interfaces/informe-response';
-import { ReciboInterface } from '../interfaces/recibo-response';
+import { ReciboInterface, ReciboTxtInterface } from '../interfaces/recibo-response';
 // MODELS
 import { ExpedienteModel } from '../models/expediente.model';
 
@@ -157,6 +157,12 @@ getAlumnosEscuelaAnyo(escuela : string, anyo : string) : Observable<InformeAlumn
 getRecibosEscuela(fecha: string, anyo:string) : Observable<ReciboInterface[]> {
   //return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/01_09_2021/2021`)
   return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/${fecha}/${anyo}`);
+}
+
+getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string) : Observable<ReciboTxtInterface[]> {
+
+  // Parametros :  2021/MAYO/20210501/20210531/01_12_2021
+  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}`);
 }
 
 }
