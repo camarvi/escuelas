@@ -159,10 +159,10 @@ getRecibosEscuela(fecha: string, anyo:string) : Observable<ReciboInterface[]> {
   return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/${fecha}/${anyo}`);
 }
 
-getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string) : Observable<ReciboTxtInterface[]> {
+getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string, anyocargo:string) : Observable<ReciboTxtInterface[]> {
 
   // Parametros :  2021/MAYO/20210501/20210531/01_12_2021
-  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}`);
+  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}/${anyocargo}`);
 }
 
 }

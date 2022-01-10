@@ -67,7 +67,7 @@ export class RecibosComponent implements OnInit {
   }
 
 
-  generarReciboTxt(anyo : string, cod_mes : string) {
+  generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string) {
     
     this.cargando = false; //true;
     let fecha_busqueda : string;
@@ -109,7 +109,7 @@ export class RecibosComponent implements OnInit {
     console.log("ultimoDia : " + ffin  );
 
     this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
-      this.meses[indice].DES_MES.toUpperCase())
+      this.meses[indice].DES_MES.toUpperCase(),anyocargo)
           .subscribe( (resp : ReciboTxtInterface[]) => {
               console.log(resp);
           }); 

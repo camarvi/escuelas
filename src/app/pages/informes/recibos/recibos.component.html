@@ -38,10 +38,10 @@
      <i class="far fa-file-alt"></i>
       Generar
      </button> 
-     <button (click)="generarReciboTxt(ejercicio.value, mes.value)" type="button"
-     class="form-group mx-sm-2 btn btn-outline-primary mr-2">
+     <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
+     class="form-group mx-sm-2 btn btn-outline-success mr-2">
      <i class="far fa-file-alt"></i>
-      Fichero Txt
+      Descargar Txt
      </button> 
      <button *ngIf="recibosAlumnos.length>0" (click)="generarTablaPdf()" type="button" 
       class="form-group btn btn btn-outline-danger ">
