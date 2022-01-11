@@ -164,5 +164,5 @@ getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string,
   // Parametros :  2021/MAYO/20210501/20210531/01_12_2021
   return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}/${anyocargo}`);
 }
-
+   
 }

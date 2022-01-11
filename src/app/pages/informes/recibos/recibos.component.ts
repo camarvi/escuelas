@@ -10,6 +10,9 @@ import { ReciboInterface, ReciboTxtInterface } from '../../../interfaces/recibo-
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
+// GENERAR TXT
+import { DomSanitizer } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-recibos',
   templateUrl: './recibos.component.html',
@@ -20,10 +23,16 @@ export class RecibosComponent implements OnInit {
   meses : MesesInterface[] = [];
   anyo_actual : string;
   periodo : string;
+
+  public lineasRecibos : ReciboTxtInterface[] = [];
+
   public cargando : boolean = false;
   public recibosAlumnos : ReciboInterface[] = [];
+  fileUrl;
 
-  constructor(private escuelaService : EscuelasService, private datePipe : DatePipe) { }
+  constructor(private escuelaService : EscuelasService, 
+              private datePipe : DatePipe,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.escuelaService.getMeses()
@@ -67,8 +76,12 @@ export class RecibosComponent implements OnInit {
   }
 
 
-  generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string) {
+  generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string)  {
     
+    let linea : string;
+    let lineasFichero : string = "";
+
+
     this.cargando = false; //true;
     let fecha_busqueda : string;
     let indice : number;
@@ -107,12 +120,83 @@ export class RecibosComponent implements OnInit {
     
     console.log("primerDia : " + finicio  );
     console.log("ultimoDia : " + ffin  );
+    let i : number;  
 
     this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
       this.meses[indice].DES_MES.toUpperCase(),anyocargo)
           .subscribe( (resp : ReciboTxtInterface[]) => {
-              console.log(resp);
+            this.lineasRecibos = resp;  
+            //console.log(this.lineasRecibos);
+
+            console.log("GENERAR LINEAS FICHERO");
+            console.log(this.lineasRecibos.length);  
+
+            if (this.lineasRecibos.length>0){
+              console.log("GENERANDO EL FOR");
+              for (i=0; i<this.lineasRecibos.length; i++){
+                linea = this.lineasRecibos[i].CAMPO1 + this.lineasRecibos[i].CAMPO2 +
+                   this.lineasRecibos[i].CAMPO3 + 
+                   this.lineasRecibos[i].CAMPO4 +
+                   this.lineasRecibos[i].CAMPO5 +
+                   this.lineasRecibos[i].CAMPO6 +
+                   this.lineasRecibos[i].CAMPO7 +
+                   this.lineasRecibos[i].CAMPO8 +
+                   this.lineasRecibos[i].CAMPO9 +
+                   this.lineasRecibos[i].CAMPO10 +
+                   this.lineasRecibos[i].CAMPO11 +
+                   this.lineasRecibos[i].CAMPO12 +
+                   this.lineasRecibos[i].CAMPO14 +
+                   this.lineasRecibos[i].CAMPO15 +
+                   this.lineasRecibos[i].CAMPO16 +
+                   this.lineasRecibos[i].CAMPO17 +
+                   this.lineasRecibos[i].CAMPO18 +
+                   this.lineasRecibos[i].CAMPO19 +
+                   this.lineasRecibos[i].CAMPO20 +
+                   this.lineasRecibos[i].CAMPO21 +
+                   this.lineasRecibos[i].CAMPO22 +
+                   this.lineasRecibos[i].CAMPO23 +
+                   this.lineasRecibos[i].CAMPO24 + "\n";
+                //console.log(linea);
+                lineasFichero = lineasFichero + linea ;
+                
+              }
+              console.log("LINEAS FICHERO");
+              console.log(lineasFichero);
+              this.ficheroReciboTxt(lineasFichero);
+            }       
+
           }); 
+    
+  }
+
+
+  ficheroReciboTxt(contenido : string) {
+  
+    // console.log("Dentro de PruebaRecibo");
+    // console.log("AÑO : " + anyo);
+    // console.log("COD MES : " + cod_mes);
+    // console.log("ANYOCARGO : " + anyocargo);
+
+    const data = contenido;
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+
+  }
+
+
+
+  pruebaReciboTxtOLD(anyo : string, cod_mes : string, anyocargo : string) {
+  
+    // console.log("Dentro de PruebaRecibo");
+    // console.log("AÑO : " + anyo);
+    // console.log("COD MES : " + cod_mes);
+    // console.log("ANYOCARGO : " + anyocargo);
+
+    const data = 'some text';
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
 
   }
 

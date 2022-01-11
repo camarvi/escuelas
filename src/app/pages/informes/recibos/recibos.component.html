@@ -38,11 +38,30 @@
      <i class="far fa-file-alt"></i>
       Generar
      </button> 
+     
      <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
      class="form-group mx-sm-2 btn btn-outline-success mr-2">
      <i class="far fa-file-alt"></i>
       Descargar Txt
      </button> 
+     
+     <!-- <a [href]="fileUrl" download="fichero{{anyo_actual}}_mes.txt">
+      <button (click)="pruebaReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
+      class="form-group mx-sm-2 btn btn-outline-success mr-2">
+      <i class="far fa-file-alt"></i>
+       PRUEBA Txt
+      </button> 
+    </a> -->
+
+
+    <a [href]="fileUrl" download="fichero{{anyo_actual}}_mes.txt">
+      <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
+      class="form-group mx-sm-2 btn btn-outline-success mr-2">
+      <i class="far fa-file-alt"></i>
+       PRUEBA Txt
+      </button> 
+    </a>
+
      <button *ngIf="recibosAlumnos.length>0" (click)="generarTablaPdf()" type="button" 
       class="form-group btn btn btn-outline-danger ">
       <i class="fas fa-file-download">  Pdf </i>
