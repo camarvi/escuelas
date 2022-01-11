@@ -155,7 +155,8 @@ export class RecibosComponent implements OnInit {
                    this.lineasRecibos[i].CAMPO21 +
                    this.lineasRecibos[i].CAMPO22 +
                    this.lineasRecibos[i].CAMPO23 +
-                   this.lineasRecibos[i].CAMPO24 + "\n";
+                   this.lineasRecibos[i].CAMPO24 +
+                   this.lineasRecibos[i].CAMPO25 + "\n";
                 //console.log(linea);
                 lineasFichero = lineasFichero + linea ;
                 

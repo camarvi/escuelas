@@ -39,6 +39,6 @@ export interface ReciboTxtInterface {
     CAMPO22 : string;
     CAMPO23 : string;
     CAMPO24 : string;
-
+    CAMPO25 : string;
 
 }
