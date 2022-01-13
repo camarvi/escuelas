@@ -24,6 +24,15 @@ export class RecibosComponent implements OnInit {
   anyo_actual : string;
   periodo : string;
 
+
+  // lineaOk = `202104013EI01R000001V2021MAYO                          75711460Z CASTILLO IDAÑEZ ABEL                                        CLACUARIO                                                                         00002               ALMERIA                                                               ALMERIA                       0413000000ESCUELAS INFANTILES MUNICIPALES, CURSO ALUMNOS 2 AÑOS                           1532          000001952200000000000000000000000001952200000000000000000000000000000000000000                                                                     000000000000000000000000000000000000  00000000  202105012021053100000000**0000000000                                                                      000000002ESCUELAS INFANTILES MUNICIPALES                                                 USUARIO: CASTILLO SEGURA ENZO                                                   PERIODO: MAYO 2021     REFERENCIA: 1532  CURSO: ALUMNOS 2 AÑOS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+  // `;
+
+  // lineaMia = `202104013EI01R000001V2021MAYO                          Y1925709W DNIBI TIJANI                                                CAJOSE GALERA BALAZOTE                                                            00029       BJ      ALMERIA                       ALMERIA                                 ALMERIA                       0413000000ESCUELAS INFANTILES MUNICIPALES, CURSO ALUMNOS 2 AÑOS                           1769          000000557700000000000000000000000000557700000000000000000000000000000000000000                                                                     000000000000000000000000000000000000  00000000  202105012021053100000000**0000000000                                                                      000000002ESCUELAS INFANTILES MUNICIPALES                                                 USUARIO: DNIBI BARAA                                                            PERIODO: MAYO 2021     REFERENCIA: 1769  CURSO: ALUMNOS 2 AÑOS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+  // `;
+
+
+
   public lineasRecibos : ReciboTxtInterface[] = [];
 
   public cargando : boolean = false;
@@ -35,11 +44,16 @@ export class RecibosComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+
+   
+
     this.escuelaService.getMeses()
         .subscribe( (resp : MesesInterface[])=>{
           this.meses = resp;
           console.log("Listado Meses");
-          console.log(this.meses);
+         // console.log(this.meses);
+          // console.log("LINEAOK : " + this.lineaOk.length);
+          // console.log("LINEAMIA : " + this.lineaMia.length);
         });
     let hoy : Date = new Date(); 
     this.anyo_actual = hoy.getFullYear().toString();   
@@ -161,9 +175,9 @@ export class RecibosComponent implements OnInit {
                 lineasFichero = lineasFichero + linea ;
                 
               }
-              console.log("LINEAS FICHERO");
-              console.log(lineasFichero);
-              this.ficheroReciboTxt(lineasFichero);
+              //console.log("LINEAS FICHERO");
+              //console.log(lineasFichero);
+            this.ficheroReciboTxt(lineasFichero);
             }       
 
           }); 
@@ -171,7 +185,7 @@ export class RecibosComponent implements OnInit {
   }
 
 
-  ficheroReciboTxt(contenido : string) {
+  async ficheroReciboTxt (contenido : string) {
   
     // console.log("Dentro de PruebaRecibo");
     // console.log("AÑO : " + anyo);
@@ -179,7 +193,10 @@ export class RecibosComponent implements OnInit {
     // console.log("ANYOCARGO : " + anyocargo);
 
     const data = contenido;
-    const blob = new Blob([data], { type: 'application/octet-stream' });
+  //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
+    const blob = new Blob([data], { type: 'text/plain;charset=ansi;' });
+
+   // application/json  text/plain
 
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
 
