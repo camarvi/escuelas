@@ -13,6 +13,10 @@ import 'jspdf-autotable';
 // GENERAR TXT
 import { DomSanitizer } from '@angular/platform-browser';
 
+import Swal from 'sweetalert2';
+
+
+
 @Component({
   selector: 'app-recibos',
   templateUrl: './recibos.component.html',
@@ -23,15 +27,6 @@ export class RecibosComponent implements OnInit {
   meses : MesesInterface[] = [];
   anyo_actual : string;
   periodo : string;
-
-
-  // lineaOk = `202104013EI01R000001V2021MAYO                          75711460Z CASTILLO IDAÑEZ ABEL                                        CLACUARIO                                                                         00002               ALMERIA                                                               ALMERIA                       0413000000ESCUELAS INFANTILES MUNICIPALES, CURSO ALUMNOS 2 AÑOS                           1532          000001952200000000000000000000000001952200000000000000000000000000000000000000                                                                     000000000000000000000000000000000000  00000000  202105012021053100000000**0000000000                                                                      000000002ESCUELAS INFANTILES MUNICIPALES                                                 USUARIO: CASTILLO SEGURA ENZO                                                   PERIODO: MAYO 2021     REFERENCIA: 1532  CURSO: ALUMNOS 2 AÑOS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-  // `;
-
-  // lineaMia = `202104013EI01R000001V2021MAYO                          Y1925709W DNIBI TIJANI                                                CAJOSE GALERA BALAZOTE                                                            00029       BJ      ALMERIA                       ALMERIA                                 ALMERIA                       0413000000ESCUELAS INFANTILES MUNICIPALES, CURSO ALUMNOS 2 AÑOS                           1769          000000557700000000000000000000000000557700000000000000000000000000000000000000                                                                     000000000000000000000000000000000000  00000000  202105012021053100000000**0000000000                                                                      000000002ESCUELAS INFANTILES MUNICIPALES                                                 USUARIO: DNIBI BARAA                                                            PERIODO: MAYO 2021     REFERENCIA: 1769  CURSO: ALUMNOS 2 AÑOS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-  // `;
-
-
 
   public lineasRecibos : ReciboTxtInterface[] = [];
 
@@ -45,15 +40,11 @@ export class RecibosComponent implements OnInit {
 
   ngOnInit(): void {
 
-   
-
     this.escuelaService.getMeses()
         .subscribe( (resp : MesesInterface[])=>{
           this.meses = resp;
           console.log("Listado Meses");
-         // console.log(this.meses);
-          // console.log("LINEAOK : " + this.lineaOk.length);
-          // console.log("LINEAMIA : " + this.lineaMia.length);
+  
         });
     let hoy : Date = new Date(); 
     this.anyo_actual = hoy.getFullYear().toString();   
@@ -61,10 +52,7 @@ export class RecibosComponent implements OnInit {
   }
 
   generarRecibos(anyo : string, cod_mes : string) {
-    
-    // console.log("Dentro de Generar Recibos");
-    // console.log("Anyo : " + anyo);
-    // console.log("Mes periodo : " + cod_mes);
+
     this.cargando = true;
     let fecha_busqueda : string;
     let indice : number;
@@ -95,7 +83,6 @@ export class RecibosComponent implements OnInit {
     let linea : string;
     let lineasFichero : string = "";
 
-
     this.cargando = false; //true;
     let fecha_busqueda : string;
     let indice : number;
@@ -118,7 +105,7 @@ export class RecibosComponent implements OnInit {
     
     let finicio =  anyoFecha + mesFecha + '01';
     let ffin =  anyoFecha + mesFecha + ultimoDia.getDate();
- 
+    let nombre_fichero = "Recibos_" + cod_mes + "_" + anyo + ".txt";
    
     indice = Number(cod_mes) -1;
     
@@ -128,25 +115,26 @@ export class RecibosComponent implements OnInit {
       fecha_busqueda = '01_0' + cod_mes + '_' + anyo
     }
 
-    console.log("Fecha Busqueda :" + fecha_busqueda);
-    console.log("ANYO : " + anyo);
-    console.log("MES : " + this.meses[indice].DES_MES.toUpperCase());
+    // console.log("Fecha Busqueda :" + fecha_busqueda);
+    // console.log("ANYO : " + anyo);
+    // console.log("MES : " + this.meses[indice].DES_MES.toUpperCase());
     
-    console.log("primerDia : " + finicio  );
-    console.log("ultimoDia : " + ffin  );
+    // console.log("primerDia : " + finicio  );
+    // console.log("ultimoDia : " + ffin  );
     let i : number;  
 
+   if (Number(cod_mes)>0 && Number(cod_mes)<7) {  
     this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
       this.meses[indice].DES_MES.toUpperCase(),anyocargo)
           .subscribe( (resp : ReciboTxtInterface[]) => {
             this.lineasRecibos = resp;  
             //console.log(this.lineasRecibos);
 
-            console.log("GENERAR LINEAS FICHERO");
-            console.log(this.lineasRecibos.length);  
+            // console.log("GENERAR LINEAS FICHERO");
+            // console.log(this.lineasRecibos.length);  
 
             if (this.lineasRecibos.length>0){
-              console.log("GENERANDO EL FOR");
+            //  console.log("GENERANDO EL FOR");
               for (i=0; i<this.lineasRecibos.length; i++){
                 linea = this.lineasRecibos[i].CAMPO1 + this.lineasRecibos[i].CAMPO2 +
                    this.lineasRecibos[i].CAMPO3 + 
@@ -177,28 +165,42 @@ export class RecibosComponent implements OnInit {
               }
               //console.log("LINEAS FICHERO");
               //console.log(lineasFichero);
-            this.ficheroReciboTxt(lineasFichero);
+            this.ficheroReciboTxt(lineasFichero,nombre_fichero,Number(cod_mes));
             }       
 
-          }); 
-    
+          });  
+   }  else {
+      Swal.fire({
+        title : "Error",
+        text : 'El periodo no es valido..',
+        icon : 'warning'
+      });
+    }
+
   }
 
 
-  async ficheroReciboTxt (contenido : string) {
+  ficheroReciboTxt (contenido : string, nombre_fichero : string, mes : number) {
   
-    // console.log("Dentro de PruebaRecibo");
-    // console.log("AÑO : " + anyo);
-    // console.log("COD MES : " + cod_mes);
-    // console.log("ANYOCARGO : " + anyocargo);
-
-    const data = contenido;
-  //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
-    const blob = new Blob([data], { type: 'text/plain;charset=ansi;' });
-
-   // application/json  text/plain
-
+  
+      console.log(nombre_fichero);
+      const data = contenido;
+     //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
+    const blob = new Blob([data], { type: 'text/plain;charset=ansi' });
+    
+     // application/json  text/plain
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    
+
+  //++++++++++++++ CODIGO QUE ESTA PENDIENTE DE COMPROBAR +++++++++++++++++++++
+
+  // npm install @types/file-saver --save-dev
+  //   var FileSaver = require('file-saver');
+  //   var blob2 = new Blob([data], {type: "text/plain;charset=ansi"});
+  //   FileSaver.saveAs(blob2, nombre_fichero);
+  
+  // +++++++++++++++++  FIN CODIGO QUE ESTA PENDIENTE DE COMPROBAR ++++++++++++++++++++++ 
+
 
   }
 
