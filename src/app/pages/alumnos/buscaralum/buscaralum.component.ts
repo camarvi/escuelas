@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { ExpedienteInterface } from '../../../interfaces/expediente-response'; 
 // iIMPORTAR EL SERVICIO
