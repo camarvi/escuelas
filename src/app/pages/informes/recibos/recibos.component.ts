@@ -42,8 +42,7 @@ export class RecibosComponent implements OnInit {
 
     this.escuelaService.getMeses()
         .subscribe( (resp : MesesInterface[])=>{
-          this.meses = resp;
-          console.log("Listado Meses");
+          this.meses = resp;     
   
         });
     let hoy : Date = new Date(); 
@@ -123,16 +122,13 @@ export class RecibosComponent implements OnInit {
     // console.log("ultimoDia : " + ffin  );
     let i : number;  
 
-   if (Number(cod_mes)>0 && Number(cod_mes)<7) {  
+  // if ((Number(cod_mes)>0 && Number(cod_mes)<7)) {  
+  if (Number(cod_mes)!=8) {    
     this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
       this.meses[indice].DES_MES.toUpperCase(),anyocargo)
           .subscribe( (resp : ReciboTxtInterface[]) => {
             this.lineasRecibos = resp;  
-            //console.log(this.lineasRecibos);
-
-            // console.log("GENERAR LINEAS FICHERO");
-            // console.log(this.lineasRecibos.length);  
-
+          
             if (this.lineasRecibos.length>0){
             //  console.log("GENERANDO EL FOR");
               for (i=0; i<this.lineasRecibos.length; i++){
@@ -159,14 +155,16 @@ export class RecibosComponent implements OnInit {
                    this.lineasRecibos[i].CAMPO23 +
                    this.lineasRecibos[i].CAMPO24 +
                    this.lineasRecibos[i].CAMPO25 + "\n";
-                //console.log(linea);
+              
                 lineasFichero = lineasFichero + linea ;
                 
               }
-              //console.log("LINEAS FICHERO");
-              //console.log(lineasFichero);
-            this.ficheroReciboTxt(lineasFichero,nombre_fichero,Number(cod_mes));
-            }       
+           // CODIGO QUE FUNCIONA OK 
+          //  this.ficheroReciboTxt(lineasFichero,nombre_fichero,Number(cod_mes));
+
+          // PENDIENTE DE COMPROBAR
+              this.ficheroReciboTxt(lineasFichero,nombre_fichero); 
+          }       
 
           });  
    }  else {
@@ -180,46 +178,49 @@ export class RecibosComponent implements OnInit {
   }
 
 
-  ficheroReciboTxt (contenido : string, nombre_fichero : string, mes : number) {
+  // ficheroReciboTxt (contenido : string, nombre_fichero : string, mes : number) {
   
   
-      console.log(nombre_fichero);
-      const data = contenido;
-     //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
+  //   console.log(nombre_fichero);
+  //   const data = contenido;
+  //    //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
+  //   const blob = new Blob([data], { type: 'text/plain;charset=ansi' });
+    
+  //    // application/json  text/plain
+  //   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    
+
+  // //++++++++++++++ CODIGO QUE ESTA PENDIENTE DE COMPROBAR +++++++++++++++++++++
+
+  // // npm install @types/file-saver --save-dev
+  // //   var FileSaver = require('file-saver');
+  // //   var blob2 = new Blob([data], {type: "text/plain;charset=ansi"});
+  // //   FileSaver.saveAs(blob2, nombre_fichero);
+  
+  // // +++++++++++++++++  FIN CODIGO QUE ESTA PENDIENTE DE COMPROBAR ++++++++++++++++++++++ 
+
+
+  // }
+
+
+  ficheroReciboTxt(contenido : string , nombre_fichero : string) {
+    
+    const data = contenido;
+    //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
     const blob = new Blob([data], { type: 'text/plain;charset=ansi' });
-    
-     // application/json  text/plain
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-    
+    let fileURL = URL.createObjectURL(blob);
 
-  //++++++++++++++ CODIGO QUE ESTA PENDIENTE DE COMPROBAR +++++++++++++++++++++
+    let a = document.createElement('a');
+    a.href = fileURL;
+    a.download = nombre_fichero;
 
-  // npm install @types/file-saver --save-dev
-  //   var FileSaver = require('file-saver');
-  //   var blob2 = new Blob([data], {type: "text/plain;charset=ansi"});
-  //   FileSaver.saveAs(blob2, nombre_fichero);
-  
-  // +++++++++++++++++  FIN CODIGO QUE ESTA PENDIENTE DE COMPROBAR ++++++++++++++++++++++ 
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(fileURL);
+    a.remove();
 
 
   }
-
-
-
-  pruebaReciboTxtOLD(anyo : string, cod_mes : string, anyocargo : string) {
-  
-    // console.log("Dentro de PruebaRecibo");
-    // console.log("AÑO : " + anyo);
-    // console.log("COD MES : " + cod_mes);
-    // console.log("ANYOCARGO : " + anyocargo);
-
-    const data = 'some text';
-    const blob = new Blob([data], { type: 'application/octet-stream' });
-
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-
-  }
-
 
   generarTablaPdf() {
     console.log("Dentro de generar Tabla PDF");

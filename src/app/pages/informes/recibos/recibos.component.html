@@ -54,14 +54,22 @@
       </button> 
     </a> -->
 
-
+<!-- 
     <a [href]="fileUrl" download="fichero{{anyo_actual}}_mes.txt">
       <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
       class="form-group mx-sm-2 btn btn-outline-success mr-2">
       <i class="far fa-file-alt"></i>
       Descargar Txt
       </button> 
-    </a>
+    </a> -->
+
+    
+    <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
+      class="form-group mx-sm-2 btn btn-outline-success mr-2">
+      <i class="far fa-file-alt"></i>
+      Descargar Txt
+    </button> 
+  
 
      <button *ngIf="recibosAlumnos.length>0" (click)="generarTablaPdf()" type="button" 
       class="form-group btn btn btn-outline-danger ">
