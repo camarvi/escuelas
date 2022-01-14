@@ -35,8 +35,8 @@ export class RecibosComponent implements OnInit {
   fileUrl;
 
   constructor(private escuelaService : EscuelasService, 
-              private datePipe : DatePipe,
-              private sanitizer: DomSanitizer) { }
+              private datePipe : DatePipe) { }
+            //  private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
