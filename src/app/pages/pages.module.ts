@@ -12,6 +12,7 @@ import { ListaexpedienteComponent } from './expediente/listaexpediente/listaexpe
 import { DetalleExpComponent } from './expediente/detalle-exp/detalle-exp.component';
 import { AlumnosComponent } from './informes/alumnos/alumnos.component';
 import { RecibosComponent } from './informes/recibos/recibos.component';
+import { ListacuotasComponent } from './cuotas/listacuotas/listacuotas.component';
 
 
 
@@ -24,7 +25,8 @@ import { RecibosComponent } from './informes/recibos/recibos.component';
     //TutoralumComponent,
     DetalleExpComponent,
     AlumnosComponent,
-    RecibosComponent
+    RecibosComponent,
+    ListacuotasComponent
 
   ],
   imports: [

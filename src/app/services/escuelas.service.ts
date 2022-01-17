@@ -8,8 +8,10 @@ import { ExpedienteInterface } from '../interfaces/expediente-response';
 import { MatriculasInterface } from '../interfaces/matricula-response';
 import { InformeAlumnosInterface } from '../interfaces/informe-response';
 import { ReciboInterface, ReciboTxtInterface } from '../interfaces/recibo-response';
+import { CuotaInterface } from '../interfaces/cuota-response';
 // MODELS
 import { ExpedienteModel } from '../models/expediente.model';
+import { CuotasModel } from '../models/cuotas.model';
 
 // TABLAS AUXILIARES
 import { EscuelasInterface, ParentescoInterface, CursosInterface, VariacionesInterface, MesesInterface } from '../interfaces/auxiliares-response';
@@ -143,6 +145,29 @@ newMatricula(matricula : MatriculaModel) {
         })
       );
 }
+
+
+//************    CUOTAS USUARIOS    ********************************/
+
+newCuota(cuota : CuotasModel){
+  return this.http.post(`${this.baseUrl}/cuota`, cuota)
+  .pipe(
+    map((resp : any) => {
+      cuota.COD_CUOTA = resp[0];
+      return cuota;
+    })
+  );
+
+}
+
+getCuotasMatricula(cod_matricula : string) : Observable<CuotaInterface[]> {
+  return this.http.get<CuotaInterface[]>(`${this.baseUrl}/cuotas/${cod_matricula}`);
+}
+
+getCuotaId(cod_cuota : string) : Observable<CuotasModel> {
+  return this.http.get<CuotasModel>(`${this.baseUrl}/cuota/${cod_cuota}`);
+}
+
 
 
 // **********************      INFORMES *******************************

@@ -48,6 +48,14 @@
               data-placement="center" type="button" (click)="verDetalleExp(expediente.NUM_EXPEDIENTE)">
               <i class="fas fa-user-check"></i>
             </button> -->
+          
+            <button class="btn btn-primary mr-1" title="Cuotas" data-toggle="tooltip"
+            data-placement="center" type="button"
+            (click)="verCuotas(matricula.ANYO_ACADEMICO,matricula.COD_MATRICULA, matricula.NUM_EXPEDIENTE)">
+
+            <i class="fas fa-euro-sign"></i>
+          </button>
+
           </td>
         </tr>
       </tbody>

@@ -12,6 +12,9 @@ import { DetalleExpComponent } from './pages/expediente/detalle-exp/detalle-exp.
 import { AlumnosComponent } from './pages/informes/alumnos/alumnos.component';
 import { RecibosComponent } from './pages/informes/recibos/recibos.component';
 
+//CUOTAS
+import { ListacuotasComponent } from './pages/cuotas/listacuotas/listacuotas.component';
+
 const routes : Routes=[
   { path: 'home', component: HomeComponent },
   { path: 'tutoralum/:id/:nombre', component: TutoralumComponent },
@@ -22,6 +25,7 @@ const routes : Routes=[
   { path: 'detalle_exp/:numexp/:codtutor' , component : DetalleExpComponent },
   { path: 'listadoalumnos' , component: AlumnosComponent },
   { path: 'recibos' , component : RecibosComponent},
+  { path: 'listadocuotas/:anyo/:codmatricula/:expediente' , component : ListacuotasComponent}, 
   { path: '**', redirectTo : '/home' }
 
 ];

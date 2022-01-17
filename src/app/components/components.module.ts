@@ -10,6 +10,7 @@ import { MatriculasGridComponent } from './matriculas-grid/matriculas-grid.compo
 import { ExpedientesGridComponent } from './expedientes-grid/expedientes-grid.component';
 import { InformealumGridComponent } from './informealum-grid/informealum-grid.component';
 import { RecibosGridComponent } from './recibos-grid/recibos-grid.component';
+import { CuotasGridComponent } from './cuotas-grid/cuotas-grid.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { RecibosGridComponent } from './recibos-grid/recibos-grid.component';
     MatriculasGridComponent,
     ExpedientesGridComponent,
     InformealumGridComponent,
-    RecibosGridComponent
+    RecibosGridComponent,
+    CuotasGridComponent
   ],
   exports : [
     NavbarComponent,
