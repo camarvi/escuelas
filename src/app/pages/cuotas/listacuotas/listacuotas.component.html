@@ -5,4 +5,68 @@
       <h5>Dni Tutor {{ expediente.NIF_TUTOR}} - Nombre : {{ expediente.NOMBRE_TUTOR}}</h5>
       <h5> Alumno : {{ expediente.NOMBRE_ALUMNO | uppercase }} </h5>
     </div>
+</div>
+
+<form class="mb-3" (ngSubmit)="guardarCuota(miFor)" #miFor="ngForm" >
+
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label class="font-italic font-weight-bold">Fecha Inicio</label>
+      <input type="date" class="form-control"  #f_inicio="ngModel" name="f_inicio" [(ngModel)]="nuevaCuota.F_INICIO">
+    </div>
+
+ <!-- <div class="form-group col-md-3 ml-2">
+  <label class="font-italic font-weight-bold">Curso</label>
+  <select 
+  class="form-control" #curso="ngModel" name="curso" [(ngModel)]="nuevaMatricula.COD_CURSO">
+    <option [value]="curso.COD_CURSO" *ngFor="let curso of listaCursos"
+      [selected]="curso.COD_CURSO === nuevaCuota.COD_CURSO">{{curso.DESC_CURSO}}
+    </option>
+  </select>
+ 
+</div> -->
+
+    <div class="form-group col-md-2">
+      <label class="font-italic font-weight-bold">Fecha Fin</label>
+      <input type="date" class="form-control"  #f_fin="ngModel" name="f_fin" [(ngModel)]="nuevaCuota.F_FIN">
+    </div>
+
+  <div class="form-group col-md-2 ml-2 ">
+      <label class="font-italic font-weight-bold">Cuota</label>
+      <input type="number" class="form-control" #cuota="ngModel" name="cuota" [(ngModel)]="nuevaCuota.CUOTA">
+  </div>
+
+    <!-- <div class="row ml-2 mt-1">
+      <label class="font-italic font-weight-bold">OPERACIONES</label>
+      <div *ngIf="nuevaMatricula.COD_MATRICULA===0 && expediente.NUM_EXPEDIENTE>0"  class="col">
+        <br>
+        <button type="submit" class="col btn btn-outline-success">
+          <i class="fas fa-plus-square"></i>     
+        </button>
+      </div>
+
+      <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="col">
+        <br>
+        <button type="submit" class="col btn btn-outline-primary">
+          <i class="far fa-edit"></i>      
+        </button>
+      </div>
+
+      <div *ngIf="nuevaMatricula.COD_MATRICULA>0" class="col">
+        <br>
+        <button type="submit" class="col btn btn-outline-warning" (click)="reiniciar()">
+          <i class="fas fa-backspace"></i>  
+        </button>
+      </div>
+    </div> -->
+
+  </div>
+
+</form> 
+
+
+<app-cuotas-grid *ngIf="cuotas.length>0" (propagar)="procesaPropagar($event)" [cuotas]="cuotas"  (propagaEditar)="procesaPropagarEditar($event)">
+
+</app-cuotas-grid>
+
   

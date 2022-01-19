@@ -1,1 +1,63 @@
-<p>cuotas-grid works!</p>
+<div class="mt-2" id="htmlData">
+  
+    <!--
+      <div class="mb-2 text-center text-capitalize font-weight-bold">
+          <h4>MATRICULAS</h4>  
+      </div>
+  -->
+  
+  
+      <table *ngIf="cuotas.length > 0" class="table table-bordered table-striped">
+        <thead class="thead-primary">
+          <!--  <tr class="d-flex"> -->
+          <tr class="table-primary">
+            <th scope="col">F_Inicio</th>
+            <th scope="col">F_Fin</th>
+            <th scope="col">Cuota</th>
+            <th scope="col">Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cuota of cuotas; let i=index">
+    
+            <td> {{ cuota.F_INICIO }}</td>
+            <td> {{ cuota.F_FIN }}</td>
+            <td> {{ cuota.CUOTA }}</td>
+            
+            <td>
+               
+              <button class="btn btn-danger mr-1" 
+              data-toggle="tooltip" data-placement="top" title="Borrar"    
+              (click)="eliminar(cuota.COD_CUOTA, i)">
+                <i class="fa fa-trash-alt"></i>
+              </button>
+  
+              <button class="btn btn-success mr-1" 
+              data-toggle="tooltip" data-placement="top" title="Editar"    
+              (click)="editar(cuota)">              
+              <i class="fa fa-pen"></i>
+              </button>
+  
+                <!-- <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar"
+                data-toggle="tooltip" data-placement="top"
+                [routerLink]="['/detalle_exp', expediente.NUM_EXPEDIENTE]" >
+                <i class="fas fa-user-check"></i>
+              </button> -->
+            
+            <!--  <button class="btn btn-outline-primary btn-sm ml-2" title="Seleccionar" data-toggle="tooltip"
+                data-placement="center" type="button" (click)="verDetalleExp(expediente.NUM_EXPEDIENTE)">
+                <i class="fas fa-user-check"></i>
+              </button> -->
+            
+              <!-- <button class="btn btn-primary mr-1" title="Cuotas" data-toggle="tooltip"
+              data-placement="center" type="button"
+              (click)="verCuotas(matricula.ANYO_ACADEMICO,matricula.COD_MATRICULA, matricula.NUM_EXPEDIENTE)">
+  
+              <i class="fas fa-euro-sign"></i>
+            </button>
+   -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

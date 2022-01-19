@@ -27,6 +27,7 @@ export class RecibosComponent implements OnInit {
   meses : MesesInterface[] = [];
   anyo_actual : string;
   periodo : string;
+  contador_lineas : number = 0;
 
   public lineasRecibos : ReciboTxtInterface[] = [];
 
@@ -77,7 +78,7 @@ export class RecibosComponent implements OnInit {
   }
 
 
-  generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string)  {
+  generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string, contador_linea : string)  {
     
     let linea : string;
     let lineasFichero : string = "";
@@ -125,7 +126,7 @@ export class RecibosComponent implements OnInit {
   // if ((Number(cod_mes)>0 && Number(cod_mes)<7)) {  
   if (Number(cod_mes)!=8) {    
     this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
-      this.meses[indice].DES_MES.toUpperCase(),anyocargo)
+      this.meses[indice].DES_MES.toUpperCase(),anyocargo,Number(contador_linea))
           .subscribe( (resp : ReciboTxtInterface[]) => {
             this.lineasRecibos = resp;  
           
@@ -230,29 +231,42 @@ export class RecibosComponent implements OnInit {
 
     let nuevoRegistro = ['','',''];
 
+    let importeFinal : number = 0;
+
     for (var i=0;i<this.recibosAlumnos.length;i++){
 
+      importeFinal = importeFinal + this.recibosAlumnos[i].CUOTA;
       nuevoRegistro = [this.recibosAlumnos[i].NIF.toString(),
                       this.recibosAlumnos[i].NOMBRE_TUTOR.toString(),
                       this.recibosAlumnos[i].NOMBRE_ALUMNO.toString(),
                       this.periodo.toString(),
                       this.recibosAlumnos[i].NUM_EXPEDIENTE.toString(),
                       this.recibosAlumnos[i].DESC_CURSO.toString(),
-                      this.recibosAlumnos[i].CUOTA.toString()];
+                    //  this.recibosAlumnos[i].CUOTA.toString(),
+                      parseFloat(this.recibosAlumnos[i].CUOTA.toString()).toFixed(2)];
       tableData.push(nuevoRegistro);                  
     }
     
+    console.log(importeFinal);
+
     var pdf = new jsPDF({ orientation : 'landscape', });
     pdf.setFont("courier", "bold");
-    pdf.setFontSize(16);
+    pdf.setFontSize(14);
   
-    let titulo = " Recibos Periodo " + this.periodo.toString(); // + this.nombre_mercadillo;
+    let titulo = "Periodo " + this.periodo.toString() + "   Importe Recibos : " + importeFinal.toString() // + this.nombre_mercadillo;
     pdf.text(titulo, 35 , 15);
     //Poner una linea debajo
     const textWidth = pdf.getTextWidth(titulo);
     pdf.setLineWidth(0.7);
     pdf.line(35,17,35 + textWidth , 17);
    
+    // let tituloImporte = " Importe Periodo : " + importeFinal.toString(); // + this.nombre_mercadillo;
+    // pdf.text(tituloImporte, 50 , 15);
+    // //Poner una linea debajo
+    // const textWidth2 = pdf.getTextWidth(tituloImporte);
+    // pdf.setLineWidth(0.7);
+    // pdf.line(50,17,50 + textWidth2 , 17);
+
     (pdf as any).autoTable({
       head: header,
       body:tableData,

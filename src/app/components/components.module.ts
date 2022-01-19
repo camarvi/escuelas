@@ -33,7 +33,8 @@ import { CuotasGridComponent } from './cuotas-grid/cuotas-grid.component';
     MatriculasGridComponent,
     ExpedientesGridComponent,
     InformealumGridComponent,
-    RecibosGridComponent
+    RecibosGridComponent,
+    CuotasGridComponent
   ],
   imports: [
     CommonModule,

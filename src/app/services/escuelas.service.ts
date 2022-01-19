@@ -128,10 +128,9 @@ deleteMatriculaId(cod_matricula : string) {
 }
 
 
-
 updateMatriculaId(matricula : MatriculaModel) {
-  console.log("Dentro del servicio");
-  console.log(matricula);
+ // console.log("Dentro del servicio");
+ // console.log(matricula);
   return this.http.put(`${this.baseUrl}/matriculas/${matricula.COD_MATRICULA}`, matricula);
 }
 
@@ -160,6 +159,10 @@ newCuota(cuota : CuotasModel){
 
 }
 
+updateCuota(cuota : CuotasModel){
+  return this.http.put(`${this.baseUrl}/cuota/${cuota.COD_CUOTA}`, cuota);
+}
+
 getCuotasMatricula(cod_matricula : string) : Observable<CuotaInterface[]> {
   return this.http.get<CuotaInterface[]>(`${this.baseUrl}/cuotas/${cod_matricula}`);
 }
@@ -167,6 +170,11 @@ getCuotasMatricula(cod_matricula : string) : Observable<CuotaInterface[]> {
 getCuotaId(cod_cuota : string) : Observable<CuotasModel> {
   return this.http.get<CuotasModel>(`${this.baseUrl}/cuota/${cod_cuota}`);
 }
+
+deleteCuotaId(cod_cuota : string) {
+  return this.http.delete(`${this.baseUrl}/cuota/${cod_cuota}`);
+}
+
 
 
 
@@ -184,10 +192,10 @@ getRecibosEscuela(fecha: string, anyo:string) : Observable<ReciboInterface[]> {
   return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/${fecha}/${anyo}`);
 }
 
-getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string, anyocargo:string) : Observable<ReciboTxtInterface[]> {
+getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string, anyocargo:string, contador:number) : Observable<ReciboTxtInterface[]> {
 
   // Parametros :  2021/MAYO/20210501/20210531/01_12_2021
-  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}/${anyocargo}`);
+  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}/${anyocargo}/${contador}`);
 
 }
    
