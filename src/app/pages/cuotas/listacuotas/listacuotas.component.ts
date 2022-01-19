@@ -16,6 +16,7 @@ import { FechasService } from '../../../services/fechas.service';
 
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-listacuotas',
   templateUrl: './listacuotas.component.html',
@@ -132,18 +133,22 @@ export class ListacuotasComponent implements OnInit {
     console.log("Codigo Cuota recibido " + codigo);
     // this.eliminarMatricula(codigo);
    
-  
   }
  
    procesaPropagarEditar(cuotaRecibida : CuotaInterface) {
      
-     console.log("Datos Matricula Recibida");
-    //  console.log(matriculaRecibida);
- 
-    //  this.nuevaMatricula.COD_MATRICULA = matriculaRecibida.COD_MATRICULA;
-    //  this.nuevaMatricula.ANYO_ACADEMICO = matriculaRecibida.ANYO_ACADEMICO;
-    //  this.nuevaMatricula.CUOTA_MES = matriculaRecibida.CUOTA_MES;
-    //  this.nuevaMatricula.COD_CURSO = matriculaRecibida.COD_CURSO;
+    console.log("Datos Cuota Recibida");
+
+    console.log(cuotaRecibida);
+    
+    // this.nuevaCuota.COD_CUOTA = cuotaRecibida.COD_CUOTA;
+    // this.nuevaCuota.COD_MATRICULA = cuotaRecibida.COD_MATRICULA;
+    // this.nuevaCuota.CUOTA = cuotaRecibida.CUOTA;
+    // this.nuevaCuota.F_INICIO = cuotaRecibida.F_INICIO;
+    // this.nuevaCuota.F_FIN = cuotaRecibida.F_FIN;
+    
+    // console.log("THIS.NUEVACUOTA : " + this.nuevaCuota);
+
     
    }
  
