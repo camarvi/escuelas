@@ -25,7 +25,7 @@ const routes : Routes=[
   { path: 'detalle_exp/:numexp/:codtutor' , component : DetalleExpComponent },
   { path: 'listadoalumnos' , component: AlumnosComponent },
   { path: 'recibos' , component : RecibosComponent},
-  { path: 'listadocuotas/:anyo/:codmatricula/:expediente' , component : ListacuotasComponent}, 
+  { path: 'listadocuotas/:anyo/:codmatricula/:expediente/:cuota' , component : ListacuotasComponent}, 
   { path: '**', redirectTo : '/home' }
 
 ];

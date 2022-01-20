@@ -10,8 +10,8 @@ export class FechasService {
 
   mostrarfecha(fecharecibida:string) 
   {
-    console.log("Dentro MostrarFecha");
-    console.log(fecharecibida);
+   // console.log("Dentro MostrarFecha");
+   // console.log(fecharecibida);
     let arrayFecha = fecharecibida.split('/');
     let dia: string = arrayFecha[0];
     let mes : string = arrayFecha[1];
@@ -24,7 +24,7 @@ export class FechasService {
       mes = "0" + mes;
     }
     let fechaok : string = anio + "-" + mes + "-" + dia;
-    console.log(fechaok);
+   // console.log(fechaok);
    return  fechaok;
   }
 

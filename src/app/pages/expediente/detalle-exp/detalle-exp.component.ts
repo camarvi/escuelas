@@ -15,8 +15,10 @@ import { EscuelasInterface,ParentescoInterface,VariacionesInterface,CursosInterf
     } from '../../../interfaces/auxiliares-response';
 import { MatriculasInterface } from '../../../interfaces/matricula-response';
 import { MatriculaModel } from '../../../models/matricula.model';
+import { CuotasModel } from '../../../models/cuotas.model';
 
 import { TutorInterface } from '../../../interfaces/tutor-response';
+
 
 
 
@@ -43,7 +45,7 @@ export class DetalleExpComponent implements OnInit {
   mesjulioactivo: boolean = false;
 
   nuevaMatricula : MatriculaModel = new MatriculaModel();
-
+  iniciaCuota : CuotasModel = new CuotasModel();
   
 
   constructor(
@@ -248,29 +250,47 @@ export class DetalleExpComponent implements OnInit {
       console.log("Alta nueva Matricula");
       this.nuevaMatricula.NUM_EXPEDIENTE = this.expediente.NUM_EXPEDIENTE; // Number(this.numexp);
       peticion = this.escuelaService.newMatricula(this.nuevaMatricula);
+      
     //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
    
     }
 
-  peticion.subscribe( resp => {
-    
+  peticion.subscribe( (resp : MatriculaModel) => {
+
+    // if (this.nuevaMatricula.COD_MATRICULA!==0) {
+    //   this.nuevaMatricula = new MatriculaModel();   
+    // } else {
+    //   this.iniciaCuota.COD_MATRICULA = resp.COD_MATRICULA;
+    //   this.iniciaCuota.CUOTA = resp.CUOTA_MES;
+    //   this.iniciaCuota.F_FIN = '31/12/' + resp.ANYO_ACADEMICO;
+    //   this.iniciaCuota.F_INICIO = '01/01/' + resp.ANYO_ACADEMICO;
+    //   this.escuelaService.newCuota(this.iniciaCuota)
+    //     .subscribe ( (resp:CuotasModel) => {
+    //       console.log("DATOS CUOTA NUEVA");
+    //       console.log(resp);
+    //     });
+    //   // this.router.navigate(['/listadocuotas',
+    //   // resp.ANYO_ACADEMICO,//  anyo, 
+    //   // resp.COD_MATRICULA, //  cod_matricula, 
+    //   // resp.NUM_EXPEDIENTE], //  num_matricula],{skipLocationChange: true, replaceUrl: false});
+    //   // {skipLocationChange: true, replaceUrl: false});
+
+    // }
+
     Swal.fire({
       title : "Matricula",
       text : 'Se almaceno correctamente..',
       icon : 'success'
     });
-    this.nuevaMatricula = new MatriculaModel();
-    // this.ngOnInit();
-   
+    this.nuevaMatricula = new MatriculaModel(); 
     });
 
     this.ngOnInit();  
-
-   
-
+    
 
 
   }
+  
 
   reiniciar() {
     this.nuevaMatricula = new MatriculaModel();

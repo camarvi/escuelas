@@ -29,6 +29,7 @@ export class ListacuotasComponent implements OnInit {
   public codmatricula : string = "";
   public codexpediente : string = "";
   public anyo : string = "";
+  public cuotarecibida : number = 0;
   public expediente = new ExpedienteModel();
 
 
@@ -47,25 +48,33 @@ export class ListacuotasComponent implements OnInit {
     this.codmatricula =  this.route.snapshot.paramMap.get('codmatricula');
     this.codexpediente = this.route.snapshot.paramMap.get('expediente');
     this.anyo = this.route.snapshot.paramMap.get('anyo');
-    
-    console.log("Codigo Matricula :" + this.codmatricula);
-    console.log("Codigo Expediente : " + this.codexpediente);
-    console.log("Anyo Expediente : " + this.anyo);
+    this.cuotarecibida = Number(this.route.snapshot.paramMap.get('cuota'));
 
-    console.log("Objeto Nueva Cuota : " + this.nuevaCuota);
-    this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
-    this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
+    this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula);
+    this.nuevaCuota.CUOTA = this.cuotarecibida;
+
+    // console.log("Codigo Matricula :" + this.codmatricula);
+    // console.log("Codigo Expediente : " + this.codexpediente);
+    // console.log("Anyo Expediente : " + this.anyo);
+
+    // console.log("Objeto Nueva Cuota (Cod_Cuota): " + this.nuevaCuota.COD_CUOTA);
+    // console.log("Objeto Nueva Cuota (Matricula): " + this.nuevaCuota.COD_CUOTA);
+    // // this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
+    // this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
+
+    this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha('01/01/' + this.anyo);
+    this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha('31/12/' + this.anyo);
    
     this.escuelaService.getCuotasMatricula(this.codmatricula)
       .subscribe( (resp : CuotaInterface[])=>{
         this.cuotas = resp;
-        console.log(resp);
+      //  console.log(resp);
       });
       
      this.escuelaService.buscarExpedienteId(this.codexpediente)
         .subscribe((resp : ExpedienteModel)=>{
           this.expediente = resp[0];
-          console.log(this.expediente);
+        //  console.log(this.expediente);
         })
 
   }
@@ -86,10 +95,16 @@ export class ListacuotasComponent implements OnInit {
 
     if (this.nuevaCuota.COD_CUOTA!==0 ){
       console.log("Modificando Cuota");
+      this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
+      this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
       peticion = this.escuelaService.updateCuota(this.nuevaCuota);
       
     } else { //NUEVO REGISTRO
-      console.log("Alta nueva Cuota");
+      // console.log("Alta nueva Cuota");
+      // console.log("Datos NUEVA CUOTA INICIO : " + this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO));
+      // console.log("Datos NUEVA CUOTA FIN : " + this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN));
+      this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
+      this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
       this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); // Number(this.numexp);
       peticion = this.escuelaService.newCuota(this.nuevaCuota);
     //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
@@ -103,12 +118,19 @@ export class ListacuotasComponent implements OnInit {
       text : 'Se almaceno correctamente..',
       icon : 'success'
     });
-    this.nuevaCuota = new CuotasModel();
-    // this.ngOnInit();
-   
+    //  this.nuevaCuota = new CuotasModel();
+    //  this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
+    //  this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
+    
+    this.ngOnInit();
+  
     });
 
     this.ngOnInit();  
+    this.nuevaCuota = new CuotasModel();
+    this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
+    this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
+   
 
   }
 
@@ -141,17 +163,30 @@ export class ListacuotasComponent implements OnInit {
 
     console.log(cuotaRecibida);
     
-    // this.nuevaCuota.COD_CUOTA = cuotaRecibida.COD_CUOTA;
-    // this.nuevaCuota.COD_MATRICULA = cuotaRecibida.COD_MATRICULA;
-    // this.nuevaCuota.CUOTA = cuotaRecibida.CUOTA;
+     this.nuevaCuota.COD_CUOTA = cuotaRecibida.COD_CUOTA;
+     this.nuevaCuota.COD_MATRICULA = cuotaRecibida.COD_MATRICULA;
+     this.nuevaCuota.CUOTA = cuotaRecibida.CUOTA;
+     this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(cuotaRecibida.F_INICIO);
+     this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(cuotaRecibida.F_FIN);
     // this.nuevaCuota.F_INICIO = cuotaRecibida.F_INICIO;
     // this.nuevaCuota.F_FIN = cuotaRecibida.F_FIN;
+
+
+    // this.expediente.FECHA_ALTA = this.fechaService.mostrarfecha(
+    //   this.expediente.FECHA_ALTA
+    // );
     
     // console.log("THIS.NUEVACUOTA : " + this.nuevaCuota);
 
     
    }
  
-
+   reiniciar() {
+    // this.nuevaMatricula = new MatriculaModel();
+    // this.nuevaMatricula.ANYO_ACADEMICO = 0;
+    // this.nuevaMatricula.CUOTA_MES = 0;
+    // this.nuevaMatricula.NUM_EXPEDIENTE = 0;
+    console.log('Dentro de Reiniciar');
+  }
 
 }

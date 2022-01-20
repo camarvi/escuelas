@@ -52,11 +52,11 @@ export class MatriculasGridComponent implements OnInit {
       this.propagaEditar.emit(matricula);
     }
 
-  verCuotas(anyo : number,cod_matricula : number,num_matricula : number) {
+  verCuotas(anyo : number,cod_matricula : number,num_matricula : number, cuota_mes : number) {
     
       // [routerLink]="['/listaexpediente', tutor.IDPERSONA ,tutor.NIF , tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE]"
          
-        this.router.navigate(['/listadocuotas',anyo, cod_matricula, num_matricula],{skipLocationChange: true, replaceUrl: false});
+        this.router.navigate(['/listadocuotas',anyo, cod_matricula, num_matricula, cuota_mes],{skipLocationChange: true, replaceUrl: false});
     
       }  
 
