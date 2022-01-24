@@ -49,6 +49,7 @@ export class ListacuotasComponent implements OnInit {
     this.codexpediente = this.route.snapshot.paramMap.get('expediente');
     this.anyo = this.route.snapshot.paramMap.get('anyo');
     this.cuotarecibida = Number(this.route.snapshot.paramMap.get('cuota'));
+    
 
     this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula);
     this.nuevaCuota.CUOTA = this.cuotarecibida;
@@ -79,6 +80,8 @@ export class ListacuotasComponent implements OnInit {
 
   }
 
+
+
   guardarCuota(forma : NgForm) {
 
 
@@ -97,6 +100,7 @@ export class ListacuotasComponent implements OnInit {
       console.log("Modificando Cuota");
       this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
       this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
+      this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); 
       peticion = this.escuelaService.updateCuota(this.nuevaCuota);
       
     } else { //NUEVO REGISTRO
@@ -182,11 +186,28 @@ export class ListacuotasComponent implements OnInit {
    }
  
    reiniciar() {
+     this.nuevaCuota = new CuotasModel();
+     this.nuevaCuota.COD_CUOTA = 0;
+     this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula);
+     this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha('01/01/' + this.anyo);
+     this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha('31/12/' + this.anyo);
+
     // this.nuevaMatricula = new MatriculaModel();
     // this.nuevaMatricula.ANYO_ACADEMICO = 0;
     // this.nuevaMatricula.CUOTA_MES = 0;
     // this.nuevaMatricula.NUM_EXPEDIENTE = 0;
-    console.log('Dentro de Reiniciar');
+    // console.log('Dentro de Reiniciar');
   }
+
+  verDetalleExp(id_expediente : number) {
+    
+    // [routerLink]="['/listaexpediente', tutor.IDPERSONA ,tutor.NIF , tutor.APE1 + ' ' + tutor.APE2 + ' ' + tutor.NOMBRE]"
+       
+      this.router.navigate(['/detalle_exp', id_expediente],{skipLocationChange: true, replaceUrl: false});
+  
+    //    [routerLink]="['/detalle_exp', expediente.NUM_EXPEDIENTE]" >
+
+    }
+
 
 }

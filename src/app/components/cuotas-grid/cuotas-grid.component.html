@@ -22,16 +22,14 @@
     
             <td> {{ cuota.F_INICIO }}</td>
             <td> {{ cuota.F_FIN }}</td>
-            <td> {{ cuota.CUOTA }}</td>
-            
+            <td> {{ cuota.CUOTA | number }}</td>
             <td>
-               
               <button class="btn btn-danger mr-1" 
               data-toggle="tooltip" data-placement="top" title="Borrar"    
               (click)="eliminar(cuota.COD_CUOTA, i)">
                 <i class="fa fa-trash-alt"></i>
               </button>
-  
+     
               <button class="btn btn-success mr-1" 
               data-toggle="tooltip" data-placement="top" title="Editar"    
               (click)="editar(cuota)">              
