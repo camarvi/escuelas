@@ -45,8 +45,8 @@ export class ListaexpedienteComponent implements OnInit {
     this.escuelaService.buscarExpedientesTutor(this.codtutor)
         .subscribe( (resp)=>{
           this.expedientes = resp;
-          console.log("Respuesta del servicio Busca Exp Tutor");
-          console.log(resp);
+        //  console.log("Respuesta del servicio Busca Exp Tutor");
+        //  console.log(resp);
           this.cargando = false;
         });
       }

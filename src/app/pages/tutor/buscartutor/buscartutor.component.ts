@@ -42,7 +42,7 @@ export class BuscartutorComponent implements OnInit {
       }
 
       peticion.subscribe (resp => {
-          console.log(resp);
+        //  console.log(resp);
           this.tutores = resp;
           this.cargando = false;
       });

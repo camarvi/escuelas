@@ -24,14 +24,13 @@ export class BuscaralumComponent implements OnInit {
 
    this.cargando = true;
 
-    //if (Number.isInteger(Number(num_exp)) && num_exp.length>1){
     if (num_exp.length>0) {  
       console.log("buscar por codigo");
       this.escuelaService.buscarExpedienteId(num_exp.toString())
           .subscribe( resp => {
              this.expedientes[0] = resp[0];
-             console.log("Datos del expediente buscado"); 
-             console.log(this.expedientes);
+            //  console.log("Datos del expediente buscado"); 
+            //  console.log(this.expedientes);
              this.cargando = false; 
           }); 
     } else {
@@ -40,9 +39,9 @@ export class BuscaralumComponent implements OnInit {
       if (nombreAlumno.length>1) {
         this.escuelaService.buscarExpedienteNomAlum(nombreAlumno.toUpperCase())
             .subscribe( resp => {
-              console.log(resp);
+            //  console.log(resp);
               this.expedientes = resp;
-              console.log(this.expedientes);
+            //  console.log(this.expedientes);
               this.cargando = false
             })
       }

@@ -21,8 +21,8 @@ export class CuotasGridComponent implements OnInit {
 
   ngOnInit(): void {
     
-    console.log("Dentro componente cuotas");
-    console.log(this.cuotas);
+    // console.log("Dentro componente cuotas");
+    // console.log(this.cuotas);
 
   }
 

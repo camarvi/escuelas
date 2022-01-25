@@ -30,7 +30,7 @@ export class AlumnosComponent implements OnInit {
     this.escuelaService.getListaescuelas()
         .subscribe ( resp => {
           this.escuelas = resp;
-          console.log(this.escuelas);
+        //  console.log(this.escuelas);
         });
     let hoy : Date = new Date(); 
     this.anyo_actual = hoy.getFullYear().toString();     

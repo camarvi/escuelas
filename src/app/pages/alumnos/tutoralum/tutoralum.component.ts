@@ -11,12 +11,10 @@ export class TutoralumComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {
 
     this.activatedRoute.params.subscribe(parametros =>{
-      console.log("DENTRO DE HOME"); 
-      console.log(parametros);
-      console.log(parametros['id']);
-      console.log(parametros['nombre']);
-       //console.log(this.Pokemon);
-      // :id/:nombre
+      // console.log("DENTRO DE HOME"); 
+      // console.log(parametros);
+      // console.log(parametros['id']);
+      // console.log(parametros['nombre']);
 
       });
    }

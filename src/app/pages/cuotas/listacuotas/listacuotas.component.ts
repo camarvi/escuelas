@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute , Router} from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 
 import { NgForm } from '@angular/forms';
@@ -54,10 +54,6 @@ export class ListacuotasComponent implements OnInit {
     this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula);
     this.nuevaCuota.CUOTA = this.cuotarecibida;
 
-    // console.log("Codigo Matricula :" + this.codmatricula);
-    // console.log("Codigo Expediente : " + this.codexpediente);
-    // console.log("Anyo Expediente : " + this.anyo);
-
     // console.log("Objeto Nueva Cuota (Cod_Cuota): " + this.nuevaCuota.COD_CUOTA);
     // console.log("Objeto Nueva Cuota (Matricula): " + this.nuevaCuota.COD_CUOTA);
     // // this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
@@ -97,7 +93,7 @@ export class ListacuotasComponent implements OnInit {
     let peticion : Observable<any>;
 
     if (this.nuevaCuota.COD_CUOTA!==0 ){
-      console.log("Modificando Cuota");
+      //console.log("Modificando Cuota");
       this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
       this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
       this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); 
@@ -111,7 +107,6 @@ export class ListacuotasComponent implements OnInit {
       this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
       this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); // Number(this.numexp);
       peticion = this.escuelaService.newCuota(this.nuevaCuota);
-    //  peticion = this.escuelaService.newMatricula(this.nuevaMatricula);  
    
     }
 
@@ -139,8 +134,8 @@ export class ListacuotasComponent implements OnInit {
   }
 
   eliminarCuota(id: string){
-    console.log("Eliminar Cuota");
-    console.log(id);
+    // console.log("Eliminar Cuota");
+    // console.log(id);
     this.escuelaService.deleteCuotaId(id)
       .subscribe( resp => {
           Swal.fire({
@@ -155,32 +150,22 @@ export class ListacuotasComponent implements OnInit {
    // RECIBE LOS DATOS DEL EVENTO (propagar)="procesaPropagar($event)"
    procesaPropagar(codigo : string) {
   
-    console.log("EliminarMatricula");
-    console.log("Codigo Cuota recibido " + codigo);
+    // console.log("EliminarMatricula");
+    // console.log("Codigo Cuota recibido " + codigo);
     // this.eliminarMatricula(codigo);
    
   }
  
    procesaPropagarEditar(cuotaRecibida : CuotaInterface) {
      
-    console.log("Datos Cuota Recibida");
-
-    console.log(cuotaRecibida);
+    // console.log("Datos Cuota Recibida");
+    // console.log(cuotaRecibida);
     
      this.nuevaCuota.COD_CUOTA = cuotaRecibida.COD_CUOTA;
      this.nuevaCuota.COD_MATRICULA = cuotaRecibida.COD_MATRICULA;
      this.nuevaCuota.CUOTA = cuotaRecibida.CUOTA;
      this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(cuotaRecibida.F_INICIO);
      this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(cuotaRecibida.F_FIN);
-    // this.nuevaCuota.F_INICIO = cuotaRecibida.F_INICIO;
-    // this.nuevaCuota.F_FIN = cuotaRecibida.F_FIN;
-
-
-    // this.expediente.FECHA_ALTA = this.fechaService.mostrarfecha(
-    //   this.expediente.FECHA_ALTA
-    // );
-    
-    // console.log("THIS.NUEVACUOTA : " + this.nuevaCuota);
 
     
    }
@@ -192,11 +177,6 @@ export class ListacuotasComponent implements OnInit {
      this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha('01/01/' + this.anyo);
      this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha('31/12/' + this.anyo);
 
-    // this.nuevaMatricula = new MatriculaModel();
-    // this.nuevaMatricula.ANYO_ACADEMICO = 0;
-    // this.nuevaMatricula.CUOTA_MES = 0;
-    // this.nuevaMatricula.NUM_EXPEDIENTE = 0;
-    // console.log('Dentro de Reiniciar');
   }
 
   verDetalleExp(id_expediente : number) {

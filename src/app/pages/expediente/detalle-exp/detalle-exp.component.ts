@@ -58,9 +58,9 @@ export class DetalleExpComponent implements OnInit {
   ngOnInit(): void {
     this.numexp = this.route.snapshot.paramMap.get('numexp');
 
-    console.log('DATOS DEL EXPEDIENTE MODEL');
-    console.log(this.expediente);
-    console.log('FIN DATOS DEL EXPEDIENTE MODEL');
+    // console.log('DATOS DEL EXPEDIENTE MODEL');
+    // console.log(this.expediente);
+    // console.log('FIN DATOS DEL EXPEDIENTE MODEL');
 
     if (this.numexp !== 'nuevo') {
       this.editarExp = true;
@@ -69,14 +69,14 @@ export class DetalleExpComponent implements OnInit {
         .subscribe((resp: ExpedienteModel) => {
           this.expediente = resp[0];
           this.expediente.NUM_EXPEDIENTE = parseInt(this.numexp);
-          console.log(this.expediente);
+        //  console.log(this.expediente);
           this.nombreTutor =
             this.expediente.NOMBRE_TUTOR +
             ' ' +
             this.expediente.APE1_TUTOR +
             ' ' +
             this.expediente.APE2_TUTOR;
-          console.log(this.nombreTutor);
+        //  console.log(this.nombreTutor);
           this.dniTutor = this.expediente.NIF_TUTOR;
 
           this.expediente.FECHA_ALTA = this.fechaService.mostrarfecha(
@@ -105,8 +105,8 @@ export class DetalleExpComponent implements OnInit {
               .buscarMatriculasExp(this.numexp)
               .subscribe((resp) => {
                 this.matriculas = resp;
-                console.log('Matriculas el expediente');
-                console.log(this.matriculas);
+              //  console.log('Matriculas el expediente');
+              //  console.log(this.matriculas);
               });
           }
         });
@@ -121,7 +121,7 @@ export class DetalleExpComponent implements OnInit {
           .buscarTutorId(codtutor)
           .subscribe((resp: TutorInterface) => {
             //this.datosTutor = resp;
-            console.log(resp);
+          //  console.log(resp);
             this.nombreTutor =
               resp[0].NOMBRE + ' ' + resp[0].APE1 + ' ' + resp[0].APE2;
             this.dniTutor = resp[0].NIF;
@@ -187,10 +187,10 @@ export class DetalleExpComponent implements OnInit {
     );
 
     if (this.expediente.NUM_EXPEDIENTE !== 0) {
-      // MODIFICAR EL REGISTRO ACTUAL
-      console.log('MODIFICAR LOS SIGUIENTES DATOS');
-      console.log(this.expediente);
-      // peticion = this.escuelaService.updateExpedienteId(this.expediente);
+    //  // MODIFICAR EL REGISTRO ACTUAL
+    //  console.log('MODIFICAR LOS SIGUIENTES DATOS');
+    //  console.log(this.expediente);
+    //  // peticion = this.escuelaService.updateExpedienteId(this.expediente);
       miExpediente.FECHA_GESTION = this.fechaService.almacenaFecha(
         this.expediente.FECHA_GESTION
       );
@@ -229,8 +229,6 @@ export class DetalleExpComponent implements OnInit {
 
   guardarMatricula(forma : NgForm) {
 
-
-    console.log("Dentro de guardar matricula")
     if (forma.invalid) {
       // recorrer los elementos del formulario para que se dispare las validaciones
       Object.values(forma.controls).forEach((control) => {
@@ -242,12 +240,12 @@ export class DetalleExpComponent implements OnInit {
     let peticion : Observable<any>;
 
     if (this.nuevaMatricula.COD_MATRICULA!==0 ){
-      console.log("Modificando Matricula");
+      //console.log("Modificando Matricula");
       peticion = this.escuelaService.updateMatriculaId(this.nuevaMatricula);
     //  peticion = this.escuelaService (modificaMatricula)  
       
     } else { //NUEVO REGISTRO
-      console.log("Alta nueva Matricula");
+      //console.log("Alta nueva Matricula");
       this.nuevaMatricula.NUM_EXPEDIENTE = this.expediente.NUM_EXPEDIENTE; // Number(this.numexp);
       peticion = this.escuelaService.newMatricula(this.nuevaMatricula);
       
@@ -297,7 +295,7 @@ export class DetalleExpComponent implements OnInit {
     this.nuevaMatricula.ANYO_ACADEMICO = 0;
     this.nuevaMatricula.CUOTA_MES = 0;
     this.nuevaMatricula.NUM_EXPEDIENTE = 0;
-    console.log(this.nuevaMatricula);
+  //  console.log(this.nuevaMatricula);
   }
 
   eliminarExpediente(numexp: string) {
@@ -328,8 +326,8 @@ export class DetalleExpComponent implements OnInit {
 
  
   eliminarMatricula(id: string){
-    console.log("Elimnar matricula");
-    console.log(id);
+    // console.log("Elimnar matricula");
+    // console.log(id);
     this.escuelaService.deleteMatriculaId(id)
       .subscribe( resp => {
           Swal.fire({
@@ -348,8 +346,8 @@ export class DetalleExpComponent implements OnInit {
 
   procesaPropagarEditar(matriculaRecibida : MatriculasInterface) {
     
-    console.log("Datos Matricula Recibida");
-    console.log(matriculaRecibida);
+    // console.log("Datos Matricula Recibida");
+    // console.log(matriculaRecibida);
 
     this.nuevaMatricula.COD_MATRICULA = matriculaRecibida.COD_MATRICULA;
     this.nuevaMatricula.ANYO_ACADEMICO = matriculaRecibida.ANYO_ACADEMICO;
