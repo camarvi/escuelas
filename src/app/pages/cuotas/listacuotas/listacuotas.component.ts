@@ -81,7 +81,7 @@ export class ListacuotasComponent implements OnInit {
   guardarCuota(forma : NgForm) {
 
 
-    console.log("Dentro de guardar matricula")
+   // console.log("Dentro de guardar matricula")
     if (forma.invalid) {
       // recorrer los elementos del formulario para que se dispare las validaciones
       Object.values(forma.controls).forEach((control) => {

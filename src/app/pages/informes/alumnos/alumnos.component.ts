@@ -75,7 +75,7 @@ generarTablaPdf(){
                     this.informealumnos[i].NOMBRE_ALUMNO.toString(),
                     this.informealumnos[i].FECHA_NACIMIENTO.toString(),
                     this.informealumnos[i].DESC_CURSO.toString(),
-                    this.informealumnos[i].CUOTA_MES.toString(),
+                    this.informealumnos[i].CUOTA_MES.toFixed(2).toString(),
                     this.informealumnos[i].FECHA_ALTA.toString(),
                     this.informealumnos[i].FECHA_VARIACION.toString(),
                     this.informealumnos[i].COD_VARIACION.toString()];

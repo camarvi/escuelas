@@ -11,7 +11,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 // GENERAR TXT
-import { DomSanitizer } from '@angular/platform-browser';
+// import { DomSanitizer } from '@angular/platform-browser';
 
 import Swal from 'sweetalert2';
 
@@ -224,7 +224,7 @@ export class RecibosComponent implements OnInit {
   }
 
   generarTablaPdf() {
-    console.log("Dentro de generar Tabla PDF");
+    //console.log("Dentro de generar Tabla PDF");
 
     const header =[['Dni', 'Tutor', 'Alumno', 'Periodo', 'Ref', 'Curso', 'Importe']];
     const tableData = [];

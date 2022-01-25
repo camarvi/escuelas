@@ -25,7 +25,7 @@ export class BuscaralumComponent implements OnInit {
    this.cargando = true;
 
     if (num_exp.length>0) {  
-      console.log("buscar por codigo");
+     // console.log("buscar por codigo");
       this.escuelaService.buscarExpedienteId(num_exp.toString())
           .subscribe( resp => {
              this.expedientes[0] = resp[0];
