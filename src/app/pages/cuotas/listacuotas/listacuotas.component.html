@@ -10,14 +10,16 @@
     <button class="btn btn-outline-secondary btn-sm ml-2" title="Atras" data-toggle="tooltip"
     data-placement="center" type="button" (click)="verDetalleExp(expediente.NUM_EXPEDIENTE)">
     <i class="fas fa-arrow-circle-left"></i>   Atras
-     <!-- <i class="fas fa-user-check"></i> -->
-  </button>
+   </button>
    </div> 
 
 </div>
 
+<!--
 <form class="mt-2 mb-3" (ngSubmit)="guardarCuota(miFor)" #miFor="ngForm" >
+-->
 
+<form class="mt-2 mb-3" (ngSubmit)="compruebaFechas(miFor)" #miFor="ngForm" >  
   <div class="form-row">
     <div class="form-group col-md-2">
       <label class="font-italic font-weight-bold">Fecha Inicio</label>

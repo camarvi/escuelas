@@ -78,64 +78,68 @@ export class ListacuotasComponent implements OnInit {
 
 
 
-  guardarCuota(forma : NgForm) {
-
-
+ guardarCuota(forma : NgForm) {
+    
    // console.log("Dentro de guardar matricula")
-    if (forma.invalid) {
-      // recorrer los elementos del formulario para que se dispare las validaciones
-      Object.values(forma.controls).forEach((control) => {
-        control.markAsTouched(); //Lo pongo como pulsado
-      });
-      return;
-    }
-
-    let peticion : Observable<any>;
-
-    if (this.nuevaCuota.COD_CUOTA!==0 ){
-      //console.log("Modificando Cuota");
-      this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
-      this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
-      this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); 
-      peticion = this.escuelaService.updateCuota(this.nuevaCuota);
-      
-    } else { //NUEVO REGISTRO
-      // console.log("Alta nueva Cuota");
-      // console.log("Datos NUEVA CUOTA INICIO : " + this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO));
-      // console.log("Datos NUEVA CUOTA FIN : " + this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN));
-      this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
-      this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
-      this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); // Number(this.numexp);
-      peticion = this.escuelaService.newCuota(this.nuevaCuota);
-   
-    }
-
-  peticion.subscribe( resp => {
-    
-    Swal.fire({
-      title : "Cuota",
-      text : 'Se almaceno correctamente..',
-      icon : 'success'
+   if (forma.invalid) {
+    // recorrer los elementos del formulario para que se dispare las validaciones
+    Object.values(forma.controls).forEach((control) => {
+      control.markAsTouched(); //Lo pongo como pulsado
     });
-    //  this.nuevaCuota = new CuotasModel();
-    //  this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
-    //  this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
-    
-    this.ngOnInit();
-  
-    });
-
-    this.ngOnInit();  
-    this.nuevaCuota = new CuotasModel();
-    this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
-    this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
-   
-
+    return;
   }
 
+  let peticion : Observable<any>;
+
+  if (this.nuevaCuota.COD_CUOTA!==0 ){
+    //console.log("Modificando Cuota");
+    this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
+    this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
+    this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); 
+    peticion = this.escuelaService.updateCuota(this.nuevaCuota);
+    
+  } else { //NUEVO REGISTRO
+    // console.log("Alta nueva Cuota");
+    // console.log("Datos NUEVA CUOTA INICIO : " + this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO));
+    // console.log("Datos NUEVA CUOTA FIN : " + this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN));
+    this.nuevaCuota.F_INICIO = this.fechaService.almacenaFecha(this.nuevaCuota.F_INICIO);
+    this.nuevaCuota.F_FIN = this.fechaService.almacenaFecha(this.nuevaCuota.F_FIN);
+    this.nuevaCuota.COD_MATRICULA = Number(this.codmatricula); // Number(this.numexp);
+    peticion = this.escuelaService.newCuota(this.nuevaCuota);
+ 
+  }
+
+peticion.subscribe( resp => {
+  
+  Swal.fire({
+    title : "Cuota",
+    text : 'Se almaceno correctamente..',
+    icon : 'success'
+  });
+  //  this.nuevaCuota = new CuotasModel();
+  //  this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
+  //  this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
+  
+  this.ngOnInit();
+
+  });
+
+  this.ngOnInit();  
+  this.nuevaCuota = new CuotasModel();
+  this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
+  this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
+ 
+
+
+ 
+ }
+
+
+
+
   eliminarCuota(id: string){
-    // console.log("Eliminar Cuota");
-    // console.log(id);
+     console.log("Eliminar Cuota");
+     console.log(id);
     this.escuelaService.deleteCuotaId(id)
       .subscribe( resp => {
           Swal.fire({
@@ -150,9 +154,9 @@ export class ListacuotasComponent implements OnInit {
    // RECIBE LOS DATOS DEL EVENTO (propagar)="procesaPropagar($event)"
    procesaPropagar(codigo : string) {
   
-    // console.log("EliminarMatricula");
-    // console.log("Codigo Cuota recibido " + codigo);
-    // this.eliminarMatricula(codigo);
+     console.log("EliminarMatricula");
+     console.log("Codigo Cuota recibido " + codigo);
+     this.eliminarCuota(codigo);
    
   }
  
@@ -188,6 +192,33 @@ export class ListacuotasComponent implements OnInit {
     //    [routerLink]="['/detalle_exp', expediente.NUM_EXPEDIENTE]" >
 
     }
+
+  // COMPROBAR QUE LAS FECHAS ESTAN DENTRO DEL AÑO EN CURSO
+  
+  compruebaFechas(forma : NgForm){
+    
+    let compruebaInicio : number;
+    let compruebaFinal : number;
+
+    compruebaInicio = Number(this.nuevaCuota.F_INICIO.slice(0,4));
+    compruebaFinal = Number(this.nuevaCuota.F_FIN.slice(0,4));
+    
+    //console.log("Año Inicio " + compruebaInicio); 
+    //console.log("Año Final " + compruebaFinal);
+
+    if (compruebaFinal==Number(this.anyo) && compruebaInicio == Number(this.anyo) ){
+      this.guardarCuota(forma)
+    } else {
+       Swal.fire({
+         title : "Cuota",
+         text : 'Error en el rango de fechas..',
+         icon : 'error'
+       });
+     
+       console.log("NUEVACUOTA " + this.nuevaCuota);
+    }
+
+  }
 
 
 }
