@@ -12,7 +12,7 @@ import { ReciboInterface } from '../../interfaces/recibo-response';
 export class RecibosGridComponent implements OnInit {
 
   @Input() recibosAlumnos! : ReciboInterface[];
-  @Input() periodo! : string;
+  //@Input() periodo! : string;
   
   constructor() { }
 

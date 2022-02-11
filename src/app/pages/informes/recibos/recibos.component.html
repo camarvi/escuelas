@@ -1,5 +1,6 @@
 
 
+
 <h3 class="mb-5 text-center mx-auto">Generaci&oacute;n de Recibos</h3>
 
 
@@ -13,7 +14,7 @@
       <label class="sr-only">Escuela</label>
       <input #escuela type="text" class="form-control" placeholder="Escuela">
     </div> -->
-    <label class="font-italic font-weight-bold mr-1">Mes Recibo</label>
+    <label class="font-italic font-weight-bold mr-1">Desde</label>
     <div class="form-group col-md-2 mr-2">
       
       <select class="form-control" 
@@ -26,6 +27,22 @@
     </select>
     
     </div>
+
+    <label class="font-italic font-weight-bold mr-1">Hasta</label>
+    <div class="form-group col-md-2 mr-2">
+      
+      <select class="form-control" 
+      #meshasta
+      name = "meshasta">
+     
+      <option [value]="mes.COD_MES" *ngFor="let mes of meses;let i = index">
+          {{mes.DES_MES}}
+      </option>
+    </select>
+    
+    </div>
+
+
     <label class="font-italic font-weight-bold mr-1">Año de cargo</label>
     <div class="form-group col-md-1 mr-2">
      
@@ -38,40 +55,26 @@
  
   <div class="form-group col-md-4">
    
-     <button (click)="generarRecibos(ejercicio.value, mes.value)" type="button"
+
+    
+     <button (click)="generarRecibosVariosMeses(ejercicio.value, mes.value, meshasta.value)" type="button"
      class="form-group mx-sm-2 btn btn-outline-primary mr-2">
      <i class="far fa-file-alt"></i>
       Listado
      </button> 
-        
-     <!-- <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
-     class="form-group mx-sm-2 btn btn-outline-success mr-2">
-     <i class="far fa-file-alt"></i>
-      Descargar Txt
-     </button>  -->
-     
-     <!-- <a [href]="fileUrl" download="fichero{{anyo_actual}}_mes.txt">
-      <button (click)="pruebaReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
-      class="form-group mx-sm-2 btn btn-outline-success mr-2">
-      <i class="far fa-file-alt"></i>
-       PRUEBA Txt
-      </button> 
-    </a> -->
-
-<!-- 
-    <a [href]="fileUrl" download="fichero{{anyo_actual}}_mes.txt">
-      <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value)" type="button"
-      class="form-group mx-sm-2 btn btn-outline-success mr-2">
-      <i class="far fa-file-alt"></i>
-      Descargar Txt
-      </button> 
-    </a> -->
 
     
-    <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value,contador.value)" type="button"
+    <!-- <button (click)="generarReciboTxt(ejercicio.value, mes.value,anyocargo.value,contador.value)" type="button"
       class="form-group mx-sm-2 btn btn-outline-success mr-2">
       <i class="far fa-file-alt"></i>
       Descargar Txt
+    </button>  -->
+
+       
+    <button (click)="generaTxtVariosMeses(ejercicio.value,mes.value,meshasta.value,anyocargo.value,contador.value)" type="button"
+      class="form-group mx-sm-2 btn btn-outline-success mr-2">
+      <i class="far fa-file-alt"></i>
+        Descargar Txt
     </button> 
   
 
@@ -100,6 +103,7 @@
   <app-cargando></app-cargando>
 </div>
 
+<!--
 <app-recibos-grid *ngIf="recibosAlumnos.length>0" [recibosAlumnos]="recibosAlumnos" [periodo]="periodo"></app-recibos-grid>
-
-
+-->
+<app-recibos-grid *ngIf="recibosAlumnos.length>0" [recibosAlumnos]="recibosAlumnos" ></app-recibos-grid>

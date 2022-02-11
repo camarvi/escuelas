@@ -25,7 +25,13 @@ export class EscuelasService {
 
   // ESTOY TIRANDO DEL BACKEND DE MERCADILLOS, EL PUERTO 3500 CORRESPONDE CON 
   //BACKEND DE ESCUELAS_INFANTILES
-  private baseUrl: string = 'http://localhost:3500';
+  //private baseUrl: string = 'http://localhost:3500';
+
+  
+  
+  // URL API PRODUCCION
+  //private baseUrl : string = 'http://192.168.41.69:3500';
+  private baseUrl : string = 'http://apps3.aytoalmeria.local:3500';
 
   constructor(private http: HttpClient) { }
 
@@ -187,15 +193,15 @@ getAlumnosEscuelaAnyo(escuela : string, anyo : string) : Observable<InformeAlumn
 
 //************************** RECIBOS EN PDF  ****************************/
 
-getRecibosEscuela(fecha: string, anyo:string) : Observable<ReciboInterface[]> {
+async getRecibosEscuela(fecha: string, anyo:string, mes:string) : Promise<ReciboInterface[]> {
   //return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/01_09_2021/2021`)
-  return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/${fecha}/${anyo}`);
+  return this.http.get<ReciboInterface[]>(`${this.baseUrl}/recibos/${fecha}/${anyo}/${mes}`).toPromise();
 }
 
-getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string, anyocargo:string, contador:number) : Observable<ReciboTxtInterface[]> {
+async getRecibosEscuelaTxt(fecha : string , finicio:string, ffin: string, anyo:string, mes:string, anyocargo:string, contador:number) : Promise<ReciboTxtInterface[]> {
 
   // Parametros :  2021/MAYO/20210501/20210531/01_12_2021
-  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}/${anyocargo}/${contador}`);
+  return this.http.get<ReciboTxtInterface[]>(`${this.baseUrl}/recibostxt/${anyo}/${mes}/${finicio}/${ffin}/${fecha}/${anyocargo}/${contador}`).toPromise();
 
 }
    

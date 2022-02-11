@@ -77,7 +77,6 @@ export class ListacuotasComponent implements OnInit {
   }
 
 
-
  guardarCuota(forma : NgForm) {
     
    // console.log("Dentro de guardar matricula")
@@ -129,17 +128,11 @@ peticion.subscribe( resp => {
   this.nuevaCuota.F_INICIO = this.fechaService.mostrarfecha(this.nuevaCuota.F_INICIO);
   this.nuevaCuota.F_FIN = this.fechaService.mostrarfecha(this.nuevaCuota.F_FIN);
  
-
-
- 
  }
 
-
-
-
   eliminarCuota(id: string){
-     console.log("Eliminar Cuota");
-     console.log(id);
+    // console.log("Eliminar Cuota");
+    // console.log(id);
     this.escuelaService.deleteCuotaId(id)
       .subscribe( resp => {
           Swal.fire({
@@ -154,8 +147,8 @@ peticion.subscribe( resp => {
    // RECIBE LOS DATOS DEL EVENTO (propagar)="procesaPropagar($event)"
    procesaPropagar(codigo : string) {
   
-     console.log("EliminarMatricula");
-     console.log("Codigo Cuota recibido " + codigo);
+    // console.log("EliminarMatricula");
+    // console.log("Codigo Cuota recibido " + codigo);
      this.eliminarCuota(codigo);
    
   }
@@ -215,7 +208,6 @@ peticion.subscribe( resp => {
          icon : 'error'
        });
      
-       console.log("NUEVACUOTA " + this.nuevaCuota);
     }
 
   }

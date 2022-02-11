@@ -12,6 +12,7 @@ export interface ReciboInterface {
     CUOTA:                number;
     DESC_ESCUELA:         string;
     DESC_CURSO:           string;
+    PERIODO:              string;  
 }
 
 export interface ReciboTxtInterface {

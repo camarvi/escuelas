@@ -28,6 +28,7 @@ export class RecibosComponent implements OnInit {
   anyo_actual : string;
   periodo : string;
   contador_lineas : number = 0;
+  lineasFichero : string = "";
 
   public lineasRecibos : ReciboTxtInterface[] = [];
 
@@ -51,37 +52,41 @@ export class RecibosComponent implements OnInit {
     
   }
 
-  generarRecibos(anyo : string, cod_mes : string) {
+ async generarRecibos(anyo : string, cod_mes : string) {
 
     this.cargando = true;
     let fecha_busqueda : string;
     let indice : number;
     indice = Number(cod_mes) -1;
+    
 
     if (cod_mes.length>1){
       fecha_busqueda = '01_' + cod_mes + '_' + anyo
     } else {
       fecha_busqueda = '01_0' + cod_mes + '_' + anyo
     }
-
-    this.escuelaService.getRecibosEscuela(fecha_busqueda,anyo)
-        .subscribe ( (resp:ReciboInterface[] )=>{
-          this.recibosAlumnos = resp;
+    
+      let resultado = await this.escuelaService.getRecibosEscuela(fecha_busqueda,anyo,cod_mes);
+       // .subscribe ( (resp:ReciboInterface[] )=>{
+          //this.recibosAlumnos=resp;
+          this.recibosAlumnos = this.recibosAlumnos.concat(resultado);
+          
+          //this.results = this.results.concat(data.results);
+               
           //console.log(this.recibosAlumnos);
-          this.cargando = false;
-          this.periodo = (this.meses[indice].DES_MES + ' ' + anyo);
-          this.periodo = this.periodo.toUpperCase();
-        //  console.log("MES PERIODO : " + this.meses[1].DES_MES);
-          //console.log("Mes periodo " +  this.periodo);
-        })
+          
+        //  this.periodo = (this.meses[indice].DES_MES + ' ' + anyo);
+        //  this.periodo = this.periodo.toUpperCase();
+      
+      //  })
 
   }
 
 
-  generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string, contador_linea : string)  {
+  async generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string, contador_linea : string)  {
     
     let linea : string;
-    let lineasFichero : string = "";
+   
 
     this.cargando = false; //true;
     let fecha_busqueda : string;
@@ -105,7 +110,7 @@ export class RecibosComponent implements OnInit {
     
     let finicio =  anyoFecha + mesFecha + '01';
     let ffin =  anyoFecha + mesFecha + ultimoDia.getDate();
-    let nombre_fichero = "Recibos_" + cod_mes + "_" + anyo + ".txt";
+    //let nombre_fichero = "Recibos_" + cod_mes + "_" + anyo + ".txt";
    
     indice = Number(cod_mes) -1;
     
@@ -125,11 +130,18 @@ export class RecibosComponent implements OnInit {
 
   // if ((Number(cod_mes)>0 && Number(cod_mes)<7)) {  
   if (Number(cod_mes)!=8) {    
-    this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
-      this.meses[indice].DES_MES.toUpperCase(),anyocargo,Number(contador_linea))
-          .subscribe( (resp : ReciboTxtInterface[]) => {
-            this.lineasRecibos = resp;  
-          
+
+    console.log('this.contador_lineas ' + this.contador_lineas);
+
+    this.lineasRecibos =await this.escuelaService.
+              getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
+                          this.meses[indice].DES_MES.toUpperCase(),anyocargo,Number(this.contador_lineas));
+
+    this.contador_lineas = this.contador_lineas + this.lineasRecibos.length;
+   
+      // .subscribe( (resp : ReciboTxtInterface[]) => {
+      //       this.lineasRecibos = resp;  
+      //       this.contador_lineas = this.contador_lineas + resp.length;
             if (this.lineasRecibos.length>0){
             //  console.log("GENERANDO EL FOR");
               for (i=0; i<this.lineasRecibos.length; i++){
@@ -157,17 +169,16 @@ export class RecibosComponent implements OnInit {
                    this.lineasRecibos[i].CAMPO24 +
                    this.lineasRecibos[i].CAMPO25 + "\n";
               
-                lineasFichero = lineasFichero + linea ;
+                this.lineasFichero = this.lineasFichero + linea ;
                 
               }
            // CODIGO QUE FUNCIONA OK 
           //  this.ficheroReciboTxt(lineasFichero,nombre_fichero,Number(cod_mes));
 
           // PENDIENTE DE COMPROBAR
-              this.ficheroReciboTxt(lineasFichero,nombre_fichero); 
+             
           }       
-
-          });  
+ 
    }  else {
       Swal.fire({
         title : "Error",
@@ -179,29 +190,110 @@ export class RecibosComponent implements OnInit {
   }
 
 
-  // ficheroReciboTxt (contenido : string, nombre_fichero : string, mes : number) {
-  
-  
-  //   console.log(nombre_fichero);
-  //   const data = contenido;
-  //    //  const blob = new Blob([data], { type: 'application/octet-stream;charset=ansi;' });
-  //   const blob = new Blob([data], { type: 'text/plain;charset=ansi' });
+
+
+
+
+  // generarReciboTxt(anyo : string, cod_mes : string, anyocargo : string, contador_linea : string)  {
     
-  //    // application/json  text/plain
-  //   this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  //   let linea : string;
+   
+
+  //   this.cargando = false; //true;
+  //   let fecha_busqueda : string;
+  //   let indice : number;
     
+  //   let date = new Date(parseInt(anyo),parseInt(cod_mes)-1,1);
 
-  // //++++++++++++++ CODIGO QUE ESTA PENDIENTE DE COMPROBAR +++++++++++++++++++++
+  //   var primerDia = new Date(date.getFullYear(), date.getMonth(), 1);
+  //   var ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-  // // npm install @types/file-saver --save-dev
-  // //   var FileSaver = require('file-saver');
-  // //   var blob2 = new Blob([data], {type: "text/plain;charset=ansi"});
-  // //   FileSaver.saveAs(blob2, nombre_fichero);
+  //   let anyoFecha = primerDia.getFullYear();
+  //   let mesFecha = (primerDia.getMonth() + 1).toString();
   
-  // // +++++++++++++++++  FIN CODIGO QUE ESTA PENDIENTE DE COMPROBAR ++++++++++++++++++++++ 
+  //   // console.log('primerDiayear ' + anyoFecha);
+  //   // console.log('primerDiamonth ' + mesFecha);
+  //   // console.log('UltimaDia ' + ultimoDia.getDate());
 
+  //  if (mesFecha.length<2){
+  //    mesFecha = '0' + mesFecha;
+  //  }
+    
+  //   let finicio =  anyoFecha + mesFecha + '01';
+  //   let ffin =  anyoFecha + mesFecha + ultimoDia.getDate();
+  //   let nombre_fichero = "Recibos_" + cod_mes + "_" + anyo + ".txt";
+   
+  //   indice = Number(cod_mes) -1;
+    
+  //   if (cod_mes.length>1){
+  //     fecha_busqueda = '01_' + cod_mes + '_' + anyo
+  //   } else {
+  //     fecha_busqueda = '01_0' + cod_mes + '_' + anyo
+  //   }
+
+  //   // console.log("Fecha Busqueda :" + fecha_busqueda);
+  //   // console.log("ANYO : " + anyo);
+  //   // console.log("MES : " + this.meses[indice].DES_MES.toUpperCase());
+    
+  //   // console.log("primerDia : " + finicio  );
+  //   // console.log("ultimoDia : " + ffin  );
+  //   let i : number;  
+
+  // // if ((Number(cod_mes)>0 && Number(cod_mes)<7)) {  
+  // if (Number(cod_mes)!=8) {    
+  //   this.escuelaService.getRecibosEscuelaTxt(fecha_busqueda,finicio,ffin,anyo,
+  //     this.meses[indice].DES_MES.toUpperCase(),anyocargo,Number(this.contador_lineas))
+  //     .subscribe( (resp : ReciboTxtInterface[]) => {
+  //           this.lineasRecibos = resp;  
+  //           this.contador_lineas = this.contador_lineas + resp.length;
+  //           if (this.lineasRecibos.length>0){
+  //           //  console.log("GENERANDO EL FOR");
+  //             for (i=0; i<this.lineasRecibos.length; i++){
+  //               linea = this.lineasRecibos[i].CAMPO1 + this.lineasRecibos[i].CAMPO2 +
+  //                  this.lineasRecibos[i].CAMPO3 + 
+  //                  this.lineasRecibos[i].CAMPO4 +
+  //                  this.lineasRecibos[i].CAMPO5 +
+  //                  this.lineasRecibos[i].CAMPO6 +
+  //                  this.lineasRecibos[i].CAMPO7 +
+  //                  this.lineasRecibos[i].CAMPO8 +
+  //                  this.lineasRecibos[i].CAMPO9 +
+  //                  this.lineasRecibos[i].CAMPO10 +
+  //                  this.lineasRecibos[i].CAMPO11 +
+  //                  this.lineasRecibos[i].CAMPO12 +
+  //                  this.lineasRecibos[i].CAMPO14 +
+  //                  this.lineasRecibos[i].CAMPO15 +
+  //                  this.lineasRecibos[i].CAMPO16 +
+  //                  this.lineasRecibos[i].CAMPO17 +
+  //                  this.lineasRecibos[i].CAMPO18 +
+  //                  this.lineasRecibos[i].CAMPO19 +
+  //                  this.lineasRecibos[i].CAMPO20 +
+  //                  this.lineasRecibos[i].CAMPO21 +
+  //                  this.lineasRecibos[i].CAMPO22 +
+  //                  this.lineasRecibos[i].CAMPO23 +
+  //                  this.lineasRecibos[i].CAMPO24 +
+  //                  this.lineasRecibos[i].CAMPO25 + "\n";
+              
+  //               this.lineasFichero = this.lineasFichero + linea ;
+                
+  //             }
+  //          // CODIGO QUE FUNCIONA OK 
+  //         //  this.ficheroReciboTxt(lineasFichero,nombre_fichero,Number(cod_mes));
+
+  //         // PENDIENTE DE COMPROBAR
+             
+  //         }       
+
+  //         });  
+  //  }  else {
+  //     Swal.fire({
+  //       title : "Error",
+  //       text : 'El periodo no es valido..',
+  //       icon : 'warning'
+  //     });
+  //   }
 
   // }
+
 
 
   ficheroReciboTxt(contenido : string , nombre_fichero : string) {
@@ -239,7 +331,8 @@ export class RecibosComponent implements OnInit {
       nuevoRegistro = [this.recibosAlumnos[i].NIF.toString(),
                       this.recibosAlumnos[i].NOMBRE_TUTOR.toString(),
                       this.recibosAlumnos[i].NOMBRE_ALUMNO.toString(),
-                      this.periodo.toString(),
+                     // this.periodo.toString(),
+                      this.recibosAlumnos[i].PERIODO.toString(),
                       this.recibosAlumnos[i].NUM_EXPEDIENTE.toString(),
                       this.recibosAlumnos[i].DESC_CURSO.toString(),
                     //  this.recibosAlumnos[i].CUOTA.toString(),
@@ -253,8 +346,10 @@ export class RecibosComponent implements OnInit {
     pdf.setFont("courier", "bold");
     pdf.setFontSize(14);
   
-    let titulo = "Periodo " + this.periodo.toString() + "   Importe Recibos : " + importeFinal.toString() // + this.nombre_mercadillo;
-    pdf.text(titulo, 35 , 15);
+   // let titulo = "Periodo " + this.periodo.toString() + "   Importe Recibos : " + importeFinal.toString() // + this.nombre_mercadillo;
+   let titulo = "Listado Emision    Importe Recibos : " + parseFloat(importeFinal.toString()).toFixed(2) // + this.nombre_mercadillo;
+   
+   pdf.text(titulo, 35 , 15);
     //Poner una linea debajo
     const textWidth = pdf.getTextWidth(titulo);
     pdf.setLineWidth(0.7);
@@ -321,4 +416,58 @@ export class RecibosComponent implements OnInit {
 
   }
 
+
+async generaTxtVariosMeses(ejercicio : string,desde: string,hasta : string ,anyocargo : string,contador : string){
+
+  let conFor : number = 0;
+  let nomFichero : string = "Recibos_" + desde + '_' + hasta + '_' + ejercicio + '.txt';
+ 
+  this.contador_lineas = Number(contador);
+
+  // INICIAR VALORES ANTES BUCLE
+  this.lineasFichero = "";
+  this.lineasRecibos = [];
+
+  if (Number(desde)<=Number(hasta)) {
+    
+      for (conFor=Number(desde);conFor<=Number(hasta);conFor++) {
+        await this.generarReciboTxt(ejercicio, conFor.toString(), anyocargo, '0'); 
+      }
+
+      //this.ficheroReciboTxt(this.lineasFichero,"pruebavarios.txt"); 
+      this.ficheroReciboTxt(this.lineasFichero,nomFichero);
+    } else {
+      Swal.fire({
+               title : "Error",
+               text : 'El periodo no es valido..',
+               icon : 'warning'
+             });
+    }
+
+
+
+  }
+
+async generarRecibosVariosMeses(anyo : string, mes_desde : string, mes_hasta : string) {
+
+  let conFor : number = 0; 
+  this.recibosAlumnos = [];
+
+   if (Number(mes_desde)<=Number(mes_hasta)) {
+    this.cargando = true; 
+    for (conFor=Number(mes_desde);conFor<=Number(mes_hasta);conFor++) {
+      await this.generarRecibos(anyo, conFor.toString()); 
+    }
+    this.cargando = false;
+   } else {
+    Swal.fire({
+      title : "Error",
+      text : 'El periodo no es valido..',
+      icon : 'warning'
+    });
+   }
+
+
+  } 
+   
 }
